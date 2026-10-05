@@ -1,5 +1,5 @@
-import { logo1, logo2, logo3, logo4, logo5, logo6, logo7, logo8 } from '../Assets/Logo/index'
-import {Image1,Image2,Image3} from '../Assets/Images'
+import { logo1, logo2, logo3, logo4, logo5, logo6, logo7, logo8 } from '../assets/Logo/index'
+import {Image1,Image2,Image3} from '../assets/Images'
 
 export const navLinks = [
     { href: "#jobs", label: "Jobs" },

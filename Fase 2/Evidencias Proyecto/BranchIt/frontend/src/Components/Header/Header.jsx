@@ -1,48 +1,77 @@
-import React from "react";
-import { navLinks } from "../../Constants";
-import { MdLightMode } from "react-icons/md";
+import { useState } from "react";
+import { Link, NavLink } from "react-router-dom";
+import { FiMenu, FiX, FiArrowUpRight } from "react-icons/fi";
+import { panelPath, useSession } from "../../session";
 
-const Header = () => {
-  const toggleTheme = () =>{
-    document.documentElement.classList.toggle("dark")
+export default function Header() {
+  const { user, logout } = useSession();
+  const [open, setOpen] = useState(false);
+  const [logoutError, setLogoutError] = useState("");
+  const [closing, setClosing] = useState(false);
+  async function signOut() {
+    setClosing(true);
+    setLogoutError("");
+    try {
+      await logout();
+    } catch (err) {
+      setLogoutError(err.message);
+    } finally {
+      setClosing(false);
+    }
   }
-
   return (
-    <header>
-      <nav className=" w-full Header flex justify-between items-center pt-8 pb-8">
-        <div className="text-xl ">
-          <a href="/">
-            <h1 className="font-medium dark:text-white">
-              <strong className="text-[#2a68ff] font-extrabold mr-0.5">
-                Job
-              </strong>
-              Portal
-            </h1>
-          </a>
-        </div>
-        <ul className="hidden sm:flex items-center gap-2">
-          {navLinks.map((li) => (
-            <li
-              className="text-[#6f6f6f] dark:text-slate-100 text-base hover:text-[#2a68ff]"
-              key={li.label}
-            >
-              <a href={li.href}>{li.label}</a>
-            </li>
-          ))}
-          <MdLightMode onClick={toggleTheme} className="dark:invert cursor-pointer ml-4 h-5 w-full" />
-        </ul>
-        <div className="absolute right-20">
-        <MdLightMode onClick={toggleTheme} className="dark:invert  h-5 w-full sm:hidden"/>
-        </div>
-        <div className="flex leading-4 flex-col gap-1 sm:hidden">
-          <div className="h-[3px] dark:bg-slate-100 bg-black w-8"></div>
-          <div className="h-[3px] dark:bg-slate-100 bg-black w-8"></div>
-          <div className="h-[3px] dark:bg-slate-100 bg-black w-8"></div>
+    <header className="site-header">
+      <a className="skip-link" href="#contenido">
+        Saltar al contenido
+      </a>
+      <nav className="contenedor nav-bar" aria-label="Navegación principal">
+        <Link className="brand" to="/" onClick={() => setOpen(false)}>
+          <span className="brand-mark">
+            <FiArrowUpRight />
+          </span>
+          Branch<span>IT</span>
+        </Link>
+        <button
+          className="mobile-toggle"
+          aria-label={open ? "Cerrar menú" : "Abrir menú"}
+          aria-expanded={open}
+          onClick={() => setOpen(!open)}
+        >
+          {open ? <FiX /> : <FiMenu />}
+        </button>
+        <div
+          className={`nav-links ${open ? "is-open" : ""}`}
+          onClick={() => setOpen(false)}
+        >
+          <NavLink to="/">Buscar empleo</NavLink>
+          {!user && <NavLink to="/registro/empresa">Para empresas</NavLink>}
+          {user ? (
+            <>
+              <NavLink to={panelPath(user)}>Mi panel</NavLink>
+              <button
+                className="boton boton-secundario"
+                onClick={signOut}
+                disabled={closing}
+                title="Cierra todas tus sesiones activas"
+              >
+                {closing ? "Cerrando…" : "Cerrar sesión"}
+              </button>
+            </>
+          ) : (
+            <>
+              <NavLink to="/iniciar-sesion">Iniciar sesión</NavLink>
+              <Link to="/registro" className="boton boton-primario">
+                Crear cuenta <FiArrowUpRight />
+              </Link>
+            </>
+          )}
         </div>
       </nav>
-
+      {logoutError && (
+        <p className="contenedor mensaje-error" role="alert">
+          {logoutError}
+        </p>
+      )}
     </header>
   );
-};
-
-export default Header;
+}

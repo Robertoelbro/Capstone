@@ -1,0 +1,37 @@
+.home-hero {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  align-items: center;
+  gap: 3rem;
+}
+
+.home-hero__rama {
+  width: 100%;
+  height: auto;
+}
+
+.home-hero h1 {
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  max-width: 18ch;
+}
+
+.home-hero__bajada {
+  color: var(--color-muted);
+  max-width: 46ch;
+  margin: 1rem 0 1.75rem;
+}
+
+.home-hero__acciones {
+  display: flex;
+  gap: 0.75rem;
+}
+
+@media (max-width: 640px) {
+  .home-hero {
+    grid-template-columns: 1fr;
+  }
+  .home-hero__rama {
+    width: 120px;
+    justify-self: center;
+  }
+}
