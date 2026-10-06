@@ -1,6 +1,22 @@
 # Despliegue de BranchIT en Vercel y Neon
 
-Estado: configuración local preparada; publicación y validación remota pendientes.
+Estado: publicado y validado en producción el 6 de octubre de 2026.
+
+- Aplicación: https://branchit-blue.vercel.app
+- API: https://branchit-api.vercel.app
+- Neon: proyecto `BranchIt`, región São Paulo; migración `0002_postulaciones` aplicada.
+- Rama de producción: `Roberto-branch`.
+
+Validación contra la API pública: registro e inicio de sesión de ambos roles,
+presentación del egresado, oferta con pregunta personalizada, postulación,
+consulta por la empresa y descifrado correcto de sus respuestas. Se verificaron
+rechazo de duplicados (409), restricciones de rol (403), ausencia de sesión (401),
+revocación al cerrar sesión y CORS para el frontend. La ruta pública
+`/iniciar-sesion` carga directamente desde Vercel.
+
+Se dejaron dos cuentas ficticias y una oferta marcada DEMO para la presentación.
+Sus credenciales están únicamente en el archivo local ignorado
+`.vercel/demo-credentials.json`; no forman parte del repositorio.
 
 Usar dos proyectos Vercel del repositorio Capstone, rama Roberto-branch:
 
@@ -24,7 +40,7 @@ Configurar en el backend, fuera del repositorio:
 
 Configurar en el frontend:
 
-- `VITE_API_URL`: URL HTTPS del backend, sin barra final.
+- `VITE_API_URL`: `https://branchit-api.vercel.app`, sin barra final.
 - `VITE_DEMO_MODE`: `false`.
 
 Las variables VITE son públicas. No guardar claves ni DATABASE_URL en ellas.
