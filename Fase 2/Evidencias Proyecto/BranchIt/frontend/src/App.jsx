@@ -9,6 +9,8 @@ import OfertasEmpresa from "./pages/OfertasEmpresa";
 import Dashboard from "./pages/Dashboard";
 import Apply from "./pages/Apply";
 import Applications from "./pages/Applications";
+import PublicPortfolio from "./pages/PublicPortfolio";
+import GraduateHub from "./pages/GraduateHub";
 import { panelPath, useSession } from "./session";
 
 function Protected({ role, children }) {
@@ -40,6 +42,7 @@ export default function App() {
       <Header />
       <main id="contenido">
         <Routes>
+          <Route path="/p/:id" element={<PublicPortfolio />} />
           <Route path="/" element={<Home />} />
           <Route path="/ofertas" element={<Home />} />
           <Route
@@ -87,7 +90,7 @@ export default function App() {
             path="/hub-egresado"
             element={
               <Protected role="egresado">
-                <Dashboard />
+                <GraduateHub />
               </Protected>
             }
           />

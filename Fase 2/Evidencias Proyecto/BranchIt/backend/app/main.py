@@ -5,6 +5,7 @@ from fastapi.exceptions import RequestValidationError
 from sqlalchemy.exc import OperationalError
 from .config import CORS_ORIGINS
 from .routers import auth, egresados, empresas, jobs, applications
+from .routers import portfolio
 
 app = FastAPI(
     title="BranchIT API",
@@ -18,6 +19,7 @@ app.include_router(egresados.router)
 app.include_router(empresas.router)
 app.include_router(jobs.router)
 app.include_router(applications.router)
+app.include_router(portfolio.router)
 
 
 @app.middleware('http')

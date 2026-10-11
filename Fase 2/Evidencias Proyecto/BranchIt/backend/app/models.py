@@ -12,6 +12,7 @@ from sqlalchemy import (
     Enum,
     JSON,
     UniqueConstraint,
+    Index,
 )
 from sqlalchemy.orm import relationship
 
@@ -35,6 +36,7 @@ class Usuario(Base):
     fecha_registro = Column(DateTime, default=datetime.utcnow, nullable=False)
     activo = Column(Boolean, default=True, nullable=False)
     token_version = Column(Integer, default=0, nullable=False)
+    archivos = relationship('ArchivoPortfolio', cascade='all, delete-orphan')
 
     perfil_egresado = relationship(
         "PerfilEgresado",
@@ -65,6 +67,7 @@ class PerfilEgresado(Base):
     presentacion = Column(Text)  # texto de presentacion / bio
     linkedin_url = Column(String(255))
     foto_url = Column(String(255))
+    portfolio = Column(JSON, default=dict, nullable=False)
 
     usuario = relationship("Usuario", back_populates="perfil_egresado")
     postulaciones = relationship("Postulacion", back_populates="egresado", cascade="all, delete-orphan")
@@ -94,6 +97,7 @@ class OfertaEmpleo(Base):
     """Oferta de empleo publicada por una empresa."""
 
     __tablename__ = "ofertas_empleo"
+    __table_args__ = (Index('uq_ofertas_demo_clave', 'demo_clave', unique=True),)
 
     id = Column(Integer, primary_key=True, index=True)
     empresa_id = Column(
@@ -109,6 +113,8 @@ class OfertaEmpleo(Base):
     activa = Column(Boolean, default=True, nullable=False)
     preguntas = Column(JSON, default=list, nullable=False)
     formulario_version = Column(Integer, default=1, nullable=False)
+    categoria = Column(String(80), nullable=False, default='General')
+    demo_clave = Column(String(80))
 
     empresa = relationship("PerfilEmpresa", back_populates="ofertas")
     postulaciones = relationship("Postulacion", back_populates="oferta")
@@ -125,3 +131,17 @@ class Postulacion(Base):
     datos_cifrados = Column(Text, nullable=False)
     oferta = relationship('OfertaEmpleo', back_populates='postulaciones')
     egresado = relationship('PerfilEgresado', back_populates='postulaciones')
+
+
+class ArchivoPortfolio(Base):
+    __tablename__ = 'archivos_portfolio'
+    id = Column(String(32), primary_key=True)
+    usuario_id = Column(Integer, ForeignKey('usuarios.id'), nullable=False, index=True)
+    tipo = Column(String(20), nullable=False)
+    nombre = Column(String(180), nullable=False)
+    mime = Column(String(80), nullable=False)
+    tamano = Column(Integer, nullable=False)
+    duracion = Column(Integer)
+    pathname = Column(String(255), nullable=False, unique=True)
+    verificado = Column(Boolean, nullable=False, default=False)
+    creado = Column(DateTime, default=datetime.utcnow, nullable=False)

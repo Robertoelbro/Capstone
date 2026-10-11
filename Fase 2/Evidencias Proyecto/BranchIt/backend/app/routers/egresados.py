@@ -4,6 +4,7 @@ from sqlalchemy.orm import Session
 from .. import models, schemas
 from ..database import get_db
 from ..security import require_owner
+from ..careers import recommendation
 
 router = APIRouter(prefix="/egresados", tags=["egresados"], dependencies=[Depends(require_owner("egresado"))])
 
@@ -32,6 +33,13 @@ def actualizar_perfil(
 ):
     perfil = _obtener_perfil_o_404(db, usuario_id)
     for campo, valor in datos.model_dump(exclude_unset=True).items():
+        if campo == 'portfolio':
+            from ..portfolio_schemas import media_references
+            if valor is None: raise HTTPException(422, 'El portafolio no puede ser nulo.')
+            for asset_id, kind in media_references(valor):
+                asset = db.get(models.ArchivoPortfolio, asset_id)
+                if not asset or not asset.verificado or asset.usuario_id != usuario_id or asset.tipo != kind:
+                    raise HTTPException(422, 'El archivo no corresponde a tu perfil o a este campo.')
         setattr(perfil, campo, valor)
     db.commit()
     db.refresh(perfil)
@@ -78,6 +86,15 @@ def create_presentation(usuario_id: int, data: schemas.PresentacionInput, db: Se
     db.commit()
     db.refresh(profile)
     return profile
+
+
+@router.get('/{usuario_id}/recomendaciones')
+def recommendations(usuario_id: int, db: Session = Depends(get_db)):
+    profile = _obtener_perfil_o_404(db, usuario_id)
+    jobs = db.query(models.OfertaEmpleo).filter_by(activa=True).order_by(models.OfertaEmpleo.fecha_publicacion.desc()).all()
+    result = [dict(schemas.OfertaEmpleoOut.model_validate(job).model_dump(),
+                   nombre_empresa=job.empresa.nombre_empresa, **recommendation(job, profile.carrera)) for job in jobs]
+    return sorted(result, key=lambda job: not job['afin'])
 
 
 @router.delete('/{usuario_id}/presentacion', status_code=204)

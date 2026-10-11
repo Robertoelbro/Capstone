@@ -6,6 +6,7 @@ import WorkspaceNav from "../Components/WorkspaceNav";
 import QuestionEditor from "../Components/QuestionEditor";
 
 const OFERTA_VACIA = {
+  categoria: "General",
   titulo: "",
   descripcion: "",
   requisitos: "",
@@ -51,6 +52,7 @@ export default function OfertasEmpresa() {
   function editar(oferta) {
     setEditandoId(oferta.id);
     setForm({
+      categoria: oferta.categoria || "General",
       titulo: oferta.titulo,
       descripcion: oferta.descripcion,
       requisitos: oferta.requisitos || "",
@@ -148,6 +150,30 @@ export default function OfertasEmpresa() {
             />
           </div>
 
+          <div className="campo">
+            <label htmlFor="categoria">Categoría de la oferta</label>
+            <select
+              id="categoria"
+              value={form.categoria}
+              onChange={(e) => actualizar("categoria", e.target.value)}
+            >
+              {[
+                "General",
+                "Tecnología",
+                "Salud",
+                "Administración y finanzas",
+                "Diseño y comunicación",
+                "Educación",
+                "Ingeniería y construcción",
+                "Logística y operaciones",
+                "Turismo y gastronomía",
+                "Ciencias sociales",
+                "Medioambiente y agro",
+              ].map((c) => (
+                <option key={c}>{c}</option>
+              ))}
+            </select>
+          </div>
           <QuestionEditor
             questions={form.preguntas}
             onChange={(value) => actualizar("preguntas", value)}

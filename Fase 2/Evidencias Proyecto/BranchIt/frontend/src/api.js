@@ -38,6 +38,13 @@ async function solicitud(path, options = {}) {
 }
 
 export const api = {
+  recommendations: (id) => solicitud(`/egresados/${id}/recomendaciones`),
+  publicPortfolio: (id) => solicitud(`/portfolio/${id}`),
+  savePortfolio: (data) =>
+    solicitud("/portfolio/me", { method: "PUT", body: JSON.stringify(data) }),
+  reserveMedia: (data) =>
+    solicitud("/media/reserve", { method: "POST", body: JSON.stringify(data) }),
+  mediaLibrary: () => solicitud("/media/library"),
   logout: () => solicitud("/auth/logout", { method: "POST" }),
   companySummary: (id) => solicitud(`/empresas/${id}/resumen`),
   job: (id) => solicitud(`/api/employment/jobs/${id}`),

@@ -38,12 +38,13 @@ class InputModel(BaseModel):
 
     @model_validator(mode="after")
     def non_null_required_fields(self):
-        for name in ("nombre", "apellido", "titulo", "descripcion", "activa"):
+        for name in ("nombre", "apellido", "titulo", "descripcion", "activa", "categoria"):
             if name in self.model_fields_set and getattr(self, name) is None and type(self).__name__ in ("PerfilEgresadoUpdate", "OfertaEmpleoUpdate"):
                 raise ValueError(f"El campo {name} no puede ser nulo.")
         return self
 
 from .models import TipoUsuario
+from .portfolio_schemas import Portfolio
 
 
 # ---------- Registro / Usuario ----------
@@ -88,6 +89,7 @@ class PerfilEgresadoBase(InputModel):
 
 
 class PerfilEgresadoUpdate(InputModel):
+    portfolio: Optional[Portfolio] = None
     nombre: Optional[Name] = None
     apellido: Optional[Name] = None
     carrera: Optional[Annotated[str, Field(max_length=150)]] = None
@@ -100,6 +102,7 @@ class PerfilEgresadoUpdate(InputModel):
 class PerfilEgresadoOut(PerfilEgresadoBase):
     id: int
     usuario_id: int
+    portfolio: dict = Field(default_factory=dict)
 
     model_config = ConfigDict(from_attributes=True)
 
@@ -148,6 +151,7 @@ class PreguntasModel(InputModel):
 
 
 class OfertaEmpleoBase(PreguntasModel):
+    categoria: Annotated[str, Field(min_length=1, max_length=80)] = 'General'
     preguntas: list[Pregunta] = Field(default_factory=list, max_length=10)
     titulo: Annotated[str, Field(min_length=1, max_length=150)]
     descripcion: Annotated[str, Field(min_length=1, max_length=10000)]
@@ -161,6 +165,7 @@ class OfertaEmpleoCreate(OfertaEmpleoBase):
 
 
 class OfertaEmpleoUpdate(PreguntasModel):
+    categoria: Optional[Annotated[str, Field(min_length=1, max_length=80)]] = None
     preguntas: Optional[list[Pregunta]] = Field(default=None, max_length=10)
     titulo: Optional[Annotated[str, Field(min_length=1, max_length=150)]] = None
     descripcion: Optional[Annotated[str, Field(min_length=1, max_length=10000)]] = None
