@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import {
   FiArrowUpRight,
   FiBriefcase,
@@ -50,6 +50,7 @@ export default function Home() {
       normalize(job.ubicacion).includes(normalize(location)) &&
       (!mode || job.modalidad === mode),
   );
+  if (user?.tipo === "empresa") return <Navigate to="/hub-empresa" replace />;
   return (
     <>
       {user && (

@@ -8,6 +8,7 @@ from sqlalchemy import (
     Text,
     Boolean,
     DateTime,
+    Date,
     ForeignKey,
     Enum,
     JSON,
@@ -28,8 +29,12 @@ class Usuario(Base):
     """Cuenta de acceso: puede ser un egresado o una empresa."""
 
     __tablename__ = "usuarios"
+    __table_args__ = (Index('uq_usuarios_rut', 'rut', unique=True),)
 
     id = Column(Integer, primary_key=True, index=True)
+    rut = Column(String(12), nullable=True)
+    telefono = Column(String(30), nullable=True)
+    fecha_identidad = Column(Date, nullable=True)
     email = Column(String(255), unique=True, index=True, nullable=False)
     password_hash = Column(String(255), nullable=False)
     tipo = Column(Enum(TipoUsuario), nullable=False)
@@ -86,6 +91,7 @@ class PerfilEmpresa(Base):
     descripcion = Column(Text)
     sitio_web = Column(String(255))
     logo_url = Column(String(255))
+    foto_id = Column(String(32), ForeignKey("archivos_portfolio.id"), nullable=True)
 
     usuario = relationship("Usuario", back_populates="perfil_empresa")
     ofertas = relationship(

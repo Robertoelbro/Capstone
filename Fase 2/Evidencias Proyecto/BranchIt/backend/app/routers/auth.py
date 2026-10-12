@@ -16,11 +16,14 @@ def register(data, role, db):
     email = data.email.lower()
     if db.query(models.Usuario).filter(func.lower(models.Usuario.email) == email).first():
         raise HTTPException(409, "Ese correo ya está registrado.")
-    user = models.Usuario(email=email, password_hash=hash_password(data.password), tipo=role)
+    if db.query(models.Usuario).filter_by(rut=data.rut).first():
+        raise HTTPException(409, "Ese RUT ya está registrado.")
+    user = models.Usuario(email=email, password_hash=hash_password(data.password), tipo=role,
+                          rut=data.rut, telefono=data.telefono, fecha_identidad=data.fecha_identidad)
     db.add(user)
     try:
         db.flush()
-        values = data.model_dump(exclude={"email", "password"})
+        values = data.model_dump(exclude={"email", "password", "rut", "telefono", "fecha_identidad"})
         profile = models.PerfilEgresado if role == models.TipoUsuario.egresado else models.PerfilEmpresa
         db.add(profile(usuario_id=user.id, **values))
         db.commit()
@@ -59,3 +62,17 @@ def me(user=Depends(current_user)):
 def logout(user=Depends(current_user), db: Session = Depends(get_db)):
     db.execute(update(models.Usuario).where(models.Usuario.id == user.id).values(token_version=models.Usuario.token_version + 1))
     db.commit()
+
+
+@router.post('/password', response_model=schemas.SessionOut, dependencies=[Depends(limit_auth)])
+def change_password(data: schemas.CambioPassword, user=Depends(current_user), db: Session=Depends(get_db)):
+    # Serialize concurrent password changes and invalidate every previous JWT.
+    user = db.query(models.Usuario).filter_by(id=user.id).populate_existing().with_for_update().one()
+    if not verify_password(data.password_actual, user.password_hash):
+        raise HTTPException(400, 'La contraseña actual no es correcta.')
+    if data.password_actual == data.password:
+        raise HTTPException(422, 'Elige una contraseña distinta de la actual.')
+    user.password_hash = hash_password(data.password)
+    user.token_version += 1
+    db.commit()
+    return {'access_token': create_token(user.id, user.token_version), 'user': user}

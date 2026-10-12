@@ -4,7 +4,7 @@ Estado: publicado y validado en producción el 6 de octubre de 2026.
 
 - Aplicación: https://branchit-blue.vercel.app
 - API: https://branchit-api.vercel.app
-- Neon: proyecto `BranchIt`, región São Paulo; migración `0002_postulaciones` aplicada.
+- Neon: proyecto `BranchIt`, región São Paulo; migración `0004_identidad_empresa` aplicada.
 - Rama de producción: `Roberto-branch`.
 
 Validación contra la API pública: registro e inicio de sesión de ambos roles,
@@ -27,6 +27,15 @@ Usar dos proyectos Vercel del repositorio Capstone, rama Roberto-branch:
 
 El backend exporta `app` desde `app/main.py`. El frontend compila con
 `npm run build` a `dist`; `vercel.json` resuelve las rutas de React Router.
+
+En el proyecto frontend, mantener desactivada la opción **Include source files
+outside of the Root Directory in the Build Step** (`sourceFilesOutsideRootDirectory: false`).
+El frontend no necesita archivos externos a su raíz. Con esta opción activada,
+Vercel incorporaba `Fase 2/Evidencias Proyecto/BranchIt/frontend` al nombre de
+las funciones `api/media-*.js`, y rechazaba los espacios de esa ruta.
+La corrección se aplicó en Vercel y se verificó con un despliegue de producción
+en estado READY y respuestas de las tres funciones.
+Este ajuste pertenece al proyecto Vercel; no agregar esa propiedad a `vercel.json`.
 
 ## Variables
 
@@ -57,7 +66,7 @@ apuntando a la base de destino autorizada:
 .\.venv\Scripts\python.exe -m alembic current
 ```
 
-Se espera `0002_postulaciones (head)`. Las migraciones se ejecutan como un paso
+Se espera `0004_identidad_empresa (head)`. Las migraciones se ejecutan como un paso
 controlado, no durante cada solicitud ni automáticamente en cada preview.
 No usar el script SQLite temporal en Vercel.
 
@@ -71,3 +80,21 @@ un contador compartido o protección equivalente en la plataforma.
 
 Referencias: https://vercel.com/docs/frameworks/backend/fastapi y
 https://vercel.com/docs/frameworks/frontend/vite.
+
+
+## Registro y perfil de empresa (12 de octubre de 2026)
+
+La migración `0004_identidad_empresa` agrega RUT único, teléfono y fecha de
+identidad a usuarios, y una referencia a foto de empresa. Los registros nuevos
+requieren esos datos, además de carrera (egresado) o giro comercial (empresa).
+Las cuentas previas conservan valores nulos; no se inventan antecedentes.
+RUT, teléfono de registro y fecha no se incluyen en las respuestas públicas.
+
+La empresa edita nombre, resumen y foto en `/perfil-empresa`. Cambiar contraseña
+requiere la actual, revoca tokens anteriores y devuelve una sesión nueva.
+Las fotos usan la reserva y verificación privada de Vercel Blob; solo se puede
+asociar una foto verificada de la misma cuenta. La validación local de permisos
+no sustituye una prueba de carga real tras desplegar frontend y backend.
+
+Subir los cambios a `Roberto-branch` para desplegar ambos proyectos. La migración
+ya está aplicada en Neon y es compatible con el código anterior.

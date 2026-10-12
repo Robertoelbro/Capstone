@@ -38,6 +38,9 @@ async function solicitud(path, options = {}) {
 }
 
 export const api = {
+  companyProfile: (id) => solicitud(`/empresas/${id}/perfil`),
+  saveCompanyProfile: (id, data) => solicitud(`/empresas/${id}/perfil`, {method: "PUT", body: JSON.stringify(data)}),
+  changePassword: (data) => solicitud("/auth/password", {method: "POST", body: JSON.stringify(data)}),
   recommendations: (id) => solicitud(`/egresados/${id}/recomendaciones`),
   publicPortfolio: (id) => solicitud(`/portfolio/${id}`),
   savePortfolio: (data) =>

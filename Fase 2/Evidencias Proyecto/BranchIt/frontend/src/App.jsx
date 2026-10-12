@@ -2,6 +2,7 @@ import { Link, Navigate, Route, Routes, useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
 import Header from "./Components/Header/Header";
 import Footer from "./Components/Footer/Footer";
+import PerfilEmpresa from "./pages/PerfilEmpresa";
 import Home from "./pages/Home";
 import Auth from "./pages/Auth";
 import PerfilEgresado from "./pages/PerfilEgresado";
@@ -42,6 +43,7 @@ export default function App() {
       <Header />
       <main id="contenido">
         <Routes>
+          <Route path="/perfil-empresa" element={<Protected role="empresa"><PerfilEmpresa /></Protected>} />
           <Route path="/p/:id" element={<PublicPortfolio />} />
           <Route path="/" element={<Home />} />
           <Route path="/ofertas" element={<Home />} />

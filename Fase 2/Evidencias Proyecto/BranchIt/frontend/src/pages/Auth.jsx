@@ -159,9 +159,10 @@ export default function Auth() {
                 </div>
                 <div className="form-row">
                   <label>
-                    Carrera <span>(opcional)</span>
+                    Carrera de egreso
                     <input
                       name="carrera"
+                      required
                       maxLength={150}
                       placeholder="Ej. Ingeniería en Informática"
                     />
@@ -191,15 +192,31 @@ export default function Auth() {
                   />
                 </label>
                 <label>
-                  Rubro <span>(opcional)</span>
+                  Giro comercial
                   <input
                     name="rubro"
+                    required
                     maxLength={150}
                     placeholder="Ej. Tecnología"
                   />
                 </label>
               </>
             ))}
+          {registering && (
+            <>
+              <div className="form-row">
+                <label>RUT {role === "empresa" ? "de la empresa" : "personal"}
+                  <input name="rut" required maxLength={12} placeholder="12.345.678-5" autoComplete="off" />
+                </label>
+                <label>Teléfono
+                  <input name="telefono" type="tel" required minLength={8} maxLength={30} autoComplete="tel" placeholder="+56 9 1234 5678" />
+                </label>
+              </div>
+              <label>{role === "empresa" ? "Fecha de creación de la empresa" : "Fecha de nacimiento"}
+                <input key={role} name="fecha_identidad" type="date" required max={new Date().toLocaleDateString("en-CA")} />
+              </label>
+            </>
+          )}
           <label>
             Correo electrónico
             <input

@@ -5,7 +5,6 @@ Uses DATABASE_URL from environment/.env. Requires alembic upgrade head first.
 """
 import argparse
 import json
-import secrets
 import sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
@@ -38,17 +37,32 @@ def jobs():
                 'preguntas':[{'id':'interes','etiqueta':'¿Qué aprendizaje o proyecto te gustaría aportar?','tipo':'parrafo','obligatoria':True,'opciones':[]}]})
     return items
 
+DEMO_PASSWORD = 'contraseña'
+
+def company_accounts():
+    return [{'empresa': f'DEMO · {company}', 'correo': f'seed.branchit.v1.{index}@example.com',
+             'contraseña': DEMO_PASSWORD, 'categoria': area, 'publicaciones': 10}
+            for index, (area, (company, _, _)) in enumerate(CATALOG.items())]
+
 def seed(db):
     from app.models import Usuario, PerfilEmpresa, OfertaEmpleo, TipoUsuario
-    from app.security import hash_password
+    from app.security import hash_password, verify_password
     created = 0
     for index, (area, (company, _, _)) in enumerate(CATALOG.items()):
         email=f'seed.branchit.v1.{index}@example.com'
         user=db.query(Usuario).filter_by(email=email).first()
-        if user and (user.tipo != TipoUsuario.empresa or user.activo):
-            raise RuntimeError('La cuenta reservada para datos demo ya existe con otra configuración.')
+        if user:
+            existing_profile = db.query(PerfilEmpresa).filter_by(usuario_id=user.id).first()
+            if (user.tipo != TipoUsuario.empresa or not existing_profile or
+                    existing_profile.nombre_empresa != f'DEMO · {company}' or existing_profile.rubro != area or
+                    existing_profile.descripcion != 'Empresa ficticia. Datos para demostración académica.'):
+                raise RuntimeError('La cuenta reservada para datos demo ya existe con otra configuración. No se modificó.')
+            if not verify_password(DEMO_PASSWORD, user.password_hash):
+                user.password_hash = hash_password(DEMO_PASSWORD)
+                user.token_version += 1
+            user.activo = True
         if not user:
-            user=Usuario(email=email,password_hash=hash_password(secrets.token_urlsafe(32)),tipo=TipoUsuario.empresa,activo=False)
+            user=Usuario(email=email,password_hash=hash_password(DEMO_PASSWORD),tipo=TipoUsuario.empresa,activo=True)
             db.add(user); db.flush()
             db.add(PerfilEmpresa(usuario_id=user.id,nombre_empresa=f'DEMO · {company}',rubro=area,
                                  descripcion='Empresa ficticia. Datos para demostración académica.'))
@@ -63,7 +77,7 @@ def seed(db):
 
 if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--apply',action='store_true',help='Insertar en la DATABASE_URL configurada; nunca elimina ni modifica ofertas existentes.')
+    parser.add_argument('--apply',action='store_true',help='Crear/habilitar 10 empresas demo con contraseña de testing e insertar 100 ofertas sin duplicar ni modificar ofertas existentes.')
     args=parser.parse_args()
     if not args.apply:
         print(json.dumps(jobs(),ensure_ascii=False,indent=2))

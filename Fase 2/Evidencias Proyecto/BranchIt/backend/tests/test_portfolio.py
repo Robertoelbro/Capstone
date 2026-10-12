@@ -2,12 +2,13 @@ import unittest
 from unittest.mock import patch
 import test_flows as flows
 from app.models import ArchivoPortfolio, OfertaEmpleo
-from scripts.seed_jobs import seed, jobs
+from scripts.seed_jobs import seed, jobs, company_accounts
 
 class PortfolioFlows(unittest.TestCase):
     setUp=flows.AccountFlows.setUp
     tearDown=flows.AccountFlows.tearDown
     account=flows.AccountFlows.account
+    identity=flows.AccountFlows.identity
 
     def test_publication_and_contact_are_opt_in(self):
         uid,h=self.account()
@@ -64,6 +65,14 @@ class PortfolioFlows(unittest.TestCase):
             self.assertEqual(seed(db),100);db.commit()
             self.assertEqual(seed(db),0);db.commit()
             self.assertEqual(db.query(OfertaEmpleo).count(),100)
+        for account in company_accounts():
+            login = self.client.post('/auth/login', json={'email':account['correo'], 'password':account['contraseña']})
+            self.assertEqual(login.status_code,200,login.text)
+            company = login.json()['user']
+            headers = {'Authorization':'Bearer '+login.json()['access_token']}
+            summary = self.client.get(f"/empresas/{company['id']}/resumen",headers=headers)
+            self.assertEqual(summary.status_code,200,summary.text)
+            self.assertEqual(summary.json()['ofertas'],10)
         self.assertEqual(len({j['demo_clave'] for j in jobs()}),100)
         for career,expected in [('Ingeniería Civil en Informática','Tecnología'),('Enfermería','Salud'),('Diseño gráfico','Diseño y comunicación')]:
             self.client.put(f'/egresados/{uid}',headers=h,json={'carrera':career})

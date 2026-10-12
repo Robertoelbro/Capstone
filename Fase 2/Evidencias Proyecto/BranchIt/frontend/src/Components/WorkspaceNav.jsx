@@ -9,7 +9,10 @@ export default function WorkspaceNav() {
         Resumen
       </NavLink>
       {user.tipo === "empresa" ? (
+        <>
         <NavLink to="/ofertas-empresa">Gestionar ofertas</NavLink>
+        <NavLink to="/perfil-empresa">Mi empresa</NavLink>
+        </>
       ) : (
         <>
           <NavLink to="/perfil-egresado">Mi presentación</NavLink>

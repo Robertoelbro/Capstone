@@ -7,7 +7,7 @@ from sqlalchemy import func
 from sqlalchemy.orm import Session
 from ..database import get_db
 from ..security import current_user, bearer
-from ..models import PerfilEgresado, ArchivoPortfolio, Usuario
+from ..models import PerfilEgresado, PerfilEmpresa, ArchivoPortfolio, Usuario
 from ..portfolio_schemas import Portfolio, MediaReserve, media_references
 
 router = APIRouter(tags=['portafolio'])
@@ -46,7 +46,8 @@ def public_portfolio(user_id: int, db: Session=Depends(get_db)):
 
 @router.post('/media/reserve', status_code=201)
 def reserve(data: MediaReserve, user=Depends(current_user), db: Session=Depends(get_db)):
-    own_profile(user, db)
+    if user.tipo.value == 'empresa' and data.tipo != 'foto':
+        raise HTTPException(403, 'Las empresas pueden subir fotos de perfil.')
     limits = {'foto': (3, ['image/jpeg','image/png','image/webp']),
               'qr': (3, ['image/jpeg','image/png','image/webp']),
               'certificado': (5, ['application/pdf','image/jpeg','image/png','image/webp']),
@@ -73,7 +74,6 @@ def reserve(data: MediaReserve, user=Depends(current_user), db: Session=Depends(
 
 @router.get('/media/library')
 def library(user=Depends(current_user), db: Session=Depends(get_db)):
-    own_profile(user, db)
     return [{'id':a.id,'nombre':a.nombre,'tipo':a.tipo,'tamano':a.tamano}
             for a in db.query(ArchivoPortfolio).filter_by(usuario_id=user.id).order_by(ArchivoPortfolio.creado.desc()).all()]
 
@@ -86,9 +86,12 @@ def media_access(asset_id: str, upload: bool=False, remove: bool=False, credenti
         try: owner = current_user(credentials, db).id == asset.usuario_id
         except HTTPException: pass
     profile = db.query(PerfilEgresado).join(Usuario).filter(PerfilEgresado.usuario_id==asset.usuario_id, Usuario.activo.is_(True)).first()
+    company = db.query(PerfilEmpresa).filter_by(usuario_id=asset.usuario_id).first()
     public = profile and (profile.portfolio or {}).get('publico') and asset_id in {r[0] for r in media_references(profile.portfolio)}
     if ((upload or remove) and not owner) or (not owner and not public):
         raise HTTPException(404, 'Archivo no disponible.')
+    if remove and company and company.foto_id == asset_id:
+        raise HTTPException(409, 'Quita la foto del perfil y guarda antes de eliminarla.')
     if upload and asset.creado < datetime.utcnow() - timedelta(minutes=15):
         raise HTTPException(409, 'La reserva expiró. Selecciona nuevamente tu archivo.')
     if remove and profile and asset_id in {r[0] for r in media_references(profile.portfolio or {})}:
@@ -112,10 +115,11 @@ def verified(asset_id: str, user=Depends(current_user), db: Session=Depends(get_
 
 @router.delete('/media/{asset_id}', status_code=204, dependencies=[Depends(media_service)])
 def remove_reservation(asset_id: str, user=Depends(current_user), db: Session=Depends(get_db)):
-    profile = own_profile(user, db)
+    profile = db.query(PerfilEgresado).filter_by(usuario_id=user.id).first()
+    company = db.query(PerfilEmpresa).filter_by(usuario_id=user.id).first()
     asset = db.get(ArchivoPortfolio, asset_id)
     if not asset or asset.usuario_id != user.id: raise HTTPException(404, 'Archivo no encontrado.')
-    if asset_id in {r[0] for r in media_references(profile.portfolio or {})}:
+    if (profile and asset_id in {r[0] for r in media_references(profile.portfolio or {})}) or (company and company.foto_id == asset_id):
         raise HTTPException(409, 'Quita el archivo del portafolio y guarda antes de eliminarlo.')
     db.delete(asset)
     db.commit()

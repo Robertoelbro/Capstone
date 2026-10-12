@@ -37,9 +37,15 @@ class AccountFlows(unittest.TestCase):
         app.dependency_overrides.clear()
         self.engine.dispose()
 
+    def identity(self, email='persona@example.com'):
+        import zlib
+        body = str(10000000 + zlib.crc32(email.encode()) % 80000000)
+        total = sum(int(n) * (2 + i % 6) for i, n in enumerate(reversed(body)))
+        return {'rut': body + '-' + '0123456789K0'[11 - total % 11], 'telefono': '+56912345678', 'fecha_identidad': '2000-01-01'}
+
     def account(self, role='egresado', email='persona@example.com'):
-        data = {'email': email, 'password': 'Segura123!'}
-        data.update({'nombre': 'Ana', 'apellido': 'Pérez'} if role == 'egresado' else {'nombre_empresa': 'Empresa de prueba'})
+        data = {'email': email, 'password': 'Segura123!', **self.identity(email)}
+        data.update({'nombre': 'Ana', 'apellido': 'Pérez', 'carrera': 'Informática'} if role == 'egresado' else {'nombre_empresa': 'Empresa de prueba', 'rubro': 'Tecnología'})
         response = self.client.post('/auth/registro/' + role, json=data)
         self.assertEqual(response.status_code, 201, response.text)
         login = self.client.post('/auth/login', json={'email': email, 'password': data['password']})
@@ -61,7 +67,7 @@ class AccountFlows(unittest.TestCase):
 
     def test_duplicate_and_invalid_credentials(self):
         self.account()
-        duplicate = self.client.post('/auth/registro/egresado', json={'email': 'PERSONA@example.com', 'password': 'Segura123!', 'nombre': 'Ana', 'apellido': 'Pérez'})
+        duplicate = self.client.post('/auth/registro/egresado', json={**self.identity(), 'carrera': 'Informática', 'email': 'PERSONA@example.com', 'password': 'Segura123!', 'nombre': 'Ana', 'apellido': 'Pérez'})
         self.assertEqual(duplicate.status_code, 409)
         for email in ['persona@example.com', 'desconocido@example.com']:
             result = self.client.post('/auth/login', json={'email': email, 'password': 'incorrecta'})
@@ -69,7 +75,7 @@ class AccountFlows(unittest.TestCase):
             self.assertEqual(result.json()['detail'], 'Correo o contraseña incorrectos.')
 
     def test_validations(self):
-        data = {'email': 'ana@example.com', 'password': 'Segura123!', 'nombre': 'Ana', 'apellido': 'Pérez'}
+        data = {**self.identity('ana@example.com'), 'carrera': 'Informática', 'email': 'ana@example.com', 'password': 'Segura123!', 'nombre': 'Ana', 'apellido': 'Pérez'}
         for invalid in [{'email': 'no-es-correo'}, {'password': 'corta'}, {'nombre': '  '}, {'password': 'ñ' * 40}]:
             self.assertEqual(self.client.post('/auth/registro/egresado', json=data | invalid).status_code, 422)
         user_id, headers = self.account()

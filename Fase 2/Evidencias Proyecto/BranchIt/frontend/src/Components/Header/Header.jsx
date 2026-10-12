@@ -25,7 +25,7 @@ export default function Header() {
         Saltar al contenido
       </a>
       <nav className="contenedor nav-bar" aria-label="Navegación principal">
-        <Link className="brand" to="/" onClick={() => setOpen(false)}>
+        <Link className="brand" to={user ? panelPath(user) : "/"} onClick={() => setOpen(false)}>
           <span className="brand-mark">
             <FiArrowUpRight />
           </span>
@@ -43,7 +43,7 @@ export default function Header() {
           className={`nav-links ${open ? "is-open" : ""}`}
           onClick={() => setOpen(false)}
         >
-          <NavLink to="/">Buscar empleo</NavLink>
+          {user?.tipo !== "empresa" && <NavLink to="/">Buscar empleo</NavLink>}
           {!user && <NavLink to="/registro/empresa">Para empresas</NavLink>}
           {user ? (
             <>

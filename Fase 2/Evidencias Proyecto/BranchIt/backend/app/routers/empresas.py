@@ -108,3 +108,17 @@ def company_summary(usuario_id: int, db: Session = Depends(get_db)):
     applications = db.query(models.Postulacion).join(models.OfertaEmpleo).filter(models.OfertaEmpleo.empresa_id == profile.id)
     return {'nombre': profile.nombre_empresa, 'ofertas': jobs.count(),
             'activas': jobs.filter_by(activa=True).count(), 'postulaciones': applications.count()}
+
+
+@router.put('/{usuario_id}/perfil', response_model=schemas.PerfilEmpresaOut)
+def update_company_profile(usuario_id: int, data: schemas.PerfilEmpresaUpdate, db: Session=Depends(get_db)):
+    profile = _obtener_perfil_empresa_o_404(db, usuario_id)
+    if data.foto_id:
+        asset = db.get(models.ArchivoPortfolio, data.foto_id)
+        if not asset or asset.usuario_id != usuario_id or asset.tipo != 'foto' or not asset.verificado:
+            raise HTTPException(422, 'Selecciona una foto verificada de tu propia cuenta.')
+    for key, value in data.model_dump().items():
+        setattr(profile, key, value)
+    db.commit()
+    db.refresh(profile)
+    return profile

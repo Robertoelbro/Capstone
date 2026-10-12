@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, date
 from typing import Optional
 
 from pydantic import BaseModel, EmailStr, ConfigDict, Field, field_validator, model_validator
@@ -13,7 +13,7 @@ class InputModel(BaseModel):
     @field_validator("*", mode="before")
     @classmethod
     def trim_strings(cls, value, info):
-        return value.strip() if isinstance(value, str) and info.field_name != "password" else value
+        return value.strip() if isinstance(value, str) and info.field_name not in ("password", "password_actual") else value
 
     @field_validator("email", mode="after", check_fields=False)
     @classmethod
@@ -49,20 +49,56 @@ from .portfolio_schemas import Portfolio
 
 # ---------- Registro / Usuario ----------
 
-class RegistroEgresado(InputModel):
+class RegistroIdentidad(InputModel):
+    rut: str = Field(min_length=3, max_length=12)
+    telefono: str = Field(min_length=8, max_length=30)
+    fecha_identidad: date
+
+    @field_validator('rut')
+    @classmethod
+    def valid_rut(cls, value):
+        import re
+        raw = value.replace('.', '').replace('-', '').upper()
+        if not re.fullmatch(r'[1-9][0-9]{6,7}[0-9K]', raw):
+            raise ValueError('Ingresa un RUT chileno válido.')
+        body, digit = raw[:-1], raw[-1]
+        total = sum(int(n) * (2 + i % 6) for i, n in enumerate(reversed(body)))
+        expected = '0123456789K0'[11 - total % 11]
+        if digit != expected:
+            raise ValueError('El dígito verificador del RUT no es válido.')
+        return body + '-' + digit
+
+    @field_validator('telefono')
+    @classmethod
+    def valid_phone(cls, value):
+        import re
+        value = re.sub(r'[ ()-]', '', value)
+        if not re.fullmatch(r'\+?[0-9]{8,15}', value):
+            raise ValueError('Ingresa un teléfono válido, con código de país si corresponde.')
+        return value
+
+    @field_validator('fecha_identidad')
+    @classmethod
+    def valid_date(cls, value):
+        if value > date.today():
+            raise ValueError('La fecha no puede estar en el futuro.')
+        return value
+
+
+class RegistroEgresado(RegistroIdentidad):
     email: EmailStr
     password: str = Field(min_length=8, max_length=72)
     nombre: Name
     apellido: Name
-    carrera: Optional[Annotated[str, Field(max_length=150)]] = None
+    carrera: Annotated[str, Field(min_length=1, max_length=150)]
     anio_egreso: Optional[int] = None
 
 
-class RegistroEmpresa(InputModel):
+class RegistroEmpresa(RegistroIdentidad):
     email: EmailStr
     password: str = Field(min_length=8, max_length=72)
     nombre_empresa: Annotated[str, Field(min_length=1, max_length=150)]
-    rubro: Optional[Annotated[str, Field(max_length=150)]] = None
+    rubro: Annotated[str, Field(min_length=1, max_length=150)]
     descripcion: Optional[str] = None
     sitio_web: Optional[Annotated[str, Field(max_length=255)]] = None
 
@@ -109,6 +145,17 @@ class PerfilEgresadoOut(PerfilEgresadoBase):
 
 # ---------- Perfil Empresa ----------
 
+class PerfilEmpresaUpdate(InputModel):
+    nombre_empresa: Annotated[str, Field(min_length=1, max_length=150)]
+    descripcion: str = Field(max_length=5000)
+    foto_id: Optional[Annotated[str, Field(pattern=r'^[a-f0-9]{32}$')]] = None
+
+
+class CambioPassword(InputModel):
+    password_actual: str = Field(min_length=1, max_length=72)
+    password: str = Field(min_length=8, max_length=72)
+
+
 class PerfilEmpresaOut(BaseModel):
     id: int
     usuario_id: int
@@ -117,6 +164,7 @@ class PerfilEmpresaOut(BaseModel):
     descripcion: Optional[str] = None
     sitio_web: Optional[Annotated[str, Field(max_length=255)]] = None
     logo_url: Optional[str] = None
+    foto_id: Optional[str] = None
 
     model_config = ConfigDict(from_attributes=True)
 

@@ -13,6 +13,7 @@ class SprintFlows(unittest.TestCase):
     setUp = flows.AccountFlows.setUp
     tearDown = flows.AccountFlows.tearDown
     account = flows.AccountFlows.account
+    identity = flows.AccountFlows.identity
 
     def offer(self, questions=None):
         company, headers = self.account('empresa', 'empresa@example.com')
