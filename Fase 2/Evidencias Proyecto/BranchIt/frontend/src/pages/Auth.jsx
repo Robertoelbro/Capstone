@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import {
   FiArrowRight,
@@ -22,6 +22,8 @@ export default function Auth() {
   const [error, setError] = useState("");
   const { user, login } = useSession();
   const navigate = useNavigate();
+  const errorRef = useRef(null);
+  useEffect(() => { if (error) errorRef.current?.focus(); }, [error]);
   if (user) return <Navigate to={panelPath(user)} replace />;
 
   async function submit(event) {
@@ -131,7 +133,8 @@ export default function Auth() {
             Tu cuenta está creada. Inicia sesión para continuar.
           </p>
         )}
-        <form onSubmit={submit} className="auth-form">
+        <form onSubmit={submit} className="auth-form" aria-describedby={registering ? "register-help" : undefined} aria-busy={busy}>
+          {registering && <p id="register-help" className="muted">Todos los campos son obligatorios salvo los marcados como opcionales. RUT con dígito verificador; teléfono de 8 a 15 dígitos. Contraseña de al menos 8 caracteres.</p>}
           {registering &&
             (role === "egresado" ? (
               <>
@@ -213,7 +216,7 @@ export default function Auth() {
                 </label>
               </div>
               <label>{role === "empresa" ? "Fecha de creación de la empresa" : "Fecha de nacimiento"}
-                <input key={role} name="fecha_identidad" type="date" required max={new Date().toLocaleDateString("en-CA")} />
+                <input key={role} name="fecha_identidad" autoComplete={role === "egresado" ? "bday" : "off"} type="date" required max={new Date().toLocaleDateString("en-CA")} />
               </label>
             </>
           )}
@@ -272,7 +275,7 @@ export default function Auth() {
             </label>
           )}
           {error && (
-            <p className="mensaje-error" role="alert">
+            <p ref={errorRef} tabIndex={-1} className="mensaje-error" role="alert">
               {error}
             </p>
           )}

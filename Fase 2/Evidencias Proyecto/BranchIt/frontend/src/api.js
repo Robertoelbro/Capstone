@@ -25,8 +25,15 @@ async function solicitud(path, options = {}) {
     const cuerpo = await res.json().catch(() => ({}));
     if (res.status === 401 && path !== "/auth/login")
       window.dispatchEvent(new Event("session-expired"));
+    const fieldNames = { email: "Correo electrónico", password: "Contraseña", rut: "RUT", telefono: "Teléfono", fecha_identidad: "Fecha", carrera: "Carrera", rubro: "Giro comercial", nombre: "Nombre", apellido: "Apellido", nombre_empresa: "Nombre de empresa" };
     const message = Array.isArray(cuerpo.detail)
-      ? "Revisa los campos ingresados. Hay datos incompletos o fuera del formato permitido."
+      ? cuerpo.detail.map((item) => {
+          const field = item.loc?.filter((part) => part !== "body").join(" · ");
+          const label = fieldNames[field] || field || "Formulario";
+          const detail = item.msg?.startsWith("Value error, ")
+            ? item.msg.slice(13) : "Revisa este campo: es obligatorio y debe tener un formato válido.";
+          return `${label}: ${detail}`;
+        }).join(" ")
       : cuerpo.detail;
     throw new Error(
       message || "No pudimos completar la solicitud. Inténtalo nuevamente.",

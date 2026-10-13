@@ -181,12 +181,13 @@ export function UploadField({ kind, value, onChange, label, onBusy }) {
       <label htmlFor={inputId}>{label}</label>
       <input
         id={inputId}
+        aria-describedby={`${inputId}-help`}
         type="file"
         accept={accept[kind]}
         disabled={busy}
         onChange={select}
       />
-      <small>
+      <small id={`${inputId}-help`}>
         Máximo {limits[kind]} MB
         {kind === "presentacion"
           ? " · 60 segundos"

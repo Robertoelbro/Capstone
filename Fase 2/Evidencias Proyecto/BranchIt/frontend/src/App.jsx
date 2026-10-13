@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { Link, Navigate, Route, Routes, useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
 import Header from "./Components/Header/Header";
@@ -33,6 +34,23 @@ Protected.propTypes = {
 
 export default function App() {
   const location = useLocation();
+  const previousPath = useRef(location.pathname);
+  useEffect(() => {
+    const titles = {
+      "/": "Buscar empleo", "/ofertas": "Ofertas de empleo",
+      "/iniciar-sesion": "Iniciar sesión", "/registro": "Registro de egresado",
+      "/registro/empresa": "Registro de empresa", "/perfil-empresa": "Mi empresa",
+      "/perfil-egresado": "Mi presentación", "/hub-empresa": "Panel de empresa",
+      "/hub-egresado": "Panel de egresado", "/mis-postulaciones": "Mis postulaciones",
+      "/ofertas-empresa": "Gestionar ofertas",
+    };
+    const title = titles[location.pathname] || (location.pathname.startsWith("/p/") ? "Portafolio profesional" : location.pathname.endsWith("/postular") ? "Postular a una oferta" : location.pathname.endsWith("/postulaciones") ? "Postulaciones recibidas" : "Página no encontrada");
+    document.title = `${title} | BranchIT`;
+    if (previousPath.current !== location.pathname) {
+      document.getElementById("contenido")?.focus();
+      previousPath.current = location.pathname;
+    }
+  }, [location.pathname]);
   return (
     <div className="app-shell">
       {import.meta.env.VITE_DEMO_MODE === "true" && (
@@ -41,7 +59,7 @@ export default function App() {
         </div>
       )}
       <Header />
-      <main id="contenido">
+      <main id="contenido" tabIndex={-1}>
         <Routes>
           <Route path="/perfil-empresa" element={<Protected role="empresa"><PerfilEmpresa /></Protected>} />
           <Route path="/p/:id" element={<PublicPortfolio />} />

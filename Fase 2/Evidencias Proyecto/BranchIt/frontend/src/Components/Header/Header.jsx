@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { FiMenu, FiX, FiArrowUpRight } from "react-icons/fi";
 import { panelPath, useSession } from "../../session";
 
 export default function Header() {
+  const menuButton = useRef(null);
   const { user, logout } = useSession();
   const [open, setOpen] = useState(false);
   const [logoutError, setLogoutError] = useState("");
@@ -24,7 +25,9 @@ export default function Header() {
       <a className="skip-link" href="#contenido">
         Saltar al contenido
       </a>
-      <nav className="contenedor nav-bar" aria-label="Navegación principal">
+      <nav className="contenedor nav-bar" aria-label="Navegación principal" onKeyDown={(event) => {
+        if (event.key === "Escape" && open) { setOpen(false); menuButton.current?.focus(); }
+      }}>
         <Link className="brand" to={user ? panelPath(user) : "/"} onClick={() => setOpen(false)}>
           <span className="brand-mark">
             <FiArrowUpRight />
@@ -33,6 +36,8 @@ export default function Header() {
         </Link>
         <button
           className="mobile-toggle"
+          ref={menuButton}
+          aria-controls="navigation-links"
           aria-label={open ? "Cerrar menú" : "Abrir menú"}
           aria-expanded={open}
           onClick={() => setOpen(!open)}
@@ -40,6 +45,7 @@ export default function Header() {
           {open ? <FiX /> : <FiMenu />}
         </button>
         <div
+          id="navigation-links"
           className={`nav-links ${open ? "is-open" : ""}`}
           onClick={() => setOpen(false)}
         >

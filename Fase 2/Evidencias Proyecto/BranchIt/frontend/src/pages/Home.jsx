@@ -110,7 +110,7 @@ export default function Home() {
             <span className="eyebrow">ENCUENTRA TU LUGAR</span>
             <h2>Oportunidades para comenzar</h2>
           </div>
-          <span className="results-count">
+          <span className="results-count" role="status" aria-atomic="true">
             {loading
               ? "Cargando…"
               : `${filtered.length} ${
@@ -124,12 +124,12 @@ export default function Home() {
             e.preventDefault();
             document
               .getElementById("resultados")
-              .scrollIntoView({ behavior: "smooth" });
+              .scrollIntoView({ behavior: "auto" });
           }}
         >
           <label>
             <FiSearch />
-            <span className="sr-only">Cargo o empresa</span>
+            <span className="search-label">Cargo o empresa</span>
             <input
               value={search}
               onChange={(e) => setSearch(e.target.value)}
@@ -138,7 +138,7 @@ export default function Home() {
           </label>
           <label>
             <FiMapPin />
-            <span className="sr-only">Ciudad o región</span>
+            <span className="search-label">Ciudad o región</span>
             <input
               value={location}
               onChange={(e) => setLocation(e.target.value)}
@@ -146,7 +146,7 @@ export default function Home() {
             />
           </label>
           <label>
-            <span className="sr-only">Modalidad</span>
+            <span className="search-label">Modalidad</span>
             <select value={mode} onChange={(e) => setMode(e.target.value)}>
               <option value="">Todas las modalidades</option>
               <option value="presencial">Presencial</option>
@@ -216,12 +216,14 @@ export default function Home() {
                 className="job-detail"
                 onClick={() => setSelected(selected === job.id ? null : job.id)}
                 aria-expanded={selected === job.id}
+                aria-controls={`job-detail-${job.id}`}
+                aria-label={`${selected === job.id ? "Cerrar detalle" : "Ver oportunidad"}: ${job.titulo}`}
               >
                 {selected === job.id ? "Cerrar detalle" : "Ver oportunidad"}{" "}
                 <FiArrowUpRight />
               </button>
               {selected === job.id && (
-                <div className="job-expanded">
+                <div className="job-expanded" id={`job-detail-${job.id}`}>
                   <p>{job.descripcion}</p>
                   <strong>Requisitos</strong>
                   <p>
