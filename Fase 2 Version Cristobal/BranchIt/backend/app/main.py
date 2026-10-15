@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+<<<<<<< Updated upstream
 from fastapi.middleware.cors import CORSMiddleware
 
 from .routers import auth, egresados, empresas
@@ -25,3 +26,14 @@ app.include_router(empresas.router)
 @app.get("/")
 def root():
     return {"message": "BranchIT API funcionando"}
+=======
+
+app = FastAPI(
+    title="BranchIT API",
+    version="0.1.0"
+)
+
+@app.get("/")
+def root():
+    return {"message": "BranchIT API funcionando"}
+>>>>>>> Stashed changes
