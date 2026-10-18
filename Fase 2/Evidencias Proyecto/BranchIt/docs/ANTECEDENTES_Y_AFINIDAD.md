@@ -22,4 +22,4 @@ La pantalla muestra los puntos, las habilidades coincidentes y si la carrera es 
 
 Las ofertas, recomendaciones, formulario y lista de postulaciones del egresado muestran la foto actual de la empresa. Si no existe se usa su logo externo o iniciales. Solo la foto verificada que esté guardada actualmente en el perfil de una empresa activa se puede leer públicamente. Las reservas, otras imágenes y acciones de borrar/subir mantienen la comprobación de propietario.
 
-Estos campos usan el JSON de portafolio y el contenido cifrado de postulaciones existentes: no requieren una nueva migración. Sigue pendiente aplicar `0007_notificaciones` si aún no se aplicó el cambio anterior. Publicar frontend y backend juntos para que la vista de postulantes reciba los nuevos campos.
+Estos campos usan el JSON de portafolio y el contenido cifrado de postulaciones existentes: no requieren una nueva migración. La migración `0007_notificaciones` del cambio anterior se aplicó y verificó en Neon el 18-10-2026. Publicar frontend y backend juntos para que la vista de postulantes reciba los nuevos campos.
