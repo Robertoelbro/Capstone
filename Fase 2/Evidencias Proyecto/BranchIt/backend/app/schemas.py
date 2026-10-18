@@ -263,6 +263,8 @@ class OfertaEmpleoConEmpresa(OfertaEmpleoOut):
     """Version de la oferta que incluye el nombre de la empresa, para el hub del egresado."""
 
     nombre_empresa: Annotated[str, Field(min_length=1, max_length=150)]
+    empresa_foto_id: str | None = None
+    empresa_logo_url: str | None = None
 
 
 class Login(InputModel):

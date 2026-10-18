@@ -11,7 +11,7 @@ def list_jobs(db: Session = Depends(get_db)):
     rows = (db.query(models.OfertaEmpleo, models.PerfilEmpresa.nombre_empresa)
             .join(models.PerfilEmpresa).filter(models.OfertaEmpleo.activa.is_(True))
             .order_by(models.OfertaEmpleo.fecha_publicacion.desc()).all())
-    return [dict(schemas.OfertaEmpleoOut.model_validate(job).model_dump(), nombre_empresa=company)
+    return [dict(schemas.OfertaEmpleoOut.model_validate(job).model_dump(), nombre_empresa=company, empresa_foto_id=job.empresa.foto_id, empresa_logo_url=job.empresa.logo_url)
             for job, company in rows]
 
 
@@ -20,4 +20,4 @@ def job_detail(job_id: int, db: Session = Depends(get_db)):
     job = db.get(models.OfertaEmpleo, job_id)
     if not job:
         raise HTTPException(404, 'Oferta no encontrada.')
-    return dict(schemas.OfertaEmpleoOut.model_validate(job).model_dump(), nombre_empresa=job.empresa.nombre_empresa)
+    return dict(schemas.OfertaEmpleoOut.model_validate(job).model_dump(), nombre_empresa=job.empresa.nombre_empresa, empresa_foto_id=job.empresa.foto_id, empresa_logo_url=job.empresa.logo_url)

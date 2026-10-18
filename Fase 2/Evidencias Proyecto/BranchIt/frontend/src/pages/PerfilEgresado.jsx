@@ -305,6 +305,7 @@ export default function PerfilEgresado() {
                   onChange={(v) => base("anio_egreso", v)}
                 />
                 {field("titular", "Titular profesional", "text", 160)}
+                {field("titulo_url", "Enlace al título profesional", "url", 1000)}
                 {field("ubicacion", "Ciudad o región", "text", 120)}
               </div>
               <Field
@@ -316,16 +317,23 @@ export default function PerfilEgresado() {
               />
               <div className="editor-grid">
                 {upload("foto", "foto_id", "Subir foto de perfil")}
-                <Field
-                  label="O usa un enlace de foto"
-                  type="url"
-                  value={form.foto_url}
-                  onChange={(v) => base("foto_url", v)}
-                />
               </div>
-              <p className="field-help">
-                Si subes una foto, se usará en lugar del enlace.
-              </p>
+            </section>
+            <section className="editor-section">
+              <h2>Experiencia laboral</h2>
+              <p className="field-help">Incluye trabajos que no requieran título: ventas, cocina, cine u otros.</p>
+              {p.experiencia_laboral.map((work, i) => <fieldset className="tarjeta" key={i}>
+                <legend>Experiencia {i + 1}</legend>
+                <div className="editor-grid">
+                  <Field label="Cargo *" value={work.cargo} required maxLength={120} onChange={v => item('experiencia_laboral', i, 'cargo', v)} />
+                  <Field label="Empresa o lugar" value={work.empresa} maxLength={150} onChange={v => item('experiencia_laboral', i, 'empresa', v)} />
+                  <Field label="Fecha de inicio *" type="date" required value={work.inicio} onChange={v => item('experiencia_laboral', i, 'inicio', v)} />
+                  <Field label="Fecha de término (vacío si continúas)" type="date" value={work.fin || ''} onChange={v => item('experiencia_laboral', i, 'fin', v || null)} />
+                </div>
+                <Field label="Funciones y aprendizajes" type="textarea" value={work.descripcion} maxLength={2000} onChange={v => item('experiencia_laboral', i, 'descripcion', v)} />
+                <button type="button" className="text-link" onClick={() => remove('experiencia_laboral', i)}>Eliminar experiencia {i + 1}</button>
+              </fieldset>)}
+              <button type="button" className="boton boton-secundario" disabled={p.experiencia_laboral.length >= 20} onClick={() => update('experiencia_laboral', [...p.experiencia_laboral, { cargo: '', empresa: '', inicio: '', fin: null, descripcion: '' }])}>Añadir experiencia laboral</button>
             </section>
             <section className="editor-section">
               <h2>Video de presentación</h2>

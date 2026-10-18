@@ -22,7 +22,7 @@ def own_profile(user, db):
 @router.put('/portfolio/me')
 def save_portfolio(data: Portfolio, user=Depends(current_user), db: Session=Depends(get_db)):
     profile = own_profile(user, db)
-    payload = data.model_dump()
+    payload = data.model_dump(mode='json')
     for asset_id, kind in media_references(payload):
         asset = db.get(ArchivoPortfolio, asset_id)
         if not asset or not asset.verificado or asset.usuario_id != user.id or asset.tipo != kind:
@@ -88,6 +88,7 @@ def media_access(asset_id: str, upload: bool=False, remove: bool=False, credenti
     profile = db.query(PerfilEgresado).join(Usuario).filter(PerfilEgresado.usuario_id==asset.usuario_id, Usuario.activo.is_(True)).first()
     company = db.query(PerfilEmpresa).filter_by(usuario_id=asset.usuario_id).first()
     public = profile and (profile.portfolio or {}).get('publico') and asset_id in {r[0] for r in media_references(profile.portfolio)}
+    public = public or (company and company.foto_id == asset_id and db.get(Usuario, company.usuario_id).activo)
     if ((upload or remove) and not owner) or (not owner and not public):
         raise HTTPException(404, 'Archivo no disponible.')
     if remove and company and company.foto_id == asset_id:

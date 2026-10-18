@@ -8,6 +8,8 @@ export const emptyPortfolio = {
   video_id: null,
   video_url: "",
   github_url: "",
+  titulo_url: "",
+  experiencia_laboral: [],
   habilidades: [],
   certificaciones: [],
   proyectos: [],

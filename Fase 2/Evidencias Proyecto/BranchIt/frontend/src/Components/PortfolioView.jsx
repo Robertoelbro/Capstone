@@ -83,6 +83,13 @@ export default function PortfolioView({ profile, editing = false }) {
               </div>
             )}
           </section>
+          {p.experiencia_laboral.length > 0 && <section className="story-card">
+            <h2>Experiencia laboral</h2>
+            {p.experiencia_laboral.map((work, i) => <article className="certificate" key={i}><div>
+              <h3>{work.cargo}</h3><p>{work.empresa}</p>
+              <p>{work.inicio} — {work.fin || 'Actualidad'}</p><p>{work.descripcion}</p>
+            </div></article>)}
+          </section>}
           <section className="projects-section">
             <div className="section-heading">
               <div>
@@ -226,6 +233,7 @@ export default function PortfolioView({ profile, editing = false }) {
             <section className="education-card">
               <h3>{profile.carrera}</h3>
               {profile.anio_egreso && <p>Egreso · {profile.anio_egreso}</p>}
+              <External url={p.titulo_url}>Ver título profesional</External>
             </section>
           )}
           <section className="contact-card">

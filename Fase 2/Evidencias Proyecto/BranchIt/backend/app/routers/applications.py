@@ -7,6 +7,8 @@ from .. import models, schemas
 from ..database import get_db
 from ..encryption import encrypt_data, decrypt_data
 from ..security import current_user
+from .notifications import notify_job_change
+from ..applicant_matching import affinity
 
 router = APIRouter(prefix='/api/employment', tags=['postulaciones'])
 
@@ -21,8 +23,20 @@ def serialize(item, private=False):
             'titulo': item.oferta.titulo, 'nombre_empresa': item.oferta.empresa.nombre_empresa,
             'fecha_postulacion': item.fecha_postulacion, 'oferta_activa': item.oferta.activa,
             'estado': 'recibida' if item.oferta.activa else 'cerrada', 'datos': decrypt_data(item.datos_cifrados)}
+    result['empresa_foto_id'] = item.oferta.empresa.foto_id
+    result['empresa_logo_url'] = item.oferta.empresa.logo_url
     if private:
         result['seleccionada'] = item.seleccionada
+        profile = item.egresado
+        result['portfolio_url'] = f'/p/{profile.usuario_id}' if (profile.portfolio or {}).get('publico') else None
+        # New applications keep the declared evidence as a snapshot. Legacy ones
+        # use the current profile and identify that fact explicitly.
+        portfolio = result['datos'].get('antecedentes_profesionales', profile.portfolio or {})
+        result['antecedentes'] = {key: portfolio.get(key, default) for key, default in
+            [('habilidades', []), ('proyectos', []), ('certificaciones', []),
+             ('experiencia_laboral', []), ('titulo_url', ''), ('disponibilidad', 'Sin definir')]}
+        result['antecedentes_actuales'] = 'antecedentes_profesionales' not in result['datos']
+        result['afinidad'] = affinity(item.oferta, result['datos'].get('carrera'), portfolio)
     return result
 
 
@@ -71,9 +85,14 @@ def apply(data: schemas.PostulacionCreate, user=Depends(current_user), db: Sessi
     payload = {'nombre': profile.nombre, 'apellido': profile.apellido, 'email': user.email,
                'carrera': profile.carrera, 'presentacion': profile.presentacion,
                'telefono': data.telefono, 'cv_url': data.cv_url, 'mensaje': data.mensaje,
-               'preguntas': job.preguntas, 'respuestas': answers, 'consentimiento': True}
+               'preguntas': job.preguntas, 'respuestas': answers, 'consentimiento': True,
+               'antecedentes_profesionales': {k: v for k, v in (profile.portfolio or {}).items()
+                   if k in ('habilidades', 'proyectos', 'certificaciones', 'experiencia_laboral', 'titulo_url', 'disponibilidad')}}
     item = models.Postulacion(oferta_id=job.id, egresado_id=profile.id, datos_cifrados=encrypt_data(payload))
     db.add(item)
+    db.add(models.Notificacion(usuario_id=job.empresa.usuario_id,
+        mensaje=f'Recibiste una nueva postulación para «{job.titulo}».',
+        destino=f'/ofertas-empresa/{job.id}/postulaciones'))
     try:
         db.commit()
     except IntegrityError:
@@ -99,8 +118,13 @@ def applicants(job_id: int, user=Depends(current_user), db: Session = Depends(ge
            .filter(models.OfertaEmpleo.id == job_id, models.PerfilEmpresa.usuario_id == user.id).first())
     if not job:
         raise HTTPException(404, 'Oferta no encontrada.')
-    return [serialize(item, private=True) for item in db.query(models.Postulacion).filter_by(oferta_id=job.id)
-            .order_by(models.Postulacion.fecha_postulacion.desc()).all()]
+    results = [serialize(item, private=True) for item in db.query(models.Postulacion).filter_by(oferta_id=job.id)
+            .order_by(models.Postulacion.fecha_postulacion.asc(), models.Postulacion.id.asc()).all()]
+    results.sort(key=lambda item: (-item['afinidad']['puntos'], -len(item['afinidad']['coincidencias'])))
+    for position, item in enumerate(results):
+        item['posicion'] = position + 1
+        item['destacado'] = position < 10 and item['afinidad']['puntos'] > 0
+    return results
 
 
 @router.put('/jobs/{job_id}/closure')
@@ -120,6 +144,8 @@ def close_call(job_id: int, data: schemas.CierreConvocatoria, user=Depends(curre
     db.flush()
     if selected:
         selected.seleccionada = True
+    if job.activa:
+        notify_job_change(db, job, False)
     job.activa = False
     db.commit()
     return {'oferta_id': job.id, 'activa': False, 'postulacion_seleccionada_id': data.postulacion_id}

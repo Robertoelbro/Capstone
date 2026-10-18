@@ -1,5 +1,6 @@
 """Structured portfolio data; only explicitly published fields are public."""
 from typing import Annotated, Literal
+from datetime import date
 from urllib.parse import urlsplit
 from pydantic import BaseModel, ConfigDict, Field, BeforeValidator, model_validator
 
@@ -45,6 +46,20 @@ class Project(Item):
     video_id: AssetId | None = None
     qr_id: AssetId | None = None
 
+class WorkExperience(Item):
+    cargo: Label
+    empresa: str = Field(default='', max_length=150)
+    inicio: date
+    fin: date | None = None
+    descripcion: str = Field(default='', max_length=2000)
+
+    @model_validator(mode='after')
+    def dates(self):
+        if self.inicio > date.today() or (self.fin and (self.fin < self.inicio or self.fin > date.today())):
+            raise ValueError('Revisa las fechas de la experiencia laboral.')
+        return self
+
+
 class Portfolio(Item):
     titular: str = Field(default='', max_length=160)
     ubicacion: str = Field(default='', max_length=120)
@@ -55,6 +70,8 @@ class Portfolio(Item):
     video_id: AssetId | None = None
     video_url: URL = ''
     github_url: URL = ''
+    titulo_url: URL = ''
+    experiencia_laboral: list[WorkExperience] = Field(default_factory=list, max_length=20)
     habilidades: list[Skill] = Field(default_factory=list, max_length=20)
     certificaciones: list[Certificate] = Field(default_factory=list, max_length=12)
     proyectos: list[Project] = Field(default_factory=list, max_length=12)

@@ -61,6 +61,9 @@ async function solicitud(path, options = {}) {
 }
 
 export const api = {
+  notifications: () => solicitud('/notifications'),
+  readNotification: (id) => solicitud(`/notifications/${id}/read`, { method: 'PUT' }),
+  readAllNotifications: () => solicitud('/notifications/read-all', { method: 'PUT' }),
   assistantStatus: () => solicitud("/assistant/status"),
   assistantChat: (data) =>
     solicitud("/assistant/chat", {

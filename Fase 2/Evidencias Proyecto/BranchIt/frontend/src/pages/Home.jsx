@@ -1,5 +1,6 @@
 import JobFacts from "../Components/JobFacts";
 import { useEffect, useState } from "react";
+import CompanyPhoto from '../Components/CompanyPhoto';
 import { Link, Navigate } from "react-router-dom";
 import {
   FiArrowUpRight,
@@ -164,9 +165,7 @@ export default function Home() {
           {filtered.map((job) => (
             <article key={job.id} className="job-card">
               <div className="job-card-top">
-                <span className="company-icon">
-                  {job.nombre_empresa.slice(0, 2).toUpperCase()}
-                </span>
+                <CompanyPhoto job={job} />
                 <span className="job-mode">
                   {job.modalidad === "hibrido"
                     ? "Híbrido"

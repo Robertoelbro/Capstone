@@ -10,6 +10,7 @@ import {
   FiUser,
 } from "react-icons/fi";
 import { api } from "../api";
+import CompanyPhoto from '../Components/CompanyPhoto';
 import { useSession } from "../session";
 import { growth, normalize } from "../portfolio";
 import GraduateLayout from "../Components/GraduateLayout";
@@ -226,9 +227,7 @@ export default function GraduateHub() {
               {filtered.slice(0, limit).map((j) => (
                 <article className="garden-job" key={j.id}>
                   <div className="job-top">
-                    <span className="job-initial">
-                      {j.nombre_empresa.replace("DEMO · ", "").slice(0, 2)}
-                    </span>
+                    <CompanyPhoto job={j} />
                     <span>{j.modalidad || "A convenir"}</span>
                   </div>
                   <small>{j.nombre_empresa}</small>

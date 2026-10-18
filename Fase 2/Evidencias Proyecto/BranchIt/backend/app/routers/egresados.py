@@ -32,7 +32,7 @@ def actualizar_perfil(
     db: Session = Depends(get_db),
 ):
     perfil = _obtener_perfil_o_404(db, usuario_id)
-    for campo, valor in datos.model_dump(exclude_unset=True).items():
+    for campo, valor in datos.model_dump(exclude_unset=True, mode='json').items():
         if campo == 'portfolio':
             from ..portfolio_schemas import media_references
             if valor is None: raise HTTPException(422, 'El portafolio no puede ser nulo.')
@@ -72,7 +72,7 @@ def ver_ofertas_disponibles(usuario_id: int, db: Session = Depends(get_db)):
 
     resultado = []
     for oferta, nombre_empresa in ofertas:
-        item = schemas.OfertaEmpleoConEmpresa(**schemas.OfertaEmpleoOut.model_validate(oferta).model_dump(), nombre_empresa=nombre_empresa)
+        item = schemas.OfertaEmpleoConEmpresa(**schemas.OfertaEmpleoOut.model_validate(oferta).model_dump(), nombre_empresa=nombre_empresa, empresa_foto_id=oferta.empresa.foto_id, empresa_logo_url=oferta.empresa.logo_url)
         resultado.append(item)
     return resultado
 
@@ -93,7 +93,7 @@ def recommendations(usuario_id: int, db: Session = Depends(get_db)):
     profile = _obtener_perfil_o_404(db, usuario_id)
     jobs = db.query(models.OfertaEmpleo).filter_by(activa=True).order_by(models.OfertaEmpleo.fecha_publicacion.desc()).all()
     result = [dict(schemas.OfertaEmpleoOut.model_validate(job).model_dump(),
-                   nombre_empresa=job.empresa.nombre_empresa, **recommendation(job, profile.carrera)) for job in jobs]
+                   nombre_empresa=job.empresa.nombre_empresa, empresa_foto_id=job.empresa.foto_id, empresa_logo_url=job.empresa.logo_url, **recommendation(job, profile.carrera)) for job in jobs]
     return sorted(result, key=lambda job: not job['afin'])
 
 

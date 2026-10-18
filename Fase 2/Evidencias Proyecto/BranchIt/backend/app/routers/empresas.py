@@ -5,6 +5,7 @@ from pydantic import ValidationError
 from .. import models, schemas
 from ..database import get_db
 from ..security import require_owner
+from .notifications import notify_job_change
 
 router = APIRouter(prefix="/empresas", tags=["empresas"], dependencies=[Depends(require_owner("empresa"))])
 
@@ -77,6 +78,8 @@ def actualizar_oferta(
     perfil_empresa = _obtener_perfil_empresa_o_404(db, usuario_id)
     oferta = _obtener_oferta_o_404(db, perfil_empresa.id, oferta_id)
     changes = datos.model_dump(exclude_unset=True)
+    if 'activa' in changes and changes['activa'] != oferta.activa:
+        notify_job_change(db, oferta, changes['activa'])
     if changes.get('activa') is True and not oferta.activa:
         db.query(models.Postulacion).filter_by(oferta_id=oferta.id).update({'seleccionada': False})
     # Closing/reopening legacy jobs remains possible; editing content requires completing it.

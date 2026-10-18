@@ -50,7 +50,7 @@ class CompanyIdentityFlows(unittest.TestCase):
             self.assertEqual(saved['nombre_empresa'],'Nuevo nombre')
             self.assertEqual(saved['foto_id'],asset)
             self.assertEqual(self.client.put(f"/empresas/{self.client.get('/auth/me',headers=other).json()['id']}/perfil",headers=other,json=payload).status_code,422)
-            self.assertEqual(self.client.get(f'/media/{asset}/access',headers=other).status_code,404)
+            self.assertEqual(self.client.get(f'/media/{asset}/access',headers=other).status_code,200)
             self.assertEqual(self.client.get(f'/media/{asset}/access?remove=true',headers=other).status_code,404)
             self.assertEqual(self.client.get(f'/media/{asset}/access',headers=headers).status_code,200)
             self.assertEqual(self.client.delete(f'/media/{asset}',headers=service_headers).status_code,409)

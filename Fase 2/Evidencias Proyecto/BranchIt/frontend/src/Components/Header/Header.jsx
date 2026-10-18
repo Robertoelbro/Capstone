@@ -2,6 +2,7 @@ import { useState, useRef } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { FiMenu, FiX, FiArrowUpRight } from "react-icons/fi";
 import { panelPath, useSession } from "../../session";
+import Notifications from './Notifications';
 
 export default function Header() {
   const menuButton = useRef(null);
@@ -34,6 +35,7 @@ export default function Header() {
           </span>
           Branch<span>IT</span>
         </Link>
+        {user && <Notifications key={user.id} />}
         <button
           className="mobile-toggle"
           ref={menuButton}

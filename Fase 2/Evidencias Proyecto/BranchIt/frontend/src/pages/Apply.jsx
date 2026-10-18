@@ -7,6 +7,7 @@ import WorkspaceNav from "../Components/WorkspaceNav";
 import { ValidatedForm, PhoneField } from "../Components/FormFields";
 import AnswerField from "../Components/AnswerField";
 import JobFacts from "../Components/JobFacts";
+import CompanyPhoto from '../Components/CompanyPhoto';
 
 export default function Apply() {
   const { jobId } = useParams();
@@ -77,6 +78,7 @@ export default function Apply() {
       {job && (
         <div className="application-layout">
           <aside className="tarjeta">
+            <CompanyPhoto job={job} />
             <span className="eyebrow">{job.nombre_empresa}</span>
             <h2>{job.titulo}</h2>
             <p className="muted">
@@ -143,8 +145,9 @@ export default function Apply() {
               ))}
               <label className="consent">
                 <input type="checkbox" name="consentimiento" required />
-                Autorizo compartir estos antecedentes con esta empresa para
-                evaluar mi postulación.
+                Autorizo compartir mi carrera, habilidades, proyectos, certificaciones,
+                experiencia laboral, enlace al título y estos antecedentes con esta empresa
+                para evaluar mi postulación.
               </label>
               <button className="boton boton-primario" disabled={busy}>
                 {busy ? "Enviando…" : "Enviar postulación"}

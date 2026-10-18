@@ -44,6 +44,7 @@ class Usuario(Base):
     activo = Column(Boolean, default=True, nullable=False)
     token_version = Column(Integer, default=0, nullable=False)
     archivos = relationship('ArchivoPortfolio', cascade='all, delete-orphan')
+    notificaciones = relationship('Notificacion', cascade='all, delete-orphan')
 
     perfil_egresado = relationship(
         "PerfilEgresado",
@@ -149,6 +150,16 @@ class Postulacion(Base):
     seleccionada = Column(Boolean, default=False, nullable=False)
     oferta = relationship('OfertaEmpleo', back_populates='postulaciones')
     egresado = relationship('PerfilEgresado', back_populates='postulaciones')
+
+
+class Notificacion(Base):
+    __tablename__ = 'notificaciones'
+    id = Column(Integer, primary_key=True)
+    usuario_id = Column(Integer, ForeignKey('usuarios.id'), nullable=False, index=True)
+    mensaje = Column(String(400), nullable=False)
+    destino = Column(String(200), nullable=False)
+    leida = Column(Boolean, default=False, nullable=False)
+    creada = Column(DateTime, default=datetime.utcnow, nullable=False)
 
 
 class ArchivoPortfolio(Base):
