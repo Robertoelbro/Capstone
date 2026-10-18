@@ -1,15 +1,16 @@
 import { useState, useRef, useEffect } from "react";
 import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
-import {
-  FiArrowRight,
-  FiBriefcase,
-  FiCheck,
-  FiEye,
-  FiEyeOff,
-  FiLayers,
-} from "react-icons/fi";
+import { FiArrowRight, FiEye, FiEyeOff } from "react-icons/fi";
 import { api } from "../api";
 import { panelPath, useSession } from "../session";
+
+import {
+  ValidatedForm,
+  SearchField,
+  PhoneField,
+  RutField,
+} from "../Components/FormFields";
+import { careers, industries } from "../data/catalogs";
 
 export default function Auth() {
   const location = useLocation();
@@ -23,7 +24,9 @@ export default function Auth() {
   const { user, login } = useSession();
   const navigate = useNavigate();
   const errorRef = useRef(null);
-  useEffect(() => { if (error) errorRef.current?.focus(); }, [error]);
+  useEffect(() => {
+    if (error) errorRef.current?.focus();
+  }, [error]);
   if (user) return <Navigate to={panelPath(user)} replace />;
 
   async function submit(event) {
@@ -65,51 +68,9 @@ export default function Auth() {
   }
 
   return (
-    <section className="auth-layout">
-      <aside className="auth-story">
-        <span className="eyebrow light">
-          <FiLayers /> TU PRÓXIMO PASO EMPIEZA AQUÍ
-        </span>
-        <h1>
-          Tu talento merece
-          <br />
-          su primera
-          <br />
-          <span>oportunidad.</span>
-        </h1>
-        <p>
-          Conecta lo que aprendiste con lo que quieres llegar a ser. En
-          BranchIT, tu carrera está por comenzar.
-        </p>
-        <div className="story-points">
-          <p>
-            <FiCheck /> Ofertas para dar tus primeros pasos
-          </p>
-          <p>
-            <FiCheck /> Un perfil que muestra tu potencial
-          </p>
-          <p>
-            <FiCheck /> Empresas que buscan talento nuevo
-          </p>
-        </div>
-        <div className="story-note">
-          <FiBriefcase size={24} />
-          <div>
-            <strong>Grandes carreras, pequeños comienzos.</strong>
-            <span>Construye el tuyo con BranchIT.</span>
-          </div>
-        </div>
-      </aside>
+    <section className="auth-layout auth-layout-compact">
       <div className="auth-form-panel">
-        <span className="eyebrow">
-          {registering ? "EMPECEMOS" : "QUÉ BUENO VERTE DE NUEVO"}
-        </span>
-        <h2>{registering ? "Crea tu cuenta" : "Inicia sesión"}</h2>
-        <p className="muted">
-          {registering
-            ? "Encuentra tu lugar en el mundo laboral."
-            : "Continúa construyendo tu próximo paso profesional."}
-        </p>
+        <h1>{registering ? "Crear cuenta" : "Iniciar sesión"}</h1>
         {registering && (
           <div className="role-tabs" aria-label="Tipo de cuenta">
             <button
@@ -133,8 +94,18 @@ export default function Auth() {
             Tu cuenta está creada. Inicia sesión para continuar.
           </p>
         )}
-        <form onSubmit={submit} className="auth-form" aria-describedby={registering ? "register-help" : undefined} aria-busy={busy}>
-          {registering && <p id="register-help" className="muted">Todos los campos son obligatorios salvo los marcados como opcionales. RUT con dígito verificador; teléfono de 8 a 15 dígitos. Contraseña de al menos 8 caracteres.</p>}
+        <ValidatedForm
+          key={`${registering}-${role}`}
+          onSubmit={submit}
+          className="auth-form"
+          aria-describedby={registering ? "register-help" : undefined}
+          aria-busy={busy}
+        >
+          {registering && (
+            <p id="register-help" className="muted">
+              * Obligatorio. Contraseña: al menos 8 caracteres.
+            </p>
+          )}
           {registering &&
             (role === "egresado" ? (
               <>
@@ -161,22 +132,20 @@ export default function Auth() {
                   </label>
                 </div>
                 <div className="form-row">
-                  <label>
-                    Carrera de egreso
-                    <input
-                      name="carrera"
-                      required
-                      maxLength={150}
-                      placeholder="Ej. Ingeniería en Informática"
-                    />
-                  </label>
+                  <SearchField
+                    label="Carrera de egreso"
+                    name="carrera"
+                    options={careers}
+                    required
+                  />
                   <label>
                     Año de egreso <span>(opcional)</span>
                     <input
                       name="anio_egreso"
-                      type="number"
-                      min="1900"
-                      max="2100"
+                      type="text"
+                      inputMode="numeric"
+                      pattern="(19|20)[0-9]{2}|2100"
+                      maxLength={4}
                       placeholder="2026"
                     />
                   </label>
@@ -194,29 +163,36 @@ export default function Auth() {
                     placeholder="Nombre de tu empresa"
                   />
                 </label>
-                <label>
-                  Giro comercial
-                  <input
-                    name="rubro"
-                    required
-                    maxLength={150}
-                    placeholder="Ej. Tecnología"
-                  />
-                </label>
+                <SearchField
+                  label="Giro comercial"
+                  name="rubro"
+                  options={industries}
+                  required
+                />
               </>
             ))}
           {registering && (
             <>
               <div className="form-row">
-                <label>RUT {role === "empresa" ? "de la empresa" : "personal"}
-                  <input name="rut" required maxLength={12} placeholder="12.345.678-5" autoComplete="off" />
-                </label>
-                <label>Teléfono
-                  <input name="telefono" type="tel" required minLength={8} maxLength={30} autoComplete="tel" placeholder="+56 9 1234 5678" />
-                </label>
+                <RutField
+                  label={
+                    role === "empresa" ? "RUT de la empresa" : "RUT personal"
+                  }
+                />
+                <PhoneField required />
               </div>
-              <label>{role === "empresa" ? "Fecha de creación de la empresa" : "Fecha de nacimiento"}
-                <input key={role} name="fecha_identidad" autoComplete={role === "egresado" ? "bday" : "off"} type="date" required max={new Date().toLocaleDateString("en-CA")} />
+              <label>
+                {role === "empresa"
+                  ? "Fecha de creación de la empresa"
+                  : "Fecha de nacimiento"}
+                <input
+                  key={role}
+                  name="fecha_identidad"
+                  autoComplete={role === "egresado" ? "bday" : "off"}
+                  type="date"
+                  required
+                  max={new Date().toLocaleDateString("en-CA")}
+                />
               </label>
             </>
           )}
@@ -275,7 +251,12 @@ export default function Auth() {
             </label>
           )}
           {error && (
-            <p ref={errorRef} tabIndex={-1} className="mensaje-error" role="alert">
+            <p
+              ref={errorRef}
+              tabIndex={-1}
+              className="mensaje-error"
+              role="alert"
+            >
               {error}
             </p>
           )}
@@ -287,7 +268,7 @@ export default function Auth() {
               : "Iniciar sesión"}
             <FiArrowRight />
           </button>
-        </form>
+        </ValidatedForm>
         <p className="auth-switch">
           {registering
             ? "¿Ya tienes una cuenta?"

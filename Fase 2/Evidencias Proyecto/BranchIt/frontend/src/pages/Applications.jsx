@@ -107,7 +107,11 @@ export default function Applications() {
             {item.datos.preguntas.map((q) => (
               <div key={q.id} className="answer">
                 <strong>{q.etiqueta}</strong>
-                <p>{item.datos.respuestas[q.id] || "Sin respuesta"}</p>
+                <p>
+                  {Array.isArray(item.datos.respuestas[q.id])
+                    ? item.datos.respuestas[q.id].join(", ") || "Sin respuesta"
+                    : item.datos.respuestas[q.id] || "Sin respuesta"}
+                </p>
               </div>
             ))}
           </details>

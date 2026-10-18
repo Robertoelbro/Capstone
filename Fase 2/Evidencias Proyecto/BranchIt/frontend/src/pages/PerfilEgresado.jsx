@@ -1,3 +1,9 @@
+import {
+  ValidatedForm,
+  SearchField,
+  PhoneField,
+} from "../Components/FormFields";
+import { careers } from "../data/catalogs";
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { FiEdit3, FiEye, FiPlus, FiTrash2, FiCopy } from "react-icons/fi";
@@ -36,7 +42,9 @@ function Field({
         />
       ) : (
         <input
-          type={type}
+          type={type === "number" ? "text" : type}
+          inputMode={type === "number" ? "numeric" : undefined}
+          pattern={type === "number" ? "[0-9]{4}" : undefined}
           value={value ?? ""}
           maxLength={maxLength}
           required={required}
@@ -158,7 +166,7 @@ export default function PerfilEgresado() {
         portfolio: { ...emptyPortfolio, ...result.portfolio },
       });
       setDirty(false);
-      setSuccess("Cambios guardados. Tu portafolio está actualizado.");
+      setSuccess("Cambios guardados.");
     } catch (e) {
       setError(e.message);
     } finally {
@@ -170,7 +178,7 @@ export default function PerfilEgresado() {
       await navigator.clipboard.writeText(
         `${window.location.origin}/p/${user.id}`,
       );
-      setSuccess("Enlace copiado. Ya puedes compartirlo.");
+      setSuccess("Enlace copiado.");
     } catch {
       setError("Selecciona y copia el enlace que aparece debajo.");
     }
@@ -190,7 +198,9 @@ export default function PerfilEgresado() {
     <Field
       label={label}
       value={p[key]}
-      type={type}
+      type={type === "number" ? "text" : type}
+      inputMode={type === "number" ? "numeric" : undefined}
+      pattern={type === "number" ? "[0-9]{4}" : undefined}
       maxLength={maxLength}
       onChange={(v) => update(key, v)}
     />
@@ -208,7 +218,6 @@ export default function PerfilEgresado() {
     <GraduateLayout profile={profile}>
       <div className="portfolio-toolbar">
         <div>
-          <span className="eyebrow">TU ESPACIO, A TU MANERA</span>
           <h2>Mi portafolio</h2>
         </div>
         <div className="view-switch">
@@ -264,11 +273,10 @@ export default function PerfilEgresado() {
           <PortfolioView profile={form} editing />
         </>
       ) : (
-        <form className="portfolio-editor" onSubmit={save}>
+        <ValidatedForm className="portfolio-editor" onSubmit={save}>
           <fieldset disabled={saving}>
             <section className="editor-section">
-              <span className="section-number">01 / TU IDENTIDAD</span>
-              <h2>Empecemos por ti.</h2>
+              <h2>Perfil</h2>
               <div className="editor-grid">
                 <Field
                   label="Nombre"
@@ -284,10 +292,10 @@ export default function PerfilEgresado() {
                   maxLength={100}
                   onChange={(v) => base("apellido", v)}
                 />
-                <Field
+                <SearchField
                   label="Carrera"
-                  value={form.carrera}
-                  maxLength={150}
+                  options={careers}
+                  value={form.carrera || ""}
                   onChange={(v) => base("carrera", v)}
                 />
                 <Field
@@ -296,11 +304,11 @@ export default function PerfilEgresado() {
                   value={form.anio_egreso}
                   onChange={(v) => base("anio_egreso", v)}
                 />
-                {field("titular", "Tu titular · ¿qué te mueve?", "text", 160)}
+                {field("titular", "Titular profesional", "text", 160)}
                 {field("ubicacion", "Ciudad o región", "text", 120)}
               </div>
               <Field
-                label="Tu historia · formación, intereses y lo que quieres aportar"
+                label="Presentación"
                 type="textarea"
                 maxLength={5000}
                 value={form.presentacion}
@@ -320,9 +328,7 @@ export default function PerfilEgresado() {
               </p>
             </section>
             <section className="editor-section">
-              <span className="section-number">02 / EN TUS PALABRAS</span>
-              <h2>Un minuto para conocerte.</h2>
-              <p>Cuenta qué te apasiona, qué has aprendido y qué buscas.</p>
+              <h2>Video de presentación</h2>
               <div className="editor-grid">
                 {upload(
                   "presentacion",
@@ -342,10 +348,7 @@ export default function PerfilEgresado() {
               </small>
             </section>
             <section className="editor-section">
-              <span className="section-number">
-                03 / TU CAJA DE HERRAMIENTAS
-              </span>
-              <h2>Lo que sabes hacer.</h2>
+              <h2>Habilidades</h2>
               {p.habilidades.map((skill, i) => (
                 <div className="editor-item skill-editor" key={i}>
                   <Field
@@ -387,10 +390,7 @@ export default function PerfilEgresado() {
               </button>
             </section>
             <section className="editor-section">
-              <span className="section-number">
-                04 / APRENDIZAJES CON RESPALDO
-              </span>
-              <h2>Tus certificaciones.</h2>
+              <h2>Certificaciones</h2>
               {p.certificaciones.map((cert, i) => (
                 <div className="editor-item" key={i}>
                   <div className="item-heading">
@@ -453,10 +453,7 @@ export default function PerfilEgresado() {
               </button>
             </section>
             <section className="editor-section">
-              <span className="section-number">
-                05 / DEL APRENDIZAJE A LA ACCIÓN
-              </span>
-              <h2>Proyectos con tu sello.</h2>
+              <h2>Proyectos</h2>
               {p.proyectos.map((project, i) => (
                 <div className="editor-item" key={i}>
                   <div className="item-heading">
@@ -485,7 +482,7 @@ export default function PerfilEgresado() {
                     />
                   </div>
                   <Field
-                    label="Qué construiste y qué aprendiste"
+                    label="Descripción del proyecto"
                     type="textarea"
                     maxLength={2000}
                     value={project.descripcion}
@@ -561,15 +558,18 @@ export default function PerfilEgresado() {
               </button>
             </section>
             <section className="editor-section">
-              <span className="section-number">06 / ABRE LA CONVERSACIÓN</span>
-              <h2>Contacto y disponibilidad.</h2>
+              <h2>Contacto y disponibilidad</h2>
               <div className="editor-grid">
                 {field(
                   "contacto_email",
                   "Correo de contacto (no cambia tu acceso)",
                   "email",
                 )}
-                {field("contacto_telefono", "Teléfono de contacto", "tel", 30)}
+                <PhoneField
+                  label="Teléfono de contacto"
+                  value={p.contacto_telefono}
+                  onChange={(v) => update("contacto_telefono", v)}
+                />
                 <Field
                   label="Disponibilidad"
                   value={p.disponibilidad}
@@ -593,8 +593,7 @@ export default function PerfilEgresado() {
               </div>
             </section>
             <section className="editor-section publication-settings">
-              <span className="section-number">07 / A TU MANERA</span>
-              <h2>Tu estilo. Tus decisiones.</h2>
+              <h2>Apariencia y privacidad</h2>
               <div className="theme-options">
                 {[
                   ["bosque", "Bosque"],
@@ -614,15 +613,9 @@ export default function PerfilEgresado() {
                 ))}
               </div>
               {[
-                [
-                  "publico",
-                  "Publicar mi portafolio y sus archivos para compartirlo mediante un enlace",
-                ],
-                ["mostrar_email", "Mostrar mi correo en el portafolio público"],
-                [
-                  "mostrar_telefono",
-                  "Mostrar mi teléfono en el portafolio público",
-                ],
+                ["publico", "Publicar portafolio y archivos"],
+                ["mostrar_email", "Mostrar correo público"],
+                ["mostrar_telefono", "Mostrar teléfono público"],
               ].map(([key, label]) => (
                 <label className="check-line" key={key}>
                   <input
@@ -633,12 +626,14 @@ export default function PerfilEgresado() {
                   {label}
                 </label>
               ))}
-              <p>
-                Al despublicar, el enlace deja de mostrar tu perfil. Los enlaces
-                temporales a archivos ya abiertos pueden durar hasta 5 minutos.
-                Los enlaces externos conservan la privacidad configurada en su
-                servicio.
-              </p>
+              <details>
+                <summary>Privacidad de los archivos</summary>
+                <p>
+                  Al despublicar se oculta tu perfil. Los enlaces de archivos ya
+                  abiertos pueden durar hasta 5 minutos. Los enlaces externos
+                  dependen de la privacidad de su servicio.
+                </p>
+              </details>
             </section>
             <MediaLibrary />
             <div className="editor-save">
@@ -657,7 +652,7 @@ export default function PerfilEgresado() {
               </button>
             </div>
           </fieldset>
-        </form>
+        </ValidatedForm>
       )}
     </GraduateLayout>
   );

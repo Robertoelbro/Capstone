@@ -72,12 +72,10 @@ export default function GraduateHub() {
     <GraduateLayout profile={profile}>
       <div className="hub-heading">
         <div>
-          <span className="eyebrow">UN NUEVO DÍA PARA CRECER</span>
           <h1>
             Hola, {profile.nombre}
             <span className="wave-leaf">❧</span>
           </h1>
-          <p>Tu próximo paso puede empezar por aquí.</p>
         </div>
         <Link
           className="round-link"
@@ -92,11 +90,7 @@ export default function GraduateHub() {
           <section className="recommendation-banner">
             <div>
               <span className="pill">PARA TI · SEGÚN TU CARRERA</span>
-              <h2>
-                Oportunidades con
-                <br />
-                <em>algo de ti.</em>
-              </h2>
+              <h2>Ofertas afines a mi carrera</h2>
               <p>
                 {area
                   ? `Encontramos ${
@@ -109,12 +103,11 @@ export default function GraduateHub() {
                 requisitos de cada oferta.
               </small>
               <a href="#hub-ofertas">
-                Explorar mi siguiente paso <FiArrowRight />
+                Ver ofertas <FiArrowRight />
               </a>
             </div>
             <div className="recommendation-paper">
               <span className="paper-pin" />
-              <span className="eyebrow">TU RUTA DE HOY</span>
               {(matching.length ? matching : jobs).slice(0, 3).map((j, i) => (
                 <Link to={`/ofertas/${j.id}/postular`} key={j.id}>
                   <span>0{i + 1}</span>
@@ -131,8 +124,7 @@ export default function GraduateHub() {
           <section className="hub-projects">
             <div className="section-heading">
               <div>
-                <span className="section-number">TU TALENTO EN ACCIÓN</span>
-                <h2>Lo que estás construyendo.</h2>
+                <h2>Mis proyectos</h2>
               </div>
               <Link to="/perfil-egresado">Mi portafolio ↗</Link>
             </div>
@@ -158,15 +150,7 @@ export default function GraduateHub() {
               {projects.length < 2 && (
                 <Link className="project-invitation" to="/perfil-egresado">
                   <span>＋</span>
-                  <strong>
-                    Tu próximo proyecto
-                    <br />
-                    merece ser visto.
-                  </strong>
-                  <small>
-                    Añade una demo, un repositorio o esa idea que llevaste a la
-                    práctica.
-                  </small>
+                  <strong>Añadir proyecto</strong>
                 </Link>
               )}
             </div>
@@ -174,8 +158,7 @@ export default function GraduateHub() {
           <section className="hub-jobs" id="hub-ofertas">
             <div className="section-heading">
               <div>
-                <span className="section-number">ENCUENTRA TU LUGAR</span>
-                <h2>Un comienzo a tu medida.</h2>
+                <h2>Ofertas de empleo</h2>
               </div>
               <span>{filtered.length} ofertas</span>
             </div>
@@ -292,13 +275,8 @@ export default function GraduateHub() {
         </div>
         <aside className="hub-aside">
           <section className="next-step-card">
-            <span className="eyebrow">SIGUE CRECIENDO</span>
             <FiBookOpen />
-            <h2>
-              Un paso pequeño.
-              <br />
-              <em>Una puerta nueva.</em>
-            </h2>
+            <h2>Completar perfil</h2>
             <strong>{percent}% de tu perfil completo</strong>
             <progress
               value={percent}
@@ -322,8 +300,7 @@ export default function GraduateHub() {
             )}
           </section>
           <section className="recent-card">
-            <span className="eyebrow">TU ACTIVIDAD</span>
-            <h2>Semillas que ya plantaste.</h2>
+            <h2>Mis postulaciones</h2>
             {applications.length ? (
               applications.slice(0, 4).map((a) => (
                 <Link key={a.id} to="/mis-postulaciones">
@@ -335,21 +312,12 @@ export default function GraduateHub() {
                 </Link>
               ))
             ) : (
-              <p>
-                Tu primera postulación aparecerá aquí. Las oportunidades te
-                esperan.
-              </p>
+              <p>Aún no has postulado.</p>
             )}
             <Link className="text-link" to="/mis-postulaciones">
               Ver mis postulaciones ↗
             </Link>
           </section>
-          <div className="hub-note">
-            Tu carrera no es una línea recta.
-            <br />
-            <em>Es un árbol de posibilidades.</em>
-            <span>❧</span>
-          </div>
         </aside>
       </div>
     </GraduateLayout>

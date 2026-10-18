@@ -40,12 +40,11 @@ export default function PortfolioView({ profile, editing = false }) {
           )}
         </div>
         <div className="portfolio-intro">
-          <span className="eyebrow">PERSONAS QUE ESTÁN CRECIENDO</span>
           <h1>
             {profile.nombre} <em>{profile.apellido}</em>
           </h1>
           <p className="portfolio-title">
-            {p.titular || profile.carrera || "Una historia por construir"}
+            {p.titular || profile.carrera || ""}
           </p>
           <div className="portfolio-meta">
             {p.ubicacion && (
@@ -60,27 +59,16 @@ export default function PortfolioView({ profile, editing = false }) {
             </span>
           </div>
         </div>
-        <div className="cover-note">
-          raíces fuertes,
-          <br />
-          <em>ideas nuevas.</em>
-          <span>✳</span>
-        </div>
       </section>
       <div className="portfolio-columns">
         <div>
           <section className="story-card">
-            <span className="section-number">01 / SOBRE MÍ</span>
-            <h2>
-              Mucho más que <em>un currículum.</em>
-            </h2>
+            <h2>Sobre mí</h2>
             <p className="personal-story">
-              {profile.presentacion ||
-                "Este espacio espera tu historia: qué te mueve, qué aprendiste y qué te gustaría construir."}
+              {profile.presentacion || "Sin presentación."}
             </p>
             {(p.video_id || p.video_url) && (
               <div className="intro-video">
-                <span className="eyebrow">CONÓCEME EN UN MINUTO</span>
                 {p.video_id ? (
                   <Asset
                     id={p.video_id}
@@ -98,18 +86,14 @@ export default function PortfolioView({ profile, editing = false }) {
           <section className="projects-section">
             <div className="section-heading">
               <div>
-                <span className="section-number">02 / HECHO POR MÍ</span>
-                <h2>
-                  Ideas que echan <em>raíces.</em>
-                </h2>
+                <h2>Proyectos</h2>
               </div>
-              <span className="handwritten">de la idea a la acción ↙</span>
             </div>
             {!p.proyectos.length ? (
               <div className="garden-empty">
                 {editing
-                  ? "Tu primer proyecto puede ser una tarea de clase, un experimento o algo que hiciste por curiosidad. Añádelo desde el editor."
-                  : "Pronto encontrarás proyectos en este espacio."}
+                  ? "Añade proyectos desde el editor."
+                  : "Sin proyectos."}
               </div>
             ) : (
               <div className="portfolio-projects">
@@ -163,10 +147,7 @@ export default function PortfolioView({ profile, editing = false }) {
             )}
           </section>
           <section className="certificates-section">
-            <span className="section-number">03 / SIGO APRENDIENDO</span>
-            <h2>
-              Pequeños logros. <em>Nuevas posibilidades.</em>
-            </h2>
+            <h2>Certificaciones</h2>
             {!p.certificaciones.length ? (
               <p className="garden-empty">
                 Aquí aparecerán las certificaciones que añadas.
@@ -196,10 +177,9 @@ export default function PortfolioView({ profile, editing = false }) {
         </div>
         <aside className="portfolio-aside">
           <section className="tree-card">
-            <span className="eyebrow">MI ÁRBOL PROFESIONAL</span>
             <GrowthTree percent={percent} />
-            <h3>Cada paso deja una rama.</h3>
-            <p>Formación, proyectos y aprendizajes que cuentan quién soy.</p>
+            <h3>Desarrollo profesional</h3>
+
             <div className="tree-counts">
               <span>
                 <strong>{p.proyectos.length}</strong>proyectos
@@ -213,7 +193,7 @@ export default function PortfolioView({ profile, editing = false }) {
             </div>
           </section>
           <section className="skills-card">
-            <h2>Mi caja de herramientas</h2>
+            <h2>Habilidades</h2>
             {!p.habilidades.length ? (
               <p>Aún no hay habilidades añadidas.</p>
             ) : (
@@ -244,18 +224,12 @@ export default function PortfolioView({ profile, editing = false }) {
           </section>
           {profile.carrera && (
             <section className="education-card">
-              <span className="eyebrow">DONDE EMPEZÓ TODO</span>
               <h3>{profile.carrera}</h3>
               {profile.anio_egreso && <p>Egreso · {profile.anio_egreso}</p>}
             </section>
           )}
           <section className="contact-card">
-            <span className="eyebrow">CONVERSEMOS</span>
-            <h2>
-              El próximo capítulo
-              <br />
-              <em>puede ser juntos.</em>
-            </h2>
+            <h2>Contacto</h2>
             {(editing || p.mostrar_email) && p.contacto_email && (
               <a href={`mailto:${p.contacto_email}`}>
                 <FiMail />
@@ -278,8 +252,7 @@ export default function PortfolioView({ profile, editing = false }) {
         </aside>
       </div>
       <div className="portfolio-signoff">
-        En constante crecimiento <span>❧</span>{" "}
-        <small>Un portafolio hecho en BranchIt</small>
+        BranchIT <span>❧</span> <small>Un portafolio hecho en BranchIt</small>
       </div>
     </div>
   );

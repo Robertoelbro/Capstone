@@ -4,6 +4,10 @@ import { api } from "../api";
 import { useSession } from "../session";
 import WorkspaceNav from "../Components/WorkspaceNav";
 
+import { ValidatedForm, PhoneField } from "../Components/FormFields";
+import AnswerField from "../Components/AnswerField";
+import JobFacts from "../Components/JobFacts";
+
 export default function Apply() {
   const { jobId } = useParams();
   const { user } = useSession();
@@ -33,7 +37,12 @@ export default function Apply() {
     setError("");
     const form = new FormData(event.currentTarget);
     const respuestas = Object.fromEntries(
-      job.preguntas.map((q) => [q.id, form.get(`answer_${q.id}`) || ""]),
+      job.preguntas.map((q) => [
+        q.id,
+        q.tipo === "seleccion_multiple"
+          ? form.getAll(`answer_${q.id}`)
+          : form.get(`answer_${q.id}`) || "",
+      ]),
     );
     try {
       await api.apply({
@@ -58,7 +67,7 @@ export default function Apply() {
       <Link className="back-link" to="/ofertas">
         ← Volver a las ofertas
       </Link>
-      <h1>Postula a tu próxima oportunidad</h1>
+      <h1>Postular</h1>
       {error && (
         <p className="mensaje-error" role="alert">
           {error}
@@ -77,6 +86,7 @@ export default function Apply() {
                 : job.modalidad || "Modalidad por definir"}
             </p>
             <p>{job.descripcion}</p>
+            <JobFacts job={job} />
             <h3>Requisitos</h3>
             <p>{job.requisitos || "No se indicaron requisitos adicionales."}</p>
           </aside>
@@ -97,24 +107,13 @@ export default function Apply() {
               <p>Explora otras oportunidades disponibles.</p>
             </div>
           ) : (
-            <form className="tarjeta" onSubmit={submit}>
+            <ValidatedForm className="tarjeta" onSubmit={submit}>
               <h2>Completa tu postulación</h2>
               <p>
                 Compartiremos tu nombre, carrera, presentación y correo (
                 {user.email}) con {job.nombre_empresa}.
               </p>
-              <div className="campo">
-                <label htmlFor="telefono">
-                  Teléfono de contacto (opcional)
-                </label>
-                <input
-                  id="telefono"
-                  name="telefono"
-                  type="tel"
-                  autoComplete="tel"
-                  maxLength={30}
-                />
-              </div>
+              <PhoneField label="Teléfono de contacto (opcional)" />
               <div className="campo">
                 <label htmlFor="cv_url">
                   Enlace a tu currículum o portafolio (opcional)
@@ -140,41 +139,7 @@ export default function Apply() {
               </div>
               {job.preguntas.length > 0 && <h3>Preguntas de la empresa</h3>}
               {job.preguntas.map((q) => (
-                <div className="campo" key={q.id}>
-                  <label htmlFor={`answer_${q.id}`}>
-                    {q.etiqueta}{" "}
-                    {q.obligatoria ? "(obligatoria)" : "(opcional)"}
-                  </label>
-                  {q.tipo === "seleccion" ? (
-                    <select
-                      id={`answer_${q.id}`}
-                      name={`answer_${q.id}`}
-                      required={q.obligatoria}
-                    >
-                      <option value="">Selecciona una opción</option>
-                      {q.opciones.map((value) => (
-                        <option key={value}>{value}</option>
-                      ))}
-                    </select>
-                  ) : q.tipo === "parrafo" ? (
-                    <textarea
-                      id={`answer_${q.id}`}
-                      name={`answer_${q.id}`}
-                      required={q.obligatoria}
-                      rows={3}
-                      maxLength={3000}
-                    />
-                  ) : (
-                    <input
-                      id={`answer_${q.id}`}
-                      name={`answer_${q.id}`}
-                      required={q.obligatoria}
-                      type={q.tipo === "numero" ? "number" : "text"}
-                      step={q.tipo === "numero" ? "any" : undefined}
-                      maxLength={3000}
-                    />
-                  )}
-                </div>
+                <AnswerField key={q.id} question={q} />
               ))}
               <label className="consent">
                 <input type="checkbox" name="consentimiento" required />
@@ -184,7 +149,7 @@ export default function Apply() {
               <button className="boton boton-primario" disabled={busy}>
                 {busy ? "Enviando…" : "Enviar postulación"}
               </button>
-            </form>
+            </ValidatedForm>
           )}
         </div>
       )}

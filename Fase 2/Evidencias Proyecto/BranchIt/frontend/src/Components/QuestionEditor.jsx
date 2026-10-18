@@ -6,10 +6,6 @@ export default function QuestionEditor({ questions, onChange }) {
   return (
     <fieldset className="question-editor">
       <legend>Preguntas para postular</legend>
-      <p className="muted">
-        Agrega hasta 10 preguntas relacionadas con el cargo. Evita solicitar
-        datos sensibles que no sean necesarios para evaluar la postulación.
-      </p>
       {questions.map((q, index) => (
         <div className="question-row" key={q.id}>
           <div className="section-heading">
@@ -40,29 +36,83 @@ export default function QuestionEditor({ questions, onChange }) {
               id={`type_${q.id}`}
               value={q.tipo}
               onChange={(e) =>
-                update(q.id, { tipo: e.target.value, opciones: [] })
+                update(q.id, {
+                  tipo: e.target.value,
+                  opciones: ["seleccion", "seleccion_multiple"].includes(
+                    e.target.value,
+                  )
+                    ? ["", ""]
+                    : [],
+                })
               }
             >
-              <option value="texto">Texto corto</option>
-              <option value="parrafo">Texto largo</option>
+              <option value="texto">Texto corto (200 caracteres)</option>
+              <option value="parrafo">Texto largo (3.000 caracteres)</option>
               <option value="numero">Número</option>
-              <option value="seleccion">Selección</option>
+              <option value="seleccion">Una opción</option>
+              <option value="seleccion_multiple">Varias opciones</option>
             </select>
           </div>
-          {q.tipo === "seleccion" && (
-            <div className="campo">
-              <label htmlFor={`options_${q.id}`}>
-                Opciones (una por línea, entre 2 y 15)
-              </label>
-              <textarea
-                id={`options_${q.id}`}
-                value={q.opciones.join("\n")}
-                required
-                rows={3}
-                onChange={(e) =>
-                  update(q.id, { opciones: e.target.value.split("\n") })
-                }
-              />
+          {["seleccion", "seleccion_multiple"].includes(q.tipo) && (
+            <div className="choice-options">
+              {q.opciones.map((option, optionIndex) => (
+                <div className="choice-option" key={optionIndex}>
+                  <label className="editor-field">
+                    Opción {optionIndex + 1}
+                    <input
+                      required
+                      maxLength={100}
+                      value={option}
+                      ref={(node) =>
+                        node?.setCustomValidity(
+                          option && !option.trim()
+                            ? "Escribe una opción."
+                            : option.trim() &&
+                              q.opciones.some(
+                                (v, i) =>
+                                  i !== optionIndex &&
+                                  v.trim().toLocaleLowerCase() ===
+                                    option.trim().toLocaleLowerCase(),
+                              )
+                            ? "Las opciones deben ser distintas."
+                            : "",
+                        )
+                      }
+                      onChange={(e) =>
+                        update(q.id, {
+                          opciones: q.opciones.map((v, i) =>
+                            i === optionIndex ? e.target.value : v,
+                          ),
+                        })
+                      }
+                    />
+                  </label>
+                  <button
+                    type="button"
+                    disabled={q.opciones.length <= 2}
+                    aria-label={`Quitar opción ${optionIndex + 1} de pregunta ${
+                      index + 1
+                    }`}
+                    onClick={() =>
+                      update(q.id, {
+                        opciones: q.opciones.filter(
+                          (_, i) => i !== optionIndex,
+                        ),
+                      })
+                    }
+                  >
+                    Quitar
+                  </button>
+                </div>
+              ))}
+              <button
+                type="button"
+                className="boton boton-secundario"
+                disabled={q.opciones.length >= 15}
+                onClick={() => update(q.id, { opciones: [...q.opciones, ""] })}
+              >
+                Agregar opción
+              </button>
             </div>
           )}
           <label className="consent">

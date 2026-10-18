@@ -5,7 +5,19 @@ import { Link } from "react-router-dom";
 import WorkspaceNav from "../Components/WorkspaceNav";
 import QuestionEditor from "../Components/QuestionEditor";
 
+import {
+  ValidatedForm,
+  MoneyField,
+  SearchField,
+} from "../Components/FormFields";
+import { careers } from "../data/catalogs";
+
 const OFERTA_VACIA = {
+  sueldo: "",
+  funciones: "",
+  perfiles_deseados: [],
+  condiciones_laborales: "",
+  adaptada_discapacidad: "",
   categoria: "General",
   titulo: "",
   descripcion: "",
@@ -27,6 +39,7 @@ export default function OfertasEmpresa() {
   const [error, setError] = useState(null);
   const [busy, setBusy] = useState(false);
   const [success, setSuccess] = useState("");
+  const [careerCandidate, setCareerCandidate] = useState("");
 
   function cargarOfertas() {
     return api
@@ -50,8 +63,17 @@ export default function OfertasEmpresa() {
   }
 
   function editar(oferta) {
+    setCareerCandidate("");
     setEditandoId(oferta.id);
     setForm({
+      sueldo: oferta.sueldo || "",
+      funciones: oferta.funciones || "",
+      perfiles_deseados: oferta.perfiles_deseados || [],
+      condiciones_laborales: oferta.condiciones_laborales || "",
+      adaptada_discapacidad:
+        oferta.adaptada_discapacidad == null
+          ? ""
+          : String(oferta.adaptada_discapacidad),
       categoria: oferta.categoria || "General",
       titulo: oferta.titulo,
       descripcion: oferta.descripcion,
@@ -64,6 +86,7 @@ export default function OfertasEmpresa() {
   }
 
   function cancelarEdicion() {
+    setCareerCandidate("");
     setEditandoId(null);
     setForm(OFERTA_VACIA);
   }
@@ -77,6 +100,14 @@ export default function OfertasEmpresa() {
       const { activa, ...base } = form;
       const payload = {
         ...base,
+        sueldo: Number(base.sueldo),
+        perfiles_deseados: [
+          ...new Set([
+            ...base.perfiles_deseados,
+            ...(careerCandidate ? [careerCandidate] : []),
+          ]),
+        ],
+        adaptada_discapacidad: base.adaptada_discapacidad === "true",
         preguntas: base.preguntas.map((q) => ({
           ...q,
           opciones: q.opciones.map((v) => v.trim()).filter(Boolean),
@@ -129,10 +160,11 @@ export default function OfertasEmpresa() {
         </p>
       )}
 
-      <form
+      <ValidatedForm
+        key={editandoId || "new"}
         onSubmit={enviar}
         className="tarjeta"
-        style={{ maxWidth: 560, marginBottom: "2rem" }}
+        style={{ maxWidth: 880, marginBottom: "2rem" }}
       >
         <fieldset disabled={busy}>
           <h2 style={{ fontSize: "1.1rem" }}>
@@ -174,10 +206,102 @@ export default function OfertasEmpresa() {
               ))}
             </select>
           </div>
-          <QuestionEditor
-            questions={form.preguntas}
-            onChange={(value) => actualizar("preguntas", value)}
+          <div className="campo">
+            <label htmlFor="descripcion">Información del cargo</label>
+            <textarea
+              id="descripcion"
+              required
+              rows={3}
+              value={form.descripcion}
+              onChange={(e) => actualizar("descripcion", e.target.value)}
+            />
+          </div>
+          <MoneyField
+            value={form.sueldo}
+            onChange={(v) => actualizar("sueldo", v)}
           />
+          <label className="editor-field">
+            Funciones del cargo
+            <textarea
+              required
+              maxLength={10000}
+              rows={4}
+              value={form.funciones}
+              onChange={(e) => actualizar("funciones", e.target.value)}
+            />
+          </label>
+          <fieldset>
+            <legend>Perfiles deseados *</legend>
+            <div className="desired-careers">
+              {form.perfiles_deseados.map((v) => (
+                <button
+                  type="button"
+                  key={v}
+                  aria-label={`Quitar ${v}`}
+                  onClick={() =>
+                    actualizar(
+                      "perfiles_deseados",
+                      form.perfiles_deseados.filter((item) => item !== v),
+                    )
+                  }
+                >
+                  {v} ×
+                </button>
+              ))}
+            </div>
+            {form.perfiles_deseados.length < 20 && (
+              <>
+                <SearchField
+                  key={`${editandoId}-${form.perfiles_deseados.length}`}
+                  label="Añadir carrera"
+                  options={careers}
+                  required={!form.perfiles_deseados.length}
+                  onChange={setCareerCandidate}
+                />
+                <button
+                  type="button"
+                  className="boton boton-secundario"
+                  disabled={!careerCandidate}
+                  onClick={() => {
+                    if (!form.perfiles_deseados.includes(careerCandidate))
+                      actualizar("perfiles_deseados", [
+                        ...form.perfiles_deseados,
+                        careerCandidate,
+                      ]);
+                    setCareerCandidate("");
+                  }}
+                >
+                  Agregar perfil
+                </button>
+              </>
+            )}
+          </fieldset>
+          <label className="editor-field">
+            Condiciones laborales
+            <textarea
+              required
+              rows={4}
+              maxLength={10000}
+              value={form.condiciones_laborales}
+              onChange={(e) =>
+                actualizar("condiciones_laborales", e.target.value)
+              }
+            />
+          </label>
+          <label className="editor-field">
+            ¿El cargo contempla adaptaciones para personas con discapacidad?
+            <select
+              required
+              value={form.adaptada_discapacidad}
+              onChange={(e) =>
+                actualizar("adaptada_discapacidad", e.target.value)
+              }
+            >
+              <option value="">Seleccionar</option>
+              <option value="true">Sí</option>
+              <option value="false">No</option>
+            </select>
+          </label>
           {editandoId && (
             <label className="consent">
               <input
@@ -188,16 +312,6 @@ export default function OfertasEmpresa() {
               Recibir nuevas postulaciones
             </label>
           )}
-          <div className="campo">
-            <label htmlFor="descripcion">Descripción</label>
-            <textarea
-              id="descripcion"
-              required
-              rows={3}
-              value={form.descripcion}
-              onChange={(e) => actualizar("descripcion", e.target.value)}
-            />
-          </div>
           <div className="campo">
             <label htmlFor="requisitos">Requisitos</label>
             <textarea
@@ -229,6 +343,11 @@ export default function OfertasEmpresa() {
             </select>
           </div>
 
+          <QuestionEditor
+            questions={form.preguntas}
+            onChange={(value) => actualizar("preguntas", value)}
+          />
+
           {error && (
             <p className="mensaje-error" role="alert">
               {error}
@@ -254,7 +373,7 @@ export default function OfertasEmpresa() {
             )}
           </div>
         </fieldset>
-      </form>
+      </ValidatedForm>
 
       <div style={{ display: "grid", gap: "1rem" }}>
         {ofertas.length === 0 && (

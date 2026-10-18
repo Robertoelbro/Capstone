@@ -4,6 +4,7 @@ from datetime import datetime
 from sqlalchemy import (
     Column,
     Integer,
+    BigInteger,
     String,
     Text,
     Boolean,
@@ -121,6 +122,11 @@ class OfertaEmpleo(Base):
     formulario_version = Column(Integer, default=1, nullable=False)
     categoria = Column(String(80), nullable=False, default='General')
     demo_clave = Column(String(80))
+    sueldo = Column(BigInteger, nullable=True)
+    funciones = Column(Text, nullable=True)
+    perfiles_deseados = Column(JSON, nullable=True)
+    condiciones_laborales = Column(Text, nullable=True)
+    adaptada_discapacidad = Column(Boolean, nullable=True)
 
     empresa = relationship("PerfilEmpresa", back_populates="ofertas")
     postulaciones = relationship("Postulacion", back_populates="oferta")

@@ -59,7 +59,7 @@ class AssistantFlows(unittest.TestCase):
         company, company_headers = self.account('empresa','company@example.com')
         _, headers = self.account()
         offer = self.client.post(f'/empresas/{company}/ofertas',headers=company_headers,json={
-            'titulo':'Backend junior','descripcion':'Construir APIs en Python','requisitos':'SQL'}).json()['id']
+            'sueldo':850000,'funciones':'Desarrollar y mantener proyectos del equipo.','perfiles_deseados':['Ingeniería en Informática'],'condiciones_laborales':'Jornada completa, contrato de trabajo.','adaptada_discapacidad':True,'titulo':'Backend junior','descripcion':'Construir APIs en Python','requisitos':'SQL'}).json()['id']
         with patch.dict('os.environ', {'GEMINI_API_KEY':'isolated-key'}), patch('app.routers.assistant.urlopen',return_value=self.provider('¿Cómo validarías los datos de una API?')) as provider:
             result = self.client.post('/assistant/chat',headers=headers,json=self.request(modo='entrevista',borrador='',oferta_id=offer,
                 historial=[{'role':'user','text':'Comencemos'},{'role':'model','text':'¿Qué proyecto destacarías?'}],mensaje='Un sistema de inventario.'))

@@ -19,7 +19,7 @@ def main():
         os.environ['DATABASE_URL'] = 'sqlite:///' + str(Path(directory) / 'preview.db').replace('\\', '/')
         os.environ['SECRET_KEY'] = secrets.token_urlsafe(48)
         os.environ['DATA_ENCRYPTION_KEY'] = Fernet.generate_key().decode()
-        os.environ['CORS_ORIGINS'] = 'http://127.0.0.1:5174,http://localhost:5174'
+        os.environ['CORS_ORIGINS'] = 'http://127.0.0.1:5174,http://localhost:5174,http://127.0.0.1:5175'
         from alembic import command
         from alembic.config import Config
         config = Config(str(ROOT / 'alembic.ini'))
@@ -44,6 +44,7 @@ def main():
             session = client.post('/auth/login', json={'email':'empresa@example.com','password':'EmpresaDemo2026!'}).json()
             headers = {'Authorization':'Bearer '+session['access_token']}
             client.post(f"/empresas/{company['id']}/ofertas", headers=headers, json={
+                'sueldo':850000,'funciones':'Desarrollar interfaces web accesibles.','perfiles_deseados':['Ingeniería en Informática'],'condiciones_laborales':'Contrato indefinido. Jornada completa.','adaptada_discapacidad':True,
                 'titulo':'Desarrollador/a frontend junior',
                 'descripcion':'Oportunidad ficticia para validar el recorrido de BranchIT. Colabora en interfaces web con un equipo que acompaña tus primeros pasos.',
                 'requisitos':'Conocimientos de JavaScript y React. Puedes demostrar tu experiencia con proyectos académicos.',
@@ -66,7 +67,7 @@ def main():
             db.commit()
         print('QA temporal en http://127.0.0.1:8001. Cuentas y datos ficticios; no se usa PostgreSQL.')
         try:
-            uvicorn.run(app, host='127.0.0.1', port=8001)
+            uvicorn.run(app, host='127.0.0.1', port=int(os.getenv('QA_PORT', '8001')))
         finally:
             engine.dispose()
 

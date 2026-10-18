@@ -31,6 +31,12 @@ def job_area(job):
 
 def recommendation(job, career):
     area = career_area(career)
-    match = bool(area and job_area(job) == area)
+    desired = job.perfiles_deseados or []
+    profile_match = bool(career and desired and any(
+        normalize(career).strip() == normalize(profile).strip() or
+        (area and career_area(profile) == area) for profile in desired))
+    match = profile_match if desired else bool(area and job_area(job) == area)
+    if profile_match:
+        return {'afin': True, 'motivo': 'Tu carrera coincide con los perfiles o áreas solicitadas.', 'area_carrera': area}
     return {'afin':match, 'motivo':f'Coincide con el área de tu carrera: {area}.' if match else
             'Explora esta oportunidad y revisa sus requisitos.', 'area_carrera':area}

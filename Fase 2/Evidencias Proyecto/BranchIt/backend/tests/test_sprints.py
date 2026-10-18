@@ -17,7 +17,7 @@ class SprintFlows(unittest.TestCase):
 
     def offer(self, questions=None):
         company, headers = self.account('empresa', 'empresa@example.com')
-        payload = {'titulo': 'Primer empleo', 'descripcion': 'Desarrollador junior', 'preguntas': questions or []}
+        payload = {'sueldo':850000,'funciones':'Desarrollar y mantener proyectos del equipo.','perfiles_deseados':['Ingeniería en Informática'],'condiciones_laborales':'Jornada completa, contrato de trabajo.','adaptada_discapacidad':True,'titulo': 'Primer empleo', 'descripcion': 'Desarrollador junior', 'preguntas': questions or []}
         result = self.client.post(f'/empresas/{company}/ofertas', headers=headers, json=payload)
         self.assertEqual(result.status_code, 201, result.text)
         return company, headers, result.json()

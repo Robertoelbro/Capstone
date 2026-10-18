@@ -86,7 +86,7 @@ class AccountFlows(unittest.TestCase):
         other, other_headers = self.account('empresa', 'otra@example.com')
         graduate, grad_headers = self.account()
         url = f'/empresas/{company}/ofertas'
-        payload = {'titulo': 'Desarrollador junior', 'descripcion': 'Primera experiencia', 'modalidad': 'remoto'}
+        payload = {'sueldo':850000,'funciones':'Desarrollar y mantener proyectos del equipo.','perfiles_deseados':['Ingeniería en Informática'],'condiciones_laborales':'Jornada completa, contrato de trabajo.','adaptada_discapacidad':True,'titulo': 'Desarrollador junior', 'descripcion': 'Primera experiencia', 'modalidad': 'remoto'}
         self.assertEqual(self.client.post(url, json=payload).status_code, 401)
         self.assertEqual(self.client.post(url, json=payload, headers=grad_headers).status_code, 403)
         self.assertEqual(self.client.post(f'/empresas/{graduate}/ofertas', json=payload, headers=grad_headers).status_code, 403)

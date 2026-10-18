@@ -40,15 +40,7 @@ export default function Dashboard() {
     <section className="contenedor dashboard">
       <WorkspaceNav />
       <div className="dashboard-heading">
-        <span className="eyebrow">
-          {company ? "ESPACIO EMPRESA" : "ESPACIO EGRESADO"}
-        </span>
         <h1>{data ? `Hola, ${data.nombre}` : "Tu espacio en BranchIT"}</h1>
-        <p className="muted">
-          {company
-            ? "Conecta tus oportunidades con quienes están comenzando."
-            : "Dale forma a tu presentación y encuentra tu próxima oportunidad."}
-        </p>
       </div>
       {error && (
         <p className="mensaje-error" role="alert">
@@ -87,17 +79,7 @@ export default function Dashboard() {
           </div>
           <div className="dashboard-actions">
             <article className="tarjeta">
-              <span className="eyebrow">TU SIGUIENTE PASO</span>
-              <h2>
-                {company
-                  ? "Publica una oportunidad"
-                  : "Muestra lo que puedes aportar"}
-              </h2>
-              <p>
-                {company
-                  ? "Define el cargo, sus requisitos y las preguntas para tus postulantes."
-                  : "Tu presentación ayuda a las empresas a conocer tus intereses y tu formación."}
-              </p>
+              <h2>{company ? "Publicar oferta" : "Mi presentación"}</h2>
               <Link
                 className="boton boton-primario"
                 to={company ? "/ofertas-empresa" : "/perfil-egresado"}
@@ -107,19 +89,9 @@ export default function Dashboard() {
               </Link>
             </article>
             <article className="tarjeta">
-              <span className="eyebrow">
-                {company ? "CONOCE A TUS CANDIDATOS" : "TU BÚSQUEDA LABORAL"}
-              </span>
               <h2>
-                {company
-                  ? "Revisa las postulaciones"
-                  : "Encuentra tu primera oportunidad"}
+                {company ? "Revisa las postulaciones" : "Ofertas de empleo"}
               </h2>
-              <p>
-                {company
-                  ? "En cada oferta puedes consultar los antecedentes y las respuestas recibidas."
-                  : "Explora las ofertas y responde las preguntas que solicita cada empresa."}
-              </p>
               <Link
                 className="boton boton-secundario"
                 to={company ? "/ofertas-empresa" : "/ofertas"}

@@ -9,17 +9,19 @@ export default function Footer() {
           <Link to={user ? panelPath(user) : "/"} className="brand">
             Branch<span>IT</span>
           </Link>
-          <p>El primer paso hacia todo lo que puedes ser.</p>
         </div>
         <nav aria-label="Enlaces del pie de página">
-          {user?.tipo === "empresa" ? <Link to="/perfil-empresa">Mi empresa</Link> : <Link to="/">Buscar empleo</Link>}
+          {user?.tipo === "empresa" ? (
+            <Link to="/perfil-empresa">Mi empresa</Link>
+          ) : (
+            <Link to="/">Buscar empleo</Link>
+          )}
           <Link to="/registro/empresa">Soy empresa</Link>
           <Link to="/registro">Crear cuenta</Link>
         </nav>
       </div>
       <div className="contenedor footer-bottom">
         <span>© {new Date().getFullYear()} BranchIT</span>
-        <span>Hecho para quienes están comenzando.</span>
       </div>
     </footer>
   );

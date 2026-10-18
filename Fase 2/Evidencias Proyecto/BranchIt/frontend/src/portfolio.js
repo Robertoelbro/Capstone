@@ -19,13 +19,13 @@ export const emptyPortfolio = {
 export function growth(profile) {
   const p = { ...emptyPortfolio, ...profile?.portfolio };
   const steps = [
-    ["Tu historia", !!profile?.presentacion],
-    ["Tu formación", !!profile?.carrera],
-    ["Una foto tuya", !!(p.foto_id || profile?.foto_url)],
-    ["Tus habilidades", !!p.habilidades.length],
-    ["Tu primer proyecto", !!p.proyectos.length],
+    ["Presentación", !!profile?.presentacion],
+    ["Carrera", !!profile?.carrera],
+    ["Foto", !!(p.foto_id || profile?.foto_url)],
+    ["Habilidades", !!p.habilidades.length],
+    ["Proyecto", !!p.proyectos.length],
     ["Certificaciones", !!p.certificaciones.length],
-    ["Preséntate en video", !!(p.video_id || p.video_url)],
+    ["Video de presentación", !!(p.video_id || p.video_url)],
     ["Disponibilidad", p.disponibilidad !== "Sin definir"],
   ];
   return {

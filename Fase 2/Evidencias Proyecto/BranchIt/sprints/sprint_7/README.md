@@ -62,3 +62,20 @@ Referencias:
 - https://ai.google.dev/gemini-api/docs/generate-content/text-generation
 - https://ai.google.dev/gemini-api/docs/pricing
 - https://ai.google.dev/gemini-api/terms
+
+
+## Ajuste visual del chat — 18 de octubre de 2026
+
+- Acceso flotante crema con texto verde oscuro y colores explícitos en título,
+  descripción e iconos para evitar que el texto se pierda con estilos globales.
+- Opción de ocultar el botón y recuperarlo desde «Modo IA» en la navegación.
+  La preferencia se conserva por cuenta en la pestaña; ocultar o minimizar no
+  borra la conversación mientras la página siga abierta.
+- Panel de conversación con cabecera fija, mensajes desplazables, respuestas
+  del asistente a la izquierda, mensajes del usuario a la derecha y compositor
+  fijo abajo. La preparación del borrador/oferta se pliega al enviar.
+- Enter envía, Mayúsculas+Enter agrega una línea; el mensaje propio aparece
+  mientras se espera y el foco vuelve al cuadro de escritura al responder.
+- Verificación local con proveedor simulado: ocultar/recuperar, conservación
+  de mensajes, teclado, vista de 320 px sin desbordamiento horizontal del panel,
+  compilación y lint. Sin cambios en backend, modelo o base de datos.

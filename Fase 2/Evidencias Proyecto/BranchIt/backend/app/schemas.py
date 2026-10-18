@@ -38,7 +38,7 @@ class InputModel(BaseModel):
 
     @model_validator(mode="after")
     def non_null_required_fields(self):
-        for name in ("nombre", "apellido", "titulo", "descripcion", "activa", "categoria"):
+        for name in ("nombre", "apellido", "titulo", "descripcion", "activa", "categoria", "sueldo", "funciones", "perfiles_deseados", "condiciones_laborales", "adaptada_discapacidad"):
             if name in self.model_fields_set and getattr(self, name) is None and type(self).__name__ in ("PerfilEgresadoUpdate", "OfertaEmpleoUpdate"):
                 raise ValueError(f"El campo {name} no puede ser nulo.")
         return self
@@ -146,6 +146,7 @@ class PerfilEgresadoOut(PerfilEgresadoBase):
 # ---------- Perfil Empresa ----------
 
 class PerfilEmpresaUpdate(InputModel):
+    rubro: Optional[Annotated[str, Field(min_length=1, max_length=150)]] = None
     nombre_empresa: Annotated[str, Field(min_length=1, max_length=150)]
     descripcion: str = Field(max_length=5000)
     foto_id: Optional[Annotated[str, Field(pattern=r'^[a-f0-9]{32}$')]] = None
@@ -174,20 +175,31 @@ class PerfilEmpresaOut(BaseModel):
 class Pregunta(InputModel):
     id: str = Field(pattern=r'^[a-zA-Z0-9_-]{1,40}$')
     etiqueta: str = Field(min_length=1, max_length=160)
-    tipo: Literal['texto', 'parrafo', 'numero', 'seleccion'] = 'texto'
+    tipo: Literal['texto', 'parrafo', 'numero', 'seleccion', 'seleccion_multiple'] = 'texto'
     obligatoria: bool = True
     opciones: list[Annotated[str, Field(min_length=1, max_length=100)]] = Field(default_factory=list, max_length=15)
 
     @model_validator(mode='after')
     def valid_options(self):
-        if self.tipo == 'seleccion' and (len(self.opciones) < 2 or len(set(self.opciones)) != len(self.opciones)):
+        self.opciones = [value.strip() for value in self.opciones]
+        if self.tipo in ('seleccion', 'seleccion_multiple') and (len(self.opciones) < 2 or len({v.strip().casefold() for v in self.opciones}) != len(self.opciones) or any(not v.strip() for v in self.opciones)):
             raise ValueError('Una selección necesita al menos dos opciones distintas.')
-        if self.tipo != 'seleccion' and self.opciones:
+        if self.tipo not in ('seleccion', 'seleccion_multiple') and self.opciones:
             raise ValueError('Solo las preguntas de selección admiten opciones.')
         return self
 
 
 class PreguntasModel(InputModel):
+    @field_validator('perfiles_deseados', check_fields=False)
+    @classmethod
+    def valid_profiles(cls, values):
+        if values is None:
+            return values
+        cleaned = [value.strip() for value in values]
+        if any(not value for value in cleaned) or len({value.casefold() for value in cleaned}) != len(cleaned):
+            raise ValueError('Selecciona perfiles distintos y no vacíos.')
+        return cleaned
+
     @field_validator('preguntas', check_fields=False)
     @classmethod
     def unique_questions(cls, values):
@@ -199,6 +211,11 @@ class PreguntasModel(InputModel):
 
 
 class OfertaEmpleoBase(PreguntasModel):
+    sueldo: Optional[Annotated[int, Field(strict=True, gt=0, le=9999999999)]] = None
+    funciones: Optional[Annotated[str, Field(min_length=1, max_length=10000)]] = None
+    perfiles_deseados: Optional[list[Annotated[str, Field(min_length=1, max_length=150)]]] = Field(default=None, min_length=1, max_length=20)
+    condiciones_laborales: Optional[Annotated[str, Field(min_length=1, max_length=10000)]] = None
+    adaptada_discapacidad: Optional[bool] = None
     categoria: Annotated[str, Field(min_length=1, max_length=80)] = 'General'
     preguntas: list[Pregunta] = Field(default_factory=list, max_length=10)
     titulo: Annotated[str, Field(min_length=1, max_length=150)]
@@ -209,10 +226,19 @@ class OfertaEmpleoBase(PreguntasModel):
 
 
 class OfertaEmpleoCreate(OfertaEmpleoBase):
-    pass
+    sueldo: Annotated[int, Field(strict=True, gt=0, le=9999999999)]
+    funciones: Annotated[str, Field(min_length=1, max_length=10000)]
+    perfiles_deseados: list[Annotated[str, Field(min_length=1, max_length=150)]] = Field(min_length=1, max_length=20)
+    condiciones_laborales: Annotated[str, Field(min_length=1, max_length=10000)]
+    adaptada_discapacidad: bool
 
 
 class OfertaEmpleoUpdate(PreguntasModel):
+    sueldo: Optional[Annotated[int, Field(strict=True, gt=0, le=9999999999)]] = None
+    funciones: Optional[Annotated[str, Field(min_length=1, max_length=10000)]] = None
+    perfiles_deseados: Optional[list[Annotated[str, Field(min_length=1, max_length=150)]]] = Field(default=None, min_length=1, max_length=20)
+    condiciones_laborales: Optional[Annotated[str, Field(min_length=1, max_length=10000)]] = None
+    adaptada_discapacidad: Optional[bool] = None
     categoria: Optional[Annotated[str, Field(min_length=1, max_length=80)]] = None
     preguntas: Optional[list[Pregunta]] = Field(default=None, max_length=10)
     titulo: Optional[Annotated[str, Field(min_length=1, max_length=150)]] = None
@@ -256,7 +282,7 @@ class PostulacionCreate(InputModel):
     telefono: str = Field(default='', max_length=30)
     cv_url: str = Field(default='', max_length=500)
     mensaje: str = Field(default='', max_length=3000)
-    respuestas: dict[str, Annotated[str, Field(max_length=3000)]] = Field(default_factory=dict, max_length=10)
+    respuestas: dict[str, Annotated[str, Field(max_length=3000)] | Annotated[list[Annotated[str, Field(min_length=1, max_length=100)]], Field(max_length=15)]] = Field(default_factory=dict, max_length=10)
     consentimiento: Literal[True]
 
 

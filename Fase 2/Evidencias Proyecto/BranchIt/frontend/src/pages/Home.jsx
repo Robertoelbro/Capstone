@@ -1,3 +1,4 @@
+import JobFacts from "../Components/JobFacts";
 import { useEffect, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import {
@@ -62,18 +63,7 @@ export default function Home() {
       {!user && (
         <section className="hero contenedor">
           <div className="hero-copy">
-            <span className="eyebrow">
-              <span className="status-dot" /> EL COMIENZO DE ALGO GRANDE
-            </span>
-            <h1>
-              Tu primera oportunidad.
-              <br />
-              <span>Todo tu potencial.</span>
-            </h1>
-            <p>
-              El lugar donde los recién egresados conectan con empresas que
-              creen en el talento que comienza.
-            </p>
+            <h1>Empleo para recién egresados</h1>
             <div className="hero-links">
               <Link className="boton boton-primario" to="/registro">
                 Crea tu perfil gratis <FiArrowRight />
@@ -81,34 +71,12 @@ export default function Home() {
               <a href="#ofertas">Explorar ofertas ↓</a>
             </div>
           </div>
-          <div className="hero-art" aria-hidden="true">
-            <div className="orbit orbit-one" />
-            <div className="orbit orbit-two" />
-            <div className="career-card">
-              <span className="career-icon">
-                <FiBriefcase />
-              </span>
-              <span>Tu próximo capítulo</span>
-              <strong>
-                El talento empieza
-                <br />
-                con una oportunidad.
-              </strong>
-              <div className="career-line" />
-              <div className="career-line short" />
-              <span className="career-badge">
-                Un mundo por construir <FiArrowUpRight />
-              </span>
-            </div>
-            <div className="floating-tag">✦ Cree en tu potencial</div>
-          </div>
         </section>
       )}
       <section id="ofertas" className="contenedor jobs-section">
         <div className="section-heading">
           <div>
-            <span className="eyebrow">ENCUENTRA TU LUGAR</span>
-            <h2>Oportunidades para comenzar</h2>
+            <h2>Ofertas de empleo</h2>
           </div>
           <span className="results-count" role="status" aria-atomic="true">
             {loading
@@ -217,7 +185,9 @@ export default function Home() {
                 onClick={() => setSelected(selected === job.id ? null : job.id)}
                 aria-expanded={selected === job.id}
                 aria-controls={`job-detail-${job.id}`}
-                aria-label={`${selected === job.id ? "Cerrar detalle" : "Ver oportunidad"}: ${job.titulo}`}
+                aria-label={`${
+                  selected === job.id ? "Cerrar detalle" : "Ver oportunidad"
+                }: ${job.titulo}`}
               >
                 {selected === job.id ? "Cerrar detalle" : "Ver oportunidad"}{" "}
                 <FiArrowUpRight />
@@ -225,6 +195,7 @@ export default function Home() {
               {selected === job.id && (
                 <div className="job-expanded" id={`job-detail-${job.id}`}>
                   <p>{job.descripcion}</p>
+                  <JobFacts job={job} />
                   <strong>Requisitos</strong>
                   <p>
                     {job.requisitos ||
@@ -255,43 +226,9 @@ export default function Home() {
       </section>
       {!user && (
         <>
-          <section className="contenedor benefits">
-            <div>
-              <span className="benefit-number">01</span>
-              <h3>Tu potencial cuenta</h3>
-              <p>
-                Da visibilidad a tu formación, tus proyectos y lo que puedes
-                aportar.
-              </p>
-            </div>
-            <div>
-              <span className="benefit-number">02</span>
-              <h3>Conexiones con propósito</h3>
-              <p>
-                Descubre empresas y oportunidades para comenzar tu camino
-                profesional.
-              </p>
-            </div>
-            <div>
-              <span className="benefit-number">03</span>
-              <h3>Un espacio para crecer</h3>
-              <p>
-                Mantén tu presentación al día a medida que construyes tu
-                experiencia.
-              </p>
-            </div>
-          </section>
           <section className="contenedor company-cta">
             <div>
-              <span className="eyebrow">PARA EMPRESAS</span>
-              <h2>
-                El próximo gran talento
-                <br />
-                puede estar empezando.
-              </h2>
-              <p>
-                Publica tus ofertas y abre la puerta a una nueva generación.
-              </p>
+              <h2>Publica ofertas de empleo</h2>
             </div>
             <Link className="boton boton-primario" to="/registro/empresa">
               Registra tu empresa <FiArrowRight />

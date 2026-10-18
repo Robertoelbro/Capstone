@@ -42,16 +42,26 @@ def apply(data: schemas.PostulacionCreate, user=Depends(current_user), db: Sessi
     expected = {q['id'] for q in job.preguntas}
     if set(data.respuestas) - expected:
         raise HTTPException(422, 'El formulario contiene respuestas a preguntas no solicitadas.')
-    answers = {key: value.strip() for key, value in data.respuestas.items()}
+    answers = {key: [item.strip() for item in value] if isinstance(value, list) else value.strip() for key, value in data.respuestas.items()}
     for question in job.preguntas:
         answer = answers.get(question['id'], '')
+        multiple = question['tipo'] == 'seleccion_multiple'
+        if multiple and question['id'] not in answers:
+            answer = []
+        if isinstance(answer, list) != multiple:
+            raise HTTPException(422, 'El tipo de respuesta no corresponde a la pregunta.')
+        if multiple and (len(set(answer)) != len(answer) or any(item not in question['opciones'] for item in answer)):
+            raise HTTPException(422, 'Selecciona opciones válidas y sin repetir.')
+        if question['tipo'] == 'texto' and len(answer) > 200:
+            raise HTTPException(422, 'El texto corto admite hasta 200 caracteres.')
         if question['obligatoria'] and not answer:
             raise HTTPException(422, f"Responde la pregunta: {question['etiqueta']}")
         if answer and question['tipo'] == 'seleccion' and answer not in question['opciones']:
             raise HTTPException(422, 'Selecciona una opción válida.')
         if answer and question['tipo'] == 'numero':
             try:
-                if not Decimal(answer).is_finite():
+                import re
+                if not re.fullmatch(r'-?[0-9]+([.,][0-9]+)?', answer) or not Decimal(answer.replace(',', '.')).is_finite():
                     raise InvalidOperation
             except InvalidOperation:
                 raise HTTPException(422, 'La respuesta numérica no es válida.')

@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
+from pydantic import ValidationError
 
 from .. import models, schemas
 from ..database import get_db
@@ -76,6 +77,14 @@ def actualizar_oferta(
     perfil_empresa = _obtener_perfil_empresa_o_404(db, usuario_id)
     oferta = _obtener_oferta_o_404(db, perfil_empresa.id, oferta_id)
     changes = datos.model_dump(exclude_unset=True)
+    # Closing/reopening legacy jobs remains possible; editing content requires completing it.
+    if set(changes) - {'activa'}:
+        effective = schemas.OfertaEmpleoOut.model_validate(oferta).model_dump()
+        effective = {key: value for key, value in effective.items() if key in schemas.OfertaEmpleoCreate.model_fields}
+        try:
+            schemas.OfertaEmpleoCreate.model_validate(effective | {k: v for k, v in changes.items() if k != 'activa'})
+        except ValidationError:
+            raise HTTPException(422, 'Completa el sueldo, las funciones, la información del cargo, los perfiles deseados, las condiciones y la adaptación para discapacidad antes de guardar.')
     if "preguntas" in changes and changes["preguntas"] != oferta.preguntas:
         oferta.formulario_version += 1
     for campo, valor in changes.items():
@@ -117,7 +126,7 @@ def update_company_profile(usuario_id: int, data: schemas.PerfilEmpresaUpdate, d
         asset = db.get(models.ArchivoPortfolio, data.foto_id)
         if not asset or asset.usuario_id != usuario_id or asset.tipo != 'foto' or not asset.verificado:
             raise HTTPException(422, 'Selecciona una foto verificada de tu propia cuenta.')
-    for key, value in data.model_dump().items():
+    for key, value in data.model_dump(exclude_unset=True).items():
         setattr(profile, key, value)
     db.commit()
     db.refresh(profile)

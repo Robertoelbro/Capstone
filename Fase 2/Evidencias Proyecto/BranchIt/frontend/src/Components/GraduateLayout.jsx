@@ -17,9 +17,7 @@ export default function GraduateLayout({ profile, children }) {
       <aside className="garden-sidebar">
         <div className="garden-wordmark">
           <span>❧</span>
-          <strong>
-            BranchIt<small>Tu carrera, tu crecimiento.</small>
-          </strong>
+          <strong>BranchIt</strong>
         </div>
         <nav aria-label="Mi espacio">
           <NavLink to="/hub-egresado">
@@ -40,20 +38,14 @@ export default function GraduateLayout({ profile, children }) {
           </NavLink>
         </nav>
         <div className="sidebar-growth">
-          <span className="eyebrow">MI CRECIMIENTO</span>
           <GrowthTree percent={percent} />
-          <strong>Tu historia toma forma</strong>
+          <strong>Perfil completo</strong>
           <progress value={percent} max="100" aria-label="Perfil completo" />
-          <p>Tu progreso refleja lo que has añadido a tu perfil.</p>
+
           <NavLink to="/perfil-egresado">
-            Seguir creciendo <FiArrowUpRight />
+            Editar perfil <FiArrowUpRight />
           </NavLink>
         </div>
-        <small className="sidebar-note">
-          No necesitas tenerlo todo resuelto.
-          <br />
-          Solo dar el siguiente paso.
-        </small>
       </aside>
       <div className="garden-content">{children}</div>
     </div>
