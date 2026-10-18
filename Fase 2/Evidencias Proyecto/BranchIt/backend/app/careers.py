@@ -3,11 +3,11 @@ import unicodedata
 import re
 
 AREAS = {
-    'Tecnología': ['informatica','computacion','software','programacion','ciberseguridad','analista programador','sistemas'],
-    'Salud': ['enfermeria','medicina','kinesiologia','nutricion','odontologia','terapia ocupacional','salud'],
-    'Administración y finanzas': ['administracion','contabilidad','contador','finanzas','ingenieria comercial','auditoria'],
-    'Diseño y comunicación': ['diseno','publicidad','periodismo','comunicacion','audiovisual'],
-    'Educación': ['pedagogia','educacion','parvulos','educador'],
+    'Tecnología': ['informatica','computacion','software','programacion','ciberseguridad','analista programador','sistemas','redes','telecomunicaciones'],
+    'Salud': ['enfermeria','medicina','kinesiologia','nutricion','odontologia','terapia ocupacional','salud','fonoaudiologia','tecnologia medica','obstetricia'],
+    'Administración y finanzas': ['administracion','contabilidad','contador','finanzas','ingenieria comercial','auditoria','recursos humanos'],
+    'Diseño y comunicación': ['diseno','publicidad','periodismo','comunicacion','audiovisual','artes visuales','marketing'],
+    'Educación': ['pedagogia','educacion','parvulos','educador','bibliotecologia'],
     'Ingeniería y construcción': ['construccion','arquitectura','ingenieria civil','ingenieria mecanica','electricidad','ingenieria electrica'],
     'Logística y operaciones': ['logistica','comercio exterior','transporte','ingenieria industrial','operaciones'],
     'Turismo y gastronomía': ['turismo','gastronomia','hoteleria','cocina'],
