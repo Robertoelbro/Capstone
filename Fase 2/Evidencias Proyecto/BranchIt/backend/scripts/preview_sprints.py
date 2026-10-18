@@ -35,9 +35,11 @@ def main():
         with TestClient(app) as client:
             company = client.post('/auth/registro/empresa', json={
                 'email':'empresa@example.com', 'password':'EmpresaDemo2026!',
+                'rut':'11.111.111-1', 'telefono':'+56911111111', 'fecha_identidad':'2020-01-01',
                 'nombre_empresa':'Horizonte Digital · Demo', 'rubro':'Tecnología'}).json()
             client.post('/auth/registro/egresado', json={
                 'email':'egresado@example.com', 'password':'EgresadoDemo2026!',
+                'rut':'12.345.678-5', 'telefono':'+56922222222', 'fecha_identidad':'2000-01-01',
                 'nombre':'Ana', 'apellido':'Demo', 'carrera':'Ingeniería en Informática', 'anio_egreso':2026})
             session = client.post('/auth/login', json={'email':'empresa@example.com','password':'EmpresaDemo2026!'}).json()
             headers = {'Authorization':'Bearer '+session['access_token']}

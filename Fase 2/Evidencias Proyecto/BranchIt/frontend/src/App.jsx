@@ -13,6 +13,7 @@ import Apply from "./pages/Apply";
 import Applications from "./pages/Applications";
 import PublicPortfolio from "./pages/PublicPortfolio";
 import GraduateHub from "./pages/GraduateHub";
+import GraduateAssistant from "./Components/GraduateAssistant";
 import { panelPath, useSession } from "./session";
 
 function Protected({ role, children }) {
@@ -33,7 +34,9 @@ Protected.propTypes = {
 };
 
 export default function App() {
+  const { user } = useSession();
   const location = useLocation();
+  const showAssistant = user?.tipo === "egresado" && !location.pathname.startsWith("/p/");
   const previousPath = useRef(location.pathname);
   useEffect(() => {
     const titles = {
@@ -52,7 +55,7 @@ export default function App() {
     }
   }, [location.pathname]);
   return (
-    <div className="app-shell">
+    <div className={`app-shell${showAssistant ? " has-graduate-assistant" : ""}`}>
       {import.meta.env.VITE_DEMO_MODE === "true" && (
         <div className="demo-banner">
           Vista de prueba · Datos y cuentas ficticios
@@ -142,6 +145,7 @@ export default function App() {
         </Routes>
       </main>
       <Footer />
+      {showAssistant && <GraduateAssistant key={user.id} />}
     </div>
   );
 }
