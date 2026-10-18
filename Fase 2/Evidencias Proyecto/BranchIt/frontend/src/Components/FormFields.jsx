@@ -1,3 +1,4 @@
+import CountryPrefix from "./CountryPrefix";
 import { useEffect, useId, useRef, useState } from "react";
 import PropTypes from "prop-types";
 import {
@@ -308,6 +309,15 @@ const countries = getCountries()
     label: `${names.of(code)} (+${getCountryCallingCode(code)})`,
   }))
   .sort((a, b) => a.label.localeCompare(b.label, "es"));
+const phoneOptions = [
+  { value: "CL-mobile", code: "CL", name: "Chile móvil", prefix: "+569" },
+  ...countries.map((item) => ({
+    value: item.code,
+    code: item.code,
+    name: names.of(item.code),
+    prefix: `+${getCountryCallingCode(item.code)}`,
+  })),
+];
 function splitPhone(value) {
   const parsed = parsePhoneNumberFromString(value || "");
   if (parsed?.country === "CL" && parsed.nationalNumber.startsWith("9"))
@@ -358,18 +368,11 @@ export function PhoneField({
     <div className="editor-field">
       <label htmlFor={id}>{label}</label>
       <div className="phone-fields">
-        <select
-          aria-label="País y prefijo telefónico"
+        <CountryPrefix
           value={country}
-          onChange={(e) => change(e.target.value, number)}
-        >
-          <option value="CL-mobile">+569 · Chile móvil</option>
-          {countries.map((item) => (
-            <option key={item.code} value={item.code}>
-              +{getCountryCallingCode(item.code)} · {names.of(item.code)}
-            </option>
-          ))}
-        </select>
+          options={phoneOptions}
+          onChange={(next) => change(next, number)}
+        />
         <input
           ref={ref}
           id={id}

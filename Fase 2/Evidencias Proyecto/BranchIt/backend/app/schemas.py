@@ -286,5 +286,9 @@ class PostulacionCreate(InputModel):
     consentimiento: Literal[True]
 
 
+class CierreConvocatoria(InputModel):
+    postulacion_id: Optional[Annotated[int, Field(strict=True, gt=0)]] = None
+
+
 class PresentacionInput(InputModel):
     presentacion: str = Field(min_length=1, max_length=5000)

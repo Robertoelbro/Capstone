@@ -1,4 +1,5 @@
-.has-graduate-assistant { padding-bottom: 112px; }
+.has-graduate-assistant main { padding-bottom: 112px; }
+.has-graduate-assistant .site-footer { padding-bottom: max(112px, env(safe-area-inset-bottom)); }
 .ai-launcher-group { position: fixed; z-index: 30; right: max(24px, env(safe-area-inset-right)); bottom: max(24px, env(safe-area-inset-bottom)); display: flex; align-items: center; gap: 8px; max-width: calc(100vw - 32px); }
 .app-shell .ai-launcher { display: flex; align-items: center; gap: 14px; padding: 14px 18px 14px 14px; min-height: 72px; border: 2px solid #527434; border-radius: 28px 28px 10px 28px; background: #fffef9; color: #263e30; box-shadow: 0 8px 28px #263e3026; text-align: left; }
 .app-shell .ai-launcher:hover { background: #e9efdb; border-color: #35532e; }

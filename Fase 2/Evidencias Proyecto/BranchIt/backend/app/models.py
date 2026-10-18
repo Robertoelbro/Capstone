@@ -15,6 +15,7 @@ from sqlalchemy import (
     JSON,
     UniqueConstraint,
     Index,
+    text,
 )
 from sqlalchemy.orm import relationship
 
@@ -134,13 +135,18 @@ class OfertaEmpleo(Base):
 
 class Postulacion(Base):
     __tablename__ = 'postulaciones'
-    __table_args__ = (UniqueConstraint('oferta_id', 'egresado_id', name='uq_postulacion_oferta_egresado'),)
+    __table_args__ = (
+        UniqueConstraint('oferta_id', 'egresado_id', name='uq_postulacion_oferta_egresado'),
+        Index('uq_seleccion_por_oferta', 'oferta_id', unique=True,
+              postgresql_where=text('seleccionada = true'), sqlite_where=text('seleccionada = 1')),
+    )
 
     id = Column(Integer, primary_key=True)
     oferta_id = Column(Integer, ForeignKey('ofertas_empleo.id'), nullable=False, index=True)
     egresado_id = Column(Integer, ForeignKey('perfiles_egresado.id'), nullable=False, index=True)
     fecha_postulacion = Column(DateTime, default=datetime.utcnow, nullable=False)
     datos_cifrados = Column(Text, nullable=False)
+    seleccionada = Column(Boolean, default=False, nullable=False)
     oferta = relationship('OfertaEmpleo', back_populates='postulaciones')
     egresado = relationship('PerfilEgresado', back_populates='postulaciones')
 

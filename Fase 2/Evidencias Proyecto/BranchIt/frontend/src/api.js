@@ -25,15 +25,31 @@ async function solicitud(path, options = {}) {
     const cuerpo = await res.json().catch(() => ({}));
     if (res.status === 401 && path !== "/auth/login")
       window.dispatchEvent(new Event("session-expired"));
-    const fieldNames = { email: "Correo electrónico", password: "Contraseña", rut: "RUT", telefono: "Teléfono", fecha_identidad: "Fecha", carrera: "Carrera", rubro: "Giro comercial", nombre: "Nombre", apellido: "Apellido", nombre_empresa: "Nombre de empresa" };
+    const fieldNames = {
+      email: "Correo electrónico",
+      password: "Contraseña",
+      rut: "RUT",
+      telefono: "Teléfono",
+      fecha_identidad: "Fecha",
+      carrera: "Carrera",
+      rubro: "Giro comercial",
+      nombre: "Nombre",
+      apellido: "Apellido",
+      nombre_empresa: "Nombre de empresa",
+    };
     const message = Array.isArray(cuerpo.detail)
-      ? cuerpo.detail.map((item) => {
-          const field = item.loc?.filter((part) => part !== "body").join(" · ");
-          const label = fieldNames[field] || field || "Formulario";
-          const detail = item.msg?.startsWith("Value error, ")
-            ? item.msg.slice(13) : "Revisa este campo: es obligatorio y debe tener un formato válido.";
-          return `${label}: ${detail}`;
-        }).join(" ")
+      ? cuerpo.detail
+          .map((item) => {
+            const field = item.loc
+              ?.filter((part) => part !== "body")
+              .join(" · ");
+            const label = fieldNames[field] || field || "Formulario";
+            const detail = item.msg?.startsWith("Value error, ")
+              ? item.msg.slice(13)
+              : "Revisa este campo: es obligatorio y debe tener un formato válido.";
+            return `${label}: ${detail}`;
+          })
+          .join(" ")
       : cuerpo.detail;
     throw new Error(
       message || "No pudimos completar la solicitud. Inténtalo nuevamente.",
@@ -46,10 +62,19 @@ async function solicitud(path, options = {}) {
 
 export const api = {
   assistantStatus: () => solicitud("/assistant/status"),
-  assistantChat: (data) => solicitud("/assistant/chat", {method: "POST", body: JSON.stringify(data)}),
+  assistantChat: (data) =>
+    solicitud("/assistant/chat", {
+      method: "POST",
+      body: JSON.stringify(data),
+    }),
   companyProfile: (id) => solicitud(`/empresas/${id}/perfil`),
-  saveCompanyProfile: (id, data) => solicitud(`/empresas/${id}/perfil`, {method: "PUT", body: JSON.stringify(data)}),
-  changePassword: (data) => solicitud("/auth/password", {method: "POST", body: JSON.stringify(data)}),
+  saveCompanyProfile: (id, data) =>
+    solicitud(`/empresas/${id}/perfil`, {
+      method: "PUT",
+      body: JSON.stringify(data),
+    }),
+  changePassword: (data) =>
+    solicitud("/auth/password", { method: "POST", body: JSON.stringify(data) }),
   recommendations: (id) => solicitud(`/egresados/${id}/recomendaciones`),
   publicPortfolio: (id) => solicitud(`/portfolio/${id}`),
   savePortfolio: (data) =>
@@ -66,6 +91,11 @@ export const api = {
       body: JSON.stringify(data),
     }),
   myApplications: () => solicitud("/api/employment/applications/me"),
+  closeJob: (id, postulacion_id) =>
+    solicitud(`/api/employment/jobs/${id}/closure`, {
+      method: "PUT",
+      body: JSON.stringify({ postulacion_id }),
+    }),
   applicants: (id) => solicitud(`/api/employment/jobs/${id}/applications`),
   crearPresentacion: (id, presentacion) =>
     solicitud(`/egresados/${id}/presentacion`, {

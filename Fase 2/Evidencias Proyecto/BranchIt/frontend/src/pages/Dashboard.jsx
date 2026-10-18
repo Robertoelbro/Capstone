@@ -82,9 +82,9 @@ export default function Dashboard() {
               <h2>{company ? "Publicar oferta" : "Mi presentación"}</h2>
               <Link
                 className="boton boton-primario"
-                to={company ? "/ofertas-empresa" : "/perfil-egresado"}
+                to={company ? "/ofertas-empresa/nueva" : "/perfil-egresado"}
               >
-                {company ? "Gestionar ofertas" : "Editar mi presentación"}
+                {company ? "Crear oferta laboral" : "Editar mi presentación"}
                 <FiArrowRight />
               </Link>
             </article>
@@ -96,7 +96,7 @@ export default function Dashboard() {
                 className="boton boton-secundario"
                 to={company ? "/ofertas-empresa" : "/ofertas"}
               >
-                {company ? "Ver mis ofertas" : "Explorar ofertas"}
+                {company ? "Ver ofertas creadas" : "Explorar ofertas"}
                 <FiArrowRight />
               </Link>
             </article>

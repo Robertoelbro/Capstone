@@ -36,18 +36,33 @@ Protected.propTypes = {
 export default function App() {
   const { user } = useSession();
   const location = useLocation();
-  const showAssistant = user?.tipo === "egresado" && !location.pathname.startsWith("/p/");
+  const showAssistant =
+    user?.tipo === "egresado" && !location.pathname.startsWith("/p/");
   const previousPath = useRef(location.pathname);
   useEffect(() => {
     const titles = {
-      "/": "Buscar empleo", "/ofertas": "Ofertas de empleo",
-      "/iniciar-sesion": "Iniciar sesión", "/registro": "Registro de egresado",
-      "/registro/empresa": "Registro de empresa", "/perfil-empresa": "Mi empresa",
-      "/perfil-egresado": "Mi presentación", "/hub-empresa": "Panel de empresa",
-      "/hub-egresado": "Panel de egresado", "/mis-postulaciones": "Mis postulaciones",
-      "/ofertas-empresa": "Gestionar ofertas",
+      "/": "Buscar empleo",
+      "/ofertas": "Ofertas de empleo",
+      "/iniciar-sesion": "Iniciar sesión",
+      "/registro": "Registro de egresado",
+      "/registro/empresa": "Registro de empresa",
+      "/perfil-empresa": "Mi empresa",
+      "/perfil-egresado": "Mi presentación",
+      "/hub-empresa": "Panel de empresa",
+      "/hub-egresado": "Panel de egresado",
+      "/mis-postulaciones": "Mis postulaciones",
+      "/ofertas-empresa": "Ofertas creadas",
+      "/ofertas-empresa/nueva": "Crear oferta laboral",
     };
-    const title = titles[location.pathname] || (location.pathname.startsWith("/p/") ? "Portafolio profesional" : location.pathname.endsWith("/postular") ? "Postular a una oferta" : location.pathname.endsWith("/postulaciones") ? "Postulaciones recibidas" : "Página no encontrada");
+    const title =
+      titles[location.pathname] ||
+      (location.pathname.startsWith("/p/")
+        ? "Portafolio profesional"
+        : location.pathname.endsWith("/postular")
+        ? "Postular a una oferta"
+        : location.pathname.endsWith("/postulaciones")
+        ? "Postulaciones recibidas"
+        : "Página no encontrada");
     document.title = `${title} | BranchIT`;
     if (previousPath.current !== location.pathname) {
       document.getElementById("contenido")?.focus();
@@ -55,7 +70,9 @@ export default function App() {
     }
   }, [location.pathname]);
   return (
-    <div className={`app-shell${showAssistant ? " has-graduate-assistant" : ""}`}>
+    <div
+      className={`app-shell${showAssistant ? " has-graduate-assistant" : ""}`}
+    >
       {import.meta.env.VITE_DEMO_MODE === "true" && (
         <div className="demo-banner">
           Vista de prueba · Datos y cuentas ficticios
@@ -64,7 +81,14 @@ export default function App() {
       <Header />
       <main id="contenido" tabIndex={-1}>
         <Routes>
-          <Route path="/perfil-empresa" element={<Protected role="empresa"><PerfilEmpresa /></Protected>} />
+          <Route
+            path="/perfil-empresa"
+            element={
+              <Protected role="empresa">
+                <PerfilEmpresa />
+              </Protected>
+            }
+          />
           <Route path="/p/:id" element={<PublicPortfolio />} />
           <Route path="/" element={<Home />} />
           <Route path="/ofertas" element={<Home />} />
@@ -126,10 +150,18 @@ export default function App() {
             }
           />
           <Route
+            path="/ofertas-empresa/nueva"
+            element={
+              <Protected role="empresa">
+                <OfertasEmpresa key="create" creating />
+              </Protected>
+            }
+          />
+          <Route
             path="/ofertas-empresa"
             element={
               <Protected role="empresa">
-                <OfertasEmpresa />
+                <OfertasEmpresa key="list" />
               </Protected>
             }
           />

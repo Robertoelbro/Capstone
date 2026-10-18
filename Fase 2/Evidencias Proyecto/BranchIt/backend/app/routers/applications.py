@@ -16,11 +16,14 @@ def role(user, expected):
         raise HTTPException(403, 'Tu tipo de cuenta no puede realizar esta acción.')
 
 
-def serialize(item):
-    return {'id': item.id, 'oferta_id': item.oferta_id,
+def serialize(item, private=False):
+    result = {'id': item.id, 'oferta_id': item.oferta_id,
             'titulo': item.oferta.titulo, 'nombre_empresa': item.oferta.empresa.nombre_empresa,
             'fecha_postulacion': item.fecha_postulacion, 'oferta_activa': item.oferta.activa,
-            'estado': 'recibida', 'datos': decrypt_data(item.datos_cifrados)}
+            'estado': 'recibida' if item.oferta.activa else 'cerrada', 'datos': decrypt_data(item.datos_cifrados)}
+    if private:
+        result['seleccionada'] = item.seleccionada
+    return result
 
 
 @router.post('/applications', status_code=201)
@@ -96,5 +99,27 @@ def applicants(job_id: int, user=Depends(current_user), db: Session = Depends(ge
            .filter(models.OfertaEmpleo.id == job_id, models.PerfilEmpresa.usuario_id == user.id).first())
     if not job:
         raise HTTPException(404, 'Oferta no encontrada.')
-    return [serialize(item) for item in db.query(models.Postulacion).filter_by(oferta_id=job.id)
+    return [serialize(item, private=True) for item in db.query(models.Postulacion).filter_by(oferta_id=job.id)
             .order_by(models.Postulacion.fecha_postulacion.desc()).all()]
+
+
+@router.put('/jobs/{job_id}/closure')
+def close_call(job_id: int, data: schemas.CierreConvocatoria, user=Depends(current_user), db: Session = Depends(get_db)):
+    role(user, 'empresa')
+    job = (db.query(models.OfertaEmpleo).join(models.PerfilEmpresa)
+           .filter(models.OfertaEmpleo.id == job_id, models.PerfilEmpresa.usuario_id == user.id)
+           .with_for_update(of=models.OfertaEmpleo).first())
+    if not job:
+        raise HTTPException(404, 'Oferta no encontrada.')
+    selected = None
+    if data.postulacion_id is not None:
+        selected = db.query(models.Postulacion).filter_by(id=data.postulacion_id, oferta_id=job.id).first()
+        if not selected:
+            raise HTTPException(422, 'Selecciona un postulante de esta oferta.')
+    db.query(models.Postulacion).filter_by(oferta_id=job.id).update({'seleccionada': False}, synchronize_session='fetch')
+    db.flush()
+    if selected:
+        selected.seleccionada = True
+    job.activa = False
+    db.commit()
+    return {'oferta_id': job.id, 'activa': False, 'postulacion_seleccionada_id': data.postulacion_id}

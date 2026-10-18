@@ -65,7 +65,12 @@ export default function Applications() {
                 ).toLocaleDateString("es-CL")}
               </p>
             </div>
-            <span className="status-badge">Recibida</span>
+            <span className="status-badge">
+              {!item.oferta_activa ? "Convocatoria cerrada" : "Recibida"}
+            </span>
+            {jobId && item.seleccionada && (
+              <span className="status-badge">Candidato seleccionado</span>
+            )}
           </div>
           {!item.oferta_activa && (
             <p className="muted">Esta oferta está cerrada.</p>

@@ -55,6 +55,76 @@ form[data-validated="true"] input[type="checkbox"]:invalid {
   grid-template-columns: minmax(100px, 0.85fr) minmax(110px, 1fr);
   gap: 8px;
 }
+.country-prefix {
+  position: relative;
+  min-width: 0;
+}
+.country-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 48px;
+  border: 1px solid #a6b299;
+  border-radius: 10px;
+  background: #fffef9;
+  color: #263e30;
+  white-space: nowrap;
+}
+.country-trigger img,
+.country-dropdown img {
+  width: 26px;
+  height: 18px;
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 1px solid #d4dccd;
+}
+.country-dropdown {
+  position: absolute;
+  z-index: 40;
+  top: 100%;
+  left: 0;
+  width: max(100%, 200px);
+  max-width: min(280px, 85vw);
+  margin-top: 4px;
+  padding: 8px;
+  border: 1px solid #54713d;
+  border-radius: 12px;
+  background: #fffef9;
+  box-shadow: 0 8px 24px #263e3020;
+}
+.country-dropdown ul {
+  max-height: 210px;
+  overflow-y: auto;
+  margin: 6px 0 0;
+  padding: 0;
+}
+.country-dropdown li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 8px 12px;
+  border-radius: 6px;
+}
+.country-dropdown .country-active,
+.country-dropdown li:hover {
+  background: #e5edda;
+}
+.offer-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.job-closure {
+  margin-top: 14px;
+}
+.job-closure fieldset {
+  padding: 16px;
+  border: 1px solid #bac8ac;
+  border-radius: 14px;
+}
 .phone-fields :is(input, select) {
   min-width: 0;
   width: 100%;
