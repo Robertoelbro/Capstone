@@ -1,4 +1,3 @@
-import React from "react";
 import { ValuesData } from "../../Constants";
 
 const Value = () => {
@@ -51,7 +50,7 @@ const Value = () => {
             <p className="text-blueColor font-extrabold text-2xl mb-3">
               Ready to switch a carrer?{" "}
             </p>
-            <p className="font-extrabold text-2xl ">Let's Get Started ! </p>
+            <p className="font-extrabold text-2xl ">¡Comencemos! </p>
           </div>
           <div className="right">
             <button className="border-2 border-blueColor rounded-lg text-lg font-semibold px-8 py-5 text-blueColor hover:bg-white hover:text-black ">

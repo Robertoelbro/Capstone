@@ -1,0 +1,50 @@
+/* WCAG 2.1 AA improvements; imported after the visual theme. */
+html { font-size: 100%; }
+body { line-height: 1.5; }
+button, input, select, textarea { font: inherit; }
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 3px solid #263e30 !important;
+  outline-offset: 4px !important;
+  box-shadow: 0 0 0 3px #fffef9 !important;
+}
+#contenido:focus { outline: none; }
+.skip-link:focus { z-index: 1000; background: #fffef9; color: #263e30; }
+input::placeholder, textarea::placeholder { color: #53634b !important; opacity: 1; }
+:where(.auth-form, .campo, .editor-field) :where(input, select, textarea) { border-color: #74816a; }
+:where(.auth-form, .campo, .editor-field) label { line-height: 1.6; }
+:where(.auth-form, .campo, .editor-field) input:not([type="checkbox"]):not([type="radio"]),
+:where(.auth-form, .campo, .editor-field) select { min-height: 44px; }
+.boton, .mobile-toggle, .role-tabs button, .upload-selected button { min-height: 44px; }
+.auth-switch a, .back-home, .text-link, .editor-section a { text-decoration: underline; text-underline-offset: .2em; }
+.jobs-section .search-bar label { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 0 8px; padding: 8px 12px; border-color: #74816a; }
+.jobs-section .search-label { grid-column: 1 / -1; grid-row: 1; color: #263e30; font-size: .875rem; font-weight: 600; }
+.jobs-section .search-bar select { grid-column: 1 / -1; }
+.jobs-section .search-bar input { padding: 6px 0; }
+.jobs-section .search-bar > .boton { align-self: stretch; }
+.mensaje-error { color: #9b1835; background: #fff0f2; border: 1px solid #b93650; }
+.mensaje-exito { color: #28522d; background: #eef5e8; border: 1px solid #58784a; }
+:where(.garden-layout, .garden-main, .company-profile-grid, .portfolio-layout) > * { min-width: 0; }
+:where(p, h1, h2, h3, label, a) { overflow-wrap: anywhere; }
+video, img { max-width: 100%; }
+@media (max-width: 480px) {
+  .form-row, .job-grid, .benefits, .company-profile-grid, .stats-grid { grid-template-columns: minmax(0, 1fr); }
+  .hero-links, .section-heading, .company-cta, .dashboard-actions { flex-direction: column; align-items: stretch; }
+  .search-bar { flex-direction: column; align-items: stretch; }
+  .career-card { max-width: 85%; }
+  .hero-art { min-width: 0; }
+  .orbit { max-width: 100%; }
+  .floating-tag { right: 0; max-width: 85%; }
+  .role-tabs { flex-wrap: wrap; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
+@media (forced-colors: active) {
+  .boton, input, select, textarea, .role-tabs button { border: 1px solid ButtonText; }
+  a:focus-visible, button:focus-visible { outline: 3px solid Highlight !important; }
+}
+
+:root { --color-muted: #53634b; }
+.auth-story { background-color: #294c35; }
+.results-count { color: #53634b; }

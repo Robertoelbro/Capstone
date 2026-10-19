@@ -1,0 +1,654 @@
+[
+  {
+    "name": "usuarios",
+    "columns": [
+      {
+        "name": "id",
+        "type": "INTEGER",
+        "pk": true,
+        "fk": [],
+        "uk": false,
+        "nullable": false
+      },
+      {
+        "name": "rut",
+        "type": "VARCHAR(12)",
+        "pk": false,
+        "fk": [],
+        "uk": true,
+        "nullable": true
+      },
+      {
+        "name": "telefono",
+        "type": "VARCHAR(30)",
+        "pk": false,
+        "fk": [],
+        "uk": false,
+        "nullable": true
+      },
+      {
+        "name": "fecha_identidad",
+        "type": "DATE",
+        "pk": false,
+        "fk": [],
+        "uk": false,
+        "nullable": true
+      },
+      {
+        "name": "email",
+        "type": "VARCHAR(255)",
+        "pk": false,
+        "fk": [],
+        "uk": true,
+        "nullable": false
+      },
+      {
+        "name": "password_hash",
+        "type": "VARCHAR(255)",
+        "pk": false,
+        "fk": [],
+        "uk": false,
+        "nullable": false
+      },
+      {
+        "name": "tipo",
+        "type": "tipousuario",
+        "pk": false,
+        "fk": [],
+        "uk": false,
+        "nullable": false
+      },
+      {
+        "name": "fecha_registro",
+        "type": "TIMESTAMP WITHOUT TIME ZONE",
+        "pk": false,
+        "fk": [],
+        "uk": false,
+        "nullable": false
+      },
+      {
+        "name": "activo",
+        "type": "BOOLEAN",
+        "pk": false,
+        "fk": [],
+        "uk": false,
+        "nullable": false
+      },
+      {
+        "name": "token_version",
+        "type": "INTEGER",
+        "pk": false,
+        "fk": [],
+        "uk": false,
+        "nullable": false
+      }
+    ]
+  },
+  {
+    "name": "archivos_portfolio",
+    "columns": [
+      {
+        "name": "id",
+        "type": "VARCHAR(32)",
+        "pk": true,
+        "fk": [],
+        "uk": false,
+        "nullable": false
+      },
+      {
+        "name": "usuario_id",
+        "type": "INTEGER",
+        "pk": false,
+        "fk": [
+          "usuarios.id"
+        ],
+        "uk": false,
+        "nullable": false
+      },
+      {
+        "name": "tipo",
+        "type": "VARCHAR(20)",
+        "pk": false,
+        "fk": [],
+        "uk": false,
+        "nullable": false
+      },
+      {
+        "name": "nombre",
+        "type": "VARCHAR(180)",
+        "pk": false,
+        "fk": [],
+        "uk": false,
+        "nullable": false
+      },
+      {
+        "name": "mime",
+        "type": "VARCHAR(80)",
+        "pk": false,
+        "fk": [],
+        "uk": false,
+        "nullable": false
+      },
+      {
+        "name": "tamano",
+        "type": "INTEGER",
+        "pk": false,
+        "fk": [],
+        "uk": false,
+        "nullable": false
+      },
+      {
+        "name": "duracion",
+        "type": "INTEGER",
+        "pk": false,
+        "fk": [],
+        "uk": false,
+        "nullable": true
+      },
+      {
+        "name": "pathname",
+        "type": "VARCHAR(255)",
+        "pk": false,
+        "fk": [],
+        "uk": true,
+        "nullable": false
+      },
+      {
+        "name": "verificado",
+        "type": "BOOLEAN",
+        "pk": false,
+        "fk": [],
+        "uk": false,
+        "nullable": false
+      },
+      {
+        "name": "creado",
+        "type": "TIMESTAMP WITHOUT TIME ZONE",
+        "pk": false,
+        "fk": [],
+        "uk": false,
+        "nullable": false
+      }
+    ]
+  },
+  {
+    "name": "notificaciones",
+    "columns": [
+      {
+        "name": "id",
+        "type": "INTEGER",
+        "pk": true,
+        "fk": [],
+        "uk": false,
+        "nullable": false
+      },
+      {
+        "name": "usuario_id",
+        "type": "INTEGER",
+        "pk": false,
+        "fk": [
+          "usuarios.id"
+        ],
+        "uk": false,
+        "nullable": false
+      },
+      {
+        "name": "mensaje",
+        "type": "VARCHAR(400)",
+        "pk": false,
+        "fk": [],
+        "uk": false,
+        "nullable": false
+      },
+      {
+        "name": "destino",
+        "type": "VARCHAR(200)",
+        "pk": false,
+        "fk": [],
+        "uk": false,
+        "nullable": false
+      },
+      {
+        "name": "leida",
+        "type": "BOOLEAN",
+        "pk": false,
+        "fk": [],
+        "uk": false,
+        "nullable": false
+      },
+      {
+        "name": "creada",
+        "type": "TIMESTAMP WITHOUT TIME ZONE",
+        "pk": false,
+        "fk": [],
+        "uk": false,
+        "nullable": false
+      }
+    ]
+  },
+  {
+    "name": "perfiles_egresado",
+    "columns": [
+      {
+        "name": "id",
+        "type": "INTEGER",
+        "pk": true,
+        "fk": [],
+        "uk": false,
+        "nullable": false
+      },
+      {
+        "name": "usuario_id",
+        "type": "INTEGER",
+        "pk": false,
+        "fk": [
+          "usuarios.id"
+        ],
+        "uk": true,
+        "nullable": false
+      },
+      {
+        "name": "nombre",
+        "type": "VARCHAR(100)",
+        "pk": false,
+        "fk": [],
+        "uk": false,
+        "nullable": false
+      },
+      {
+        "name": "apellido",
+        "type": "VARCHAR(100)",
+        "pk": false,
+        "fk": [],
+        "uk": false,
+        "nullable": false
+      },
+      {
+        "name": "carrera",
+        "type": "VARCHAR(150)",
+        "pk": false,
+        "fk": [],
+        "uk": false,
+        "nullable": true
+      },
+      {
+        "name": "anio_egreso",
+        "type": "INTEGER",
+        "pk": false,
+        "fk": [],
+        "uk": false,
+        "nullable": true
+      },
+      {
+        "name": "presentacion",
+        "type": "TEXT",
+        "pk": false,
+        "fk": [],
+        "uk": false,
+        "nullable": true
+      },
+      {
+        "name": "linkedin_url",
+        "type": "VARCHAR(255)",
+        "pk": false,
+        "fk": [],
+        "uk": false,
+        "nullable": true
+      },
+      {
+        "name": "foto_url",
+        "type": "VARCHAR(255)",
+        "pk": false,
+        "fk": [],
+        "uk": false,
+        "nullable": true
+      },
+      {
+        "name": "portfolio",
+        "type": "JSON",
+        "pk": false,
+        "fk": [],
+        "uk": false,
+        "nullable": false
+      }
+    ]
+  },
+  {
+    "name": "perfiles_empresa",
+    "columns": [
+      {
+        "name": "id",
+        "type": "INTEGER",
+        "pk": true,
+        "fk": [],
+        "uk": false,
+        "nullable": false
+      },
+      {
+        "name": "usuario_id",
+        "type": "INTEGER",
+        "pk": false,
+        "fk": [
+          "usuarios.id"
+        ],
+        "uk": true,
+        "nullable": false
+      },
+      {
+        "name": "nombre_empresa",
+        "type": "VARCHAR(150)",
+        "pk": false,
+        "fk": [],
+        "uk": false,
+        "nullable": false
+      },
+      {
+        "name": "rubro",
+        "type": "VARCHAR(150)",
+        "pk": false,
+        "fk": [],
+        "uk": false,
+        "nullable": true
+      },
+      {
+        "name": "descripcion",
+        "type": "TEXT",
+        "pk": false,
+        "fk": [],
+        "uk": false,
+        "nullable": true
+      },
+      {
+        "name": "sitio_web",
+        "type": "VARCHAR(255)",
+        "pk": false,
+        "fk": [],
+        "uk": false,
+        "nullable": true
+      },
+      {
+        "name": "logo_url",
+        "type": "VARCHAR(255)",
+        "pk": false,
+        "fk": [],
+        "uk": false,
+        "nullable": true
+      },
+      {
+        "name": "foto_id",
+        "type": "VARCHAR(32)",
+        "pk": false,
+        "fk": [
+          "archivos_portfolio.id"
+        ],
+        "uk": false,
+        "nullable": true
+      }
+    ]
+  },
+  {
+    "name": "ofertas_empleo",
+    "columns": [
+      {
+        "name": "id",
+        "type": "INTEGER",
+        "pk": true,
+        "fk": [],
+        "uk": false,
+        "nullable": false
+      },
+      {
+        "name": "empresa_id",
+        "type": "INTEGER",
+        "pk": false,
+        "fk": [
+          "perfiles_empresa.id"
+        ],
+        "uk": false,
+        "nullable": false
+      },
+      {
+        "name": "titulo",
+        "type": "VARCHAR(150)",
+        "pk": false,
+        "fk": [],
+        "uk": false,
+        "nullable": false
+      },
+      {
+        "name": "descripcion",
+        "type": "TEXT",
+        "pk": false,
+        "fk": [],
+        "uk": false,
+        "nullable": false
+      },
+      {
+        "name": "requisitos",
+        "type": "TEXT",
+        "pk": false,
+        "fk": [],
+        "uk": false,
+        "nullable": true
+      },
+      {
+        "name": "ubicacion",
+        "type": "VARCHAR(150)",
+        "pk": false,
+        "fk": [],
+        "uk": false,
+        "nullable": true
+      },
+      {
+        "name": "modalidad",
+        "type": "VARCHAR(50)",
+        "pk": false,
+        "fk": [],
+        "uk": false,
+        "nullable": true
+      },
+      {
+        "name": "fecha_publicacion",
+        "type": "TIMESTAMP WITHOUT TIME ZONE",
+        "pk": false,
+        "fk": [],
+        "uk": false,
+        "nullable": false
+      },
+      {
+        "name": "activa",
+        "type": "BOOLEAN",
+        "pk": false,
+        "fk": [],
+        "uk": false,
+        "nullable": false
+      },
+      {
+        "name": "preguntas",
+        "type": "JSON",
+        "pk": false,
+        "fk": [],
+        "uk": false,
+        "nullable": false
+      },
+      {
+        "name": "formulario_version",
+        "type": "INTEGER",
+        "pk": false,
+        "fk": [],
+        "uk": false,
+        "nullable": false
+      },
+      {
+        "name": "categoria",
+        "type": "VARCHAR(80)",
+        "pk": false,
+        "fk": [],
+        "uk": false,
+        "nullable": false
+      },
+      {
+        "name": "demo_clave",
+        "type": "VARCHAR(80)",
+        "pk": false,
+        "fk": [],
+        "uk": true,
+        "nullable": true
+      },
+      {
+        "name": "sueldo",
+        "type": "BIGINT",
+        "pk": false,
+        "fk": [],
+        "uk": false,
+        "nullable": true
+      },
+      {
+        "name": "funciones",
+        "type": "TEXT",
+        "pk": false,
+        "fk": [],
+        "uk": false,
+        "nullable": true
+      },
+      {
+        "name": "perfiles_deseados",
+        "type": "JSON",
+        "pk": false,
+        "fk": [],
+        "uk": false,
+        "nullable": true
+      },
+      {
+        "name": "condiciones_laborales",
+        "type": "TEXT",
+        "pk": false,
+        "fk": [],
+        "uk": false,
+        "nullable": true
+      },
+      {
+        "name": "adaptada_discapacidad",
+        "type": "BOOLEAN",
+        "pk": false,
+        "fk": [],
+        "uk": false,
+        "nullable": true
+      }
+    ]
+  },
+  {
+    "name": "entrevistas_ia",
+    "columns": [
+      {
+        "name": "id",
+        "type": "VARCHAR(32)",
+        "pk": true,
+        "fk": [],
+        "uk": false,
+        "nullable": false
+      },
+      {
+        "name": "usuario_id",
+        "type": "INTEGER",
+        "pk": false,
+        "fk": [
+          "usuarios.id"
+        ],
+        "uk": false,
+        "nullable": false
+      },
+      {
+        "name": "fecha",
+        "type": "DATE",
+        "pk": false,
+        "fk": [],
+        "uk": false,
+        "nullable": false
+      },
+      {
+        "name": "oferta_id",
+        "type": "INTEGER",
+        "pk": false,
+        "fk": [
+          "ofertas_empleo.id"
+        ],
+        "uk": false,
+        "nullable": true
+      },
+      {
+        "name": "datos_cifrados",
+        "type": "TEXT",
+        "pk": false,
+        "fk": [],
+        "uk": false,
+        "nullable": false
+      },
+      {
+        "name": "turnos",
+        "type": "INTEGER",
+        "pk": false,
+        "fk": [],
+        "uk": false,
+        "nullable": false
+      }
+    ]
+  },
+  {
+    "name": "postulaciones",
+    "columns": [
+      {
+        "name": "id",
+        "type": "INTEGER",
+        "pk": true,
+        "fk": [],
+        "uk": false,
+        "nullable": false
+      },
+      {
+        "name": "oferta_id",
+        "type": "INTEGER",
+        "pk": false,
+        "fk": [
+          "ofertas_empleo.id"
+        ],
+        "uk": false,
+        "nullable": false
+      },
+      {
+        "name": "egresado_id",
+        "type": "INTEGER",
+        "pk": false,
+        "fk": [
+          "perfiles_egresado.id"
+        ],
+        "uk": false,
+        "nullable": false
+      },
+      {
+        "name": "fecha_postulacion",
+        "type": "TIMESTAMP WITHOUT TIME ZONE",
+        "pk": false,
+        "fk": [],
+        "uk": false,
+        "nullable": false
+      },
+      {
+        "name": "datos_cifrados",
+        "type": "TEXT",
+        "pk": false,
+        "fk": [],
+        "uk": false,
+        "nullable": false
+      },
+      {
+        "name": "seleccionada",
+        "type": "BOOLEAN",
+        "pk": false,
+        "fk": [],
+        "uk": false,
+        "nullable": false
+      }
+    ]
+  }
+]

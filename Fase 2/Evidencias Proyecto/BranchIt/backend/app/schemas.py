@@ -1,0 +1,296 @@
+from datetime import datetime, date
+from typing import Optional
+
+from pydantic import BaseModel, EmailStr, ConfigDict, Field, field_validator, model_validator
+from typing import Annotated, Literal
+from urllib.parse import urlsplit
+
+Name = Annotated[str, Field(min_length=1, max_length=100)]
+
+
+class InputModel(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    @field_validator("*", mode="before")
+    @classmethod
+    def trim_strings(cls, value, info):
+        return value.strip() if isinstance(value, str) and info.field_name not in ("password", "password_actual") else value
+
+    @field_validator("email", mode="after", check_fields=False)
+    @classmethod
+    def normalize_email(cls, value):
+        return value.lower()
+
+    @field_validator("password", check_fields=False)
+    @classmethod
+    def password_bytes(cls, value):
+        if len(value.encode("utf-8")) > 72:
+            raise ValueError("La contraseña no debe superar 72 bytes UTF-8.")
+        return value
+
+    @field_validator('linkedin_url', 'foto_url', 'sitio_web', 'cv_url', check_fields=False)
+    @classmethod
+    def safe_url(cls, value):
+        if value:
+            parsed = urlsplit(value)
+            if parsed.scheme not in ('http', 'https') or not parsed.netloc or parsed.username or parsed.password:
+                raise ValueError('Utiliza una URL http o https válida y sin credenciales.')
+        return value
+
+    @model_validator(mode="after")
+    def non_null_required_fields(self):
+        for name in ("nombre", "apellido", "titulo", "descripcion", "activa", "categoria", "sueldo", "funciones", "perfiles_deseados", "condiciones_laborales", "adaptada_discapacidad"):
+            if name in self.model_fields_set and getattr(self, name) is None and type(self).__name__ in ("PerfilEgresadoUpdate", "OfertaEmpleoUpdate"):
+                raise ValueError(f"El campo {name} no puede ser nulo.")
+        return self
+
+from .models import TipoUsuario
+from .portfolio_schemas import Portfolio
+
+
+# ---------- Registro / Usuario ----------
+
+class RegistroIdentidad(InputModel):
+    rut: str = Field(min_length=3, max_length=12)
+    telefono: str = Field(min_length=8, max_length=30)
+    fecha_identidad: date
+
+    @field_validator('rut')
+    @classmethod
+    def valid_rut(cls, value):
+        import re
+        raw = value.replace('.', '').replace('-', '').upper()
+        if not re.fullmatch(r'[1-9][0-9]{6,7}[0-9K]', raw):
+            raise ValueError('Ingresa un RUT chileno válido.')
+        body, digit = raw[:-1], raw[-1]
+        total = sum(int(n) * (2 + i % 6) for i, n in enumerate(reversed(body)))
+        expected = '0123456789K0'[11 - total % 11]
+        if digit != expected:
+            raise ValueError('El dígito verificador del RUT no es válido.')
+        return body + '-' + digit
+
+    @field_validator('telefono')
+    @classmethod
+    def valid_phone(cls, value):
+        import re
+        value = re.sub(r'[ ()-]', '', value)
+        if not re.fullmatch(r'\+?[0-9]{8,15}', value):
+            raise ValueError('Ingresa un teléfono válido, con código de país si corresponde.')
+        return value
+
+    @field_validator('fecha_identidad')
+    @classmethod
+    def valid_date(cls, value):
+        if value > date.today():
+            raise ValueError('La fecha no puede estar en el futuro.')
+        return value
+
+
+class RegistroEgresado(RegistroIdentidad):
+    email: EmailStr
+    password: str = Field(min_length=8, max_length=72)
+    nombre: Name
+    apellido: Name
+    carrera: Annotated[str, Field(min_length=1, max_length=150)]
+    anio_egreso: Optional[int] = None
+
+
+class RegistroEmpresa(RegistroIdentidad):
+    email: EmailStr
+    password: str = Field(min_length=8, max_length=72)
+    nombre_empresa: Annotated[str, Field(min_length=1, max_length=150)]
+    rubro: Annotated[str, Field(min_length=1, max_length=150)]
+    descripcion: Optional[str] = None
+    sitio_web: Optional[Annotated[str, Field(max_length=255)]] = None
+
+
+class UsuarioOut(BaseModel):
+    id: int
+    email: EmailStr
+    tipo: TipoUsuario
+    fecha_registro: datetime
+
+    model_config = ConfigDict(from_attributes=True)
+
+
+# ---------- Perfil Egresado ----------
+
+class PerfilEgresadoBase(InputModel):
+    nombre: Name
+    apellido: Name
+    carrera: Optional[Annotated[str, Field(max_length=150)]] = None
+    anio_egreso: Optional[int] = None
+    presentacion: Optional[Annotated[str, Field(max_length=5000)]] = None
+    linkedin_url: Optional[Annotated[str, Field(max_length=255)]] = None
+    foto_url: Optional[Annotated[str, Field(max_length=255)]] = None
+
+
+class PerfilEgresadoUpdate(InputModel):
+    portfolio: Optional[Portfolio] = None
+    nombre: Optional[Name] = None
+    apellido: Optional[Name] = None
+    carrera: Optional[Annotated[str, Field(max_length=150)]] = None
+    anio_egreso: Optional[int] = None
+    presentacion: Optional[Annotated[str, Field(max_length=5000)]] = None
+    linkedin_url: Optional[Annotated[str, Field(max_length=255)]] = None
+    foto_url: Optional[Annotated[str, Field(max_length=255)]] = None
+
+
+class PerfilEgresadoOut(PerfilEgresadoBase):
+    id: int
+    usuario_id: int
+    portfolio: dict = Field(default_factory=dict)
+
+    model_config = ConfigDict(from_attributes=True)
+
+
+# ---------- Perfil Empresa ----------
+
+class PerfilEmpresaUpdate(InputModel):
+    rubro: Optional[Annotated[str, Field(min_length=1, max_length=150)]] = None
+    nombre_empresa: Annotated[str, Field(min_length=1, max_length=150)]
+    descripcion: str = Field(max_length=5000)
+    foto_id: Optional[Annotated[str, Field(pattern=r'^[a-f0-9]{32}$')]] = None
+
+
+class CambioPassword(InputModel):
+    password_actual: str = Field(min_length=1, max_length=72)
+    password: str = Field(min_length=8, max_length=72)
+
+
+class PerfilEmpresaOut(BaseModel):
+    id: int
+    usuario_id: int
+    nombre_empresa: Annotated[str, Field(min_length=1, max_length=150)]
+    rubro: Optional[Annotated[str, Field(max_length=150)]] = None
+    descripcion: Optional[str] = None
+    sitio_web: Optional[Annotated[str, Field(max_length=255)]] = None
+    logo_url: Optional[str] = None
+    foto_id: Optional[str] = None
+
+    model_config = ConfigDict(from_attributes=True)
+
+
+# ---------- Oferta de empleo ----------
+
+class Pregunta(InputModel):
+    id: str = Field(pattern=r'^[a-zA-Z0-9_-]{1,40}$')
+    etiqueta: str = Field(min_length=1, max_length=160)
+    tipo: Literal['texto', 'parrafo', 'numero', 'seleccion', 'seleccion_multiple'] = 'texto'
+    obligatoria: bool = True
+    opciones: list[Annotated[str, Field(min_length=1, max_length=100)]] = Field(default_factory=list, max_length=15)
+
+    @model_validator(mode='after')
+    def valid_options(self):
+        self.opciones = [value.strip() for value in self.opciones]
+        if self.tipo in ('seleccion', 'seleccion_multiple') and (len(self.opciones) < 2 or len({v.strip().casefold() for v in self.opciones}) != len(self.opciones) or any(not v.strip() for v in self.opciones)):
+            raise ValueError('Una selección necesita al menos dos opciones distintas.')
+        if self.tipo not in ('seleccion', 'seleccion_multiple') and self.opciones:
+            raise ValueError('Solo las preguntas de selección admiten opciones.')
+        return self
+
+
+class PreguntasModel(InputModel):
+    @field_validator('perfiles_deseados', check_fields=False)
+    @classmethod
+    def valid_profiles(cls, values):
+        if values is None:
+            return values
+        cleaned = [value.strip() for value in values]
+        if any(not value for value in cleaned) or len({value.casefold() for value in cleaned}) != len(cleaned):
+            raise ValueError('Selecciona perfiles distintos y no vacíos.')
+        return cleaned
+
+    @field_validator('preguntas', check_fields=False)
+    @classmethod
+    def unique_questions(cls, values):
+        if values is None:
+            raise ValueError('Las preguntas no pueden ser nulas.')
+        if len({p.id for p in values}) != len(values):
+            raise ValueError('Las preguntas deben tener identificadores únicos.')
+        return values
+
+
+class OfertaEmpleoBase(PreguntasModel):
+    sueldo: Optional[Annotated[int, Field(strict=True, gt=0, le=9999999999)]] = None
+    funciones: Optional[Annotated[str, Field(min_length=1, max_length=10000)]] = None
+    perfiles_deseados: Optional[list[Annotated[str, Field(min_length=1, max_length=150)]]] = Field(default=None, min_length=1, max_length=20)
+    condiciones_laborales: Optional[Annotated[str, Field(min_length=1, max_length=10000)]] = None
+    adaptada_discapacidad: Optional[bool] = None
+    categoria: Annotated[str, Field(min_length=1, max_length=80)] = 'General'
+    preguntas: list[Pregunta] = Field(default_factory=list, max_length=10)
+    titulo: Annotated[str, Field(min_length=1, max_length=150)]
+    descripcion: Annotated[str, Field(min_length=1, max_length=10000)]
+    requisitos: Optional[str] = None
+    ubicacion: Optional[Annotated[str, Field(max_length=150)]] = None
+    modalidad: Optional[Annotated[str, Field(max_length=50)]] = None
+
+
+class OfertaEmpleoCreate(OfertaEmpleoBase):
+    sueldo: Annotated[int, Field(strict=True, gt=0, le=9999999999)]
+    funciones: Annotated[str, Field(min_length=1, max_length=10000)]
+    perfiles_deseados: list[Annotated[str, Field(min_length=1, max_length=150)]] = Field(min_length=1, max_length=20)
+    condiciones_laborales: Annotated[str, Field(min_length=1, max_length=10000)]
+    adaptada_discapacidad: bool
+
+
+class OfertaEmpleoUpdate(PreguntasModel):
+    sueldo: Optional[Annotated[int, Field(strict=True, gt=0, le=9999999999)]] = None
+    funciones: Optional[Annotated[str, Field(min_length=1, max_length=10000)]] = None
+    perfiles_deseados: Optional[list[Annotated[str, Field(min_length=1, max_length=150)]]] = Field(default=None, min_length=1, max_length=20)
+    condiciones_laborales: Optional[Annotated[str, Field(min_length=1, max_length=10000)]] = None
+    adaptada_discapacidad: Optional[bool] = None
+    categoria: Optional[Annotated[str, Field(min_length=1, max_length=80)]] = None
+    preguntas: Optional[list[Pregunta]] = Field(default=None, max_length=10)
+    titulo: Optional[Annotated[str, Field(min_length=1, max_length=150)]] = None
+    descripcion: Optional[Annotated[str, Field(min_length=1, max_length=10000)]] = None
+    requisitos: Optional[str] = None
+    ubicacion: Optional[Annotated[str, Field(max_length=150)]] = None
+    modalidad: Optional[Annotated[str, Field(max_length=50)]] = None
+    activa: Optional[bool] = None
+
+
+class OfertaEmpleoOut(OfertaEmpleoBase):
+    formulario_version: int
+    id: int
+    empresa_id: int
+    fecha_publicacion: datetime
+    activa: bool
+
+    model_config = ConfigDict(from_attributes=True)
+
+
+class OfertaEmpleoConEmpresa(OfertaEmpleoOut):
+    """Version de la oferta que incluye el nombre de la empresa, para el hub del egresado."""
+
+    nombre_empresa: Annotated[str, Field(min_length=1, max_length=150)]
+    empresa_foto_id: str | None = None
+    empresa_logo_url: str | None = None
+
+
+class Login(InputModel):
+    email: EmailStr
+    password: str = Field(min_length=1, max_length=72)
+
+
+class SessionOut(BaseModel):
+    access_token: str
+    token_type: str = "bearer"
+    user: UsuarioOut
+
+
+class PostulacionCreate(InputModel):
+    oferta_id: int = Field(gt=0)
+    formulario_version: int = Field(ge=1)
+    telefono: str = Field(default='', max_length=30)
+    cv_url: str = Field(default='', max_length=500)
+    mensaje: str = Field(default='', max_length=3000)
+    respuestas: dict[str, Annotated[str, Field(max_length=3000)] | Annotated[list[Annotated[str, Field(min_length=1, max_length=100)]], Field(max_length=15)]] = Field(default_factory=dict, max_length=10)
+    consentimiento: Literal[True]
+
+
+class CierreConvocatoria(InputModel):
+    postulacion_id: Optional[Annotated[int, Field(strict=True, gt=0)]] = None
+
+
+class PresentacionInput(InputModel):
+    presentacion: str = Field(min_length=1, max_length=5000)

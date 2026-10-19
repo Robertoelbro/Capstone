@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2200" height="1720" viewBox="0 0 2200 1720"><title>Mapa tecnológico de BranchIT</title><desc>BranchIT al centro, conectado con diez áreas: frontend, backend, datos, seguridad, despliegue, inteligencia artificial, archivos, pruebas, control de versiones y herramientas.</desc><rect width="100%" height="100%" fill="#f6f7f2"/>
+<text x="75" y="77" fill="#263e30" font-family="Segoe UI, Arial, sans-serif" font-size="42" font-weight="700">BranchIT</text>
+<text x="280" y="79" fill="#263e30" font-family="Segoe UI, Arial, sans-serif" font-size="30" font-weight="400">Mapa tecnológico del proyecto</text>
+<text x="75" y="123" fill="#56664f" font-family="Segoe UI, Arial, sans-serif" font-size="20" font-weight="400">Tecnologías actuales · Interfaz, servicios y herramientas de desarrollo · 19 de octubre de 2026</text>
+<polyline points="900,680 740,680 740,430 330,430 330,395" fill="none" stroke="#a2b29c" stroke-width="3" stroke-linejoin="round"/>
+<polyline points="1100,620 1100,395" fill="none" stroke="#a2b29c" stroke-width="3" stroke-linejoin="round"/>
+<polyline points="1300,680 1460,680 1460,430 1870,430 1870,395" fill="none" stroke="#a2b29c" stroke-width="3" stroke-linejoin="round"/>
+<polyline points="900,735 570,735" fill="none" stroke="#a2b29c" stroke-width="3" stroke-linejoin="round"/>
+<polyline points="900,825 740,825 740,970 570,970" fill="none" stroke="#a2b29c" stroke-width="3" stroke-linejoin="round"/>
+<polyline points="1300,735 1630,735" fill="none" stroke="#a2b29c" stroke-width="3" stroke-linejoin="round"/>
+<polyline points="1300,825 1460,825 1460,970 1630,970" fill="none" stroke="#a2b29c" stroke-width="3" stroke-linejoin="round"/>
+<polyline points="950,880 950,1170 330,1170 330,1230" fill="none" stroke="#a2b29c" stroke-width="3" stroke-linejoin="round"/>
+<polyline points="1100,880 1100,1230" fill="none" stroke="#a2b29c" stroke-width="3" stroke-linejoin="round"/>
+<polyline points="1250,880 1250,1170 1870,1170 1870,1230" fill="none" stroke="#a2b29c" stroke-width="3" stroke-linejoin="round"/>
+<rect x="95" y="176" width="480" height="225" rx="22" fill="#e3e8dc" stroke="none" stroke-width="2"/>
+<rect x="90" y="170" width="480" height="225" rx="22" fill="#fffefb" stroke="#cad4c1" stroke-width="2"/>
+<rect x="106" y="186" width="448" height="57" rx="13" fill="#dfebf2" stroke="none" stroke-width="2"/>
+<text x="122" y="223" fill="#245b75" font-family="Segoe UI, Arial, sans-serif" font-size="25" font-weight="700">Base de datos</text>
+<circle cx="515" cy="214" r="20" fill="#fffefb"/>
+<text x="503.0" y="219" fill="#245b75" font-family="Segoe UI, Arial, sans-serif" font-size="17" font-weight="700">DB</text>
+<text x="118" y="284" fill="#263e30" font-family="Segoe UI, Arial, sans-serif" font-size="21" font-weight="700">PostgreSQL · Neon</text>
+<text x="118" y="315" fill="#263e30" font-family="Segoe UI, Arial, sans-serif" font-size="21" font-weight="400">Alembic · Migraciones</text>
+<text x="118" y="371" fill="#55654e" font-family="Segoe UI, Arial, sans-serif" font-size="17" font-weight="400">Usuarios, ofertas, postulaciones y perfiles.</text>
+<rect x="865" y="176" width="480" height="225" rx="22" fill="#e3e8dc" stroke="none" stroke-width="2"/>
+<rect x="860" y="170" width="480" height="225" rx="22" fill="#fffefb" stroke="#cad4c1" stroke-width="2"/>
+<rect x="876" y="186" width="448" height="57" rx="13" fill="#f3e5cb" stroke="none" stroke-width="2"/>
+<text x="892" y="223" fill="#705025" font-family="Segoe UI, Arial, sans-serif" font-size="25" font-weight="700">Seguridad</text>
+<circle cx="1285" cy="214" r="20" fill="#fffefb"/>
+<text x="1273.0" y="219" fill="#705025" font-family="Segoe UI, Arial, sans-serif" font-size="17" font-weight="700">OK</text>
+<text x="888" y="284" fill="#263e30" font-family="Segoe UI, Arial, sans-serif" font-size="21" font-weight="700">JWT · python-jose</text>
+<text x="888" y="315" fill="#263e30" font-family="Segoe UI, Arial, sans-serif" font-size="21" font-weight="400">bcrypt · Cryptography / Fernet</text>
+<text x="888" y="371" fill="#55654e" font-family="Segoe UI, Arial, sans-serif" font-size="17" font-weight="400">Sesiones, contraseñas y datos cifrados.</text>
+<rect x="1635" y="176" width="480" height="225" rx="22" fill="#e3e8dc" stroke="none" stroke-width="2"/>
+<rect x="1630" y="170" width="480" height="225" rx="22" fill="#fffefb" stroke="#cad4c1" stroke-width="2"/>
+<rect x="1646" y="186" width="448" height="57" rx="13" fill="#e8e2f2" stroke="none" stroke-width="2"/>
+<text x="1662" y="223" fill="#5c477e" font-family="Segoe UI, Arial, sans-serif" font-size="25" font-weight="700">Despliegue</text>
+<circle cx="2055" cy="214" r="20" fill="#fffefb"/>
+<text x="2047.5" y="219" fill="#5c477e" font-family="Segoe UI, Arial, sans-serif" font-size="17" font-weight="700">▲</text>
+<text x="1658" y="284" fill="#263e30" font-family="Segoe UI, Arial, sans-serif" font-size="21" font-weight="700">Vercel</text>
+<text x="1658" y="315" fill="#263e30" font-family="Segoe UI, Arial, sans-serif" font-size="21" font-weight="400">Frontend · API · Funciones de archivos</text>
+<text x="1658" y="371" fill="#55654e" font-family="Segoe UI, Arial, sans-serif" font-size="17" font-weight="400">Publicación y ejecución en la nube.</text>
+<rect x="95" y="506" width="480" height="305" rx="22" fill="#e3e8dc" stroke="none" stroke-width="2"/>
+<rect x="90" y="500" width="480" height="305" rx="22" fill="#fffefb" stroke="#cad4c1" stroke-width="2"/>
+<rect x="106" y="516" width="448" height="57" rx="13" fill="#dfece5" stroke="none" stroke-width="2"/>
+<text x="122" y="553" fill="#315d45" font-family="Segoe UI, Arial, sans-serif" font-size="25" font-weight="700">Frontend</text>
+<circle cx="515" cy="544" r="20" fill="#fffefb"/>
+<text x="503.0" y="549" fill="#315d45" font-family="Segoe UI, Arial, sans-serif" font-size="17" font-weight="700">&lt;&gt;</text>
+<text x="118" y="614" fill="#263e30" font-family="Segoe UI, Arial, sans-serif" font-size="21" font-weight="700">React 18 · JavaScript / JSX</text>
+<text x="118" y="645" fill="#263e30" font-family="Segoe UI, Arial, sans-serif" font-size="21" font-weight="400">HTML5 · CSS3 · Tailwind CSS</text>
+<text x="118" y="676" fill="#263e30" font-family="Segoe UI, Arial, sans-serif" font-size="21" font-weight="400">React Router · React Icons</text>
+<text x="118" y="707" fill="#263e30" font-family="Segoe UI, Arial, sans-serif" font-size="21" font-weight="400">country-flag-icons · PropTypes</text>
+<text x="118" y="738" fill="#263e30" font-family="Segoe UI, Arial, sans-serif" font-size="21" font-weight="400">libphonenumber-js</text>
+<text x="118" y="781" fill="#55654e" font-family="Segoe UI, Arial, sans-serif" font-size="17" font-weight="400">Interfaz, navegación y formularios.</text>
+<rect x="95" y="846" width="480" height="275" rx="22" fill="#e3e8dc" stroke="none" stroke-width="2"/>
+<rect x="90" y="840" width="480" height="275" rx="22" fill="#fffefb" stroke="#cad4c1" stroke-width="2"/>
+<rect x="106" y="856" width="448" height="57" rx="13" fill="#deebf2" stroke="none" stroke-width="2"/>
+<text x="122" y="893" fill="#285c74" font-family="Segoe UI, Arial, sans-serif" font-size="25" font-weight="700">Backend / API</text>
+<circle cx="515" cy="884" r="20" fill="#fffefb"/>
+<text x="505.0" y="889" fill="#285c74" font-family="Segoe UI, Arial, sans-serif" font-size="17" font-weight="700">PY</text>
+<text x="118" y="954" fill="#263e30" font-family="Segoe UI, Arial, sans-serif" font-size="21" font-weight="700">Python · FastAPI</text>
+<text x="118" y="985" fill="#263e30" font-family="Segoe UI, Arial, sans-serif" font-size="21" font-weight="400">Pydantic · SQLAlchemy</text>
+<text x="118" y="1016" fill="#263e30" font-family="Segoe UI, Arial, sans-serif" font-size="21" font-weight="400">psycopg2 · Uvicorn</text>
+<text x="118" y="1047" fill="#263e30" font-family="Segoe UI, Arial, sans-serif" font-size="21" font-weight="400">python-dotenv · tzdata</text>
+<text x="118" y="1091" fill="#55654e" font-family="Segoe UI, Arial, sans-serif" font-size="17" font-weight="400">Reglas de negocio, permisos y acceso a datos.</text>
+<rect x="1635" y="506" width="480" height="275" rx="22" fill="#e3e8dc" stroke="none" stroke-width="2"/>
+<rect x="1630" y="500" width="480" height="275" rx="22" fill="#fffefb" stroke="#cad4c1" stroke-width="2"/>
+<rect x="1646" y="516" width="448" height="57" rx="13" fill="#eee4f3" stroke="none" stroke-width="2"/>
+<text x="1662" y="553" fill="#68457e" font-family="Segoe UI, Arial, sans-serif" font-size="25" font-weight="700">Inteligencia artificial</text>
+<circle cx="2055" cy="544" r="20" fill="#fffefb"/>
+<text x="2046.5" y="549" fill="#68457e" font-family="Segoe UI, Arial, sans-serif" font-size="17" font-weight="700">IA</text>
+<text x="1658" y="614" fill="#263e30" font-family="Segoe UI, Arial, sans-serif" font-size="21" font-weight="700">Google Gemini · API</text>
+<text x="1658" y="645" fill="#263e30" font-family="Segoe UI, Arial, sans-serif" font-size="21" font-weight="400">Presentaciones y entrevistas</text>
+<text x="1658" y="676" fill="#263e30" font-family="Segoe UI, Arial, sans-serif" font-size="21" font-weight="400">Preparación de postulaciones</text>
+<text x="1658" y="707" fill="#263e30" font-family="Segoe UI, Arial, sans-serif" font-size="21" font-weight="400">Orientación sobre certificaciones</text>
+<text x="1658" y="751" fill="#55654e" font-family="Segoe UI, Arial, sans-serif" font-size="17" font-weight="400">El backend envía el contexto a Gemini.</text>
+<rect x="1635" y="846" width="480" height="275" rx="22" fill="#e3e8dc" stroke="none" stroke-width="2"/>
+<rect x="1630" y="840" width="480" height="275" rx="22" fill="#fffefb" stroke="#cad4c1" stroke-width="2"/>
+<rect x="1646" y="856" width="448" height="57" rx="13" fill="#f4e1d4" stroke="none" stroke-width="2"/>
+<text x="1662" y="893" fill="#885437" font-family="Segoe UI, Arial, sans-serif" font-size="25" font-weight="700">Archivos y multimedia</text>
+<circle cx="2055" cy="884" r="20" fill="#fffefb"/>
+<text x="2044.0" y="889" fill="#885437" font-family="Segoe UI, Arial, sans-serif" font-size="17" font-weight="700">UP</text>
+<text x="1658" y="954" fill="#263e30" font-family="Segoe UI, Arial, sans-serif" font-size="21" font-weight="700">Vercel Blob</text>
+<text x="1658" y="985" fill="#263e30" font-family="Segoe UI, Arial, sans-serif" font-size="21" font-weight="400">file-type · music-metadata</text>
+<text x="1658" y="1016" fill="#263e30" font-family="Segoe UI, Arial, sans-serif" font-size="21" font-weight="400">Funciones JavaScript en Vercel</text>
+<text x="1658" y="1091" fill="#55654e" font-family="Segoe UI, Arial, sans-serif" font-size="17" font-weight="400">Fotos, videos y certificados.</text>
+<rect x="95" y="1236" width="480" height="270" rx="22" fill="#e3e8dc" stroke="none" stroke-width="2"/>
+<rect x="90" y="1230" width="480" height="270" rx="22" fill="#fffefb" stroke="#cad4c1" stroke-width="2"/>
+<rect x="106" y="1246" width="448" height="57" rx="13" fill="#e2ece4" stroke="none" stroke-width="2"/>
+<text x="122" y="1283" fill="#345e42" font-family="Segoe UI, Arial, sans-serif" font-size="25" font-weight="700">Pruebas</text>
+<circle cx="515" cy="1274" r="20" fill="#fffefb"/>
+<text x="503.0" y="1279" fill="#345e42" font-family="Segoe UI, Arial, sans-serif" font-size="17" font-weight="700">OK</text>
+<text x="118" y="1344" fill="#263e30" font-family="Segoe UI, Arial, sans-serif" font-size="21" font-weight="700">unittest</text>
+<text x="118" y="1375" fill="#263e30" font-family="Segoe UI, Arial, sans-serif" font-size="21" font-weight="400">FastAPI TestClient</text>
+<text x="118" y="1406" fill="#263e30" font-family="Segoe UI, Arial, sans-serif" font-size="21" font-weight="400">SQLite · Base aislada</text>
+<text x="118" y="1476" fill="#55654e" font-family="Segoe UI, Arial, sans-serif" font-size="17" font-weight="400">Pruebas automatizadas sin modificar Neon.</text>
+<rect x="865" y="1236" width="480" height="270" rx="22" fill="#e3e8dc" stroke="none" stroke-width="2"/>
+<rect x="860" y="1230" width="480" height="270" rx="22" fill="#fffefb" stroke="#cad4c1" stroke-width="2"/>
+<rect x="876" y="1246" width="448" height="57" rx="13" fill="#f3e0d8" stroke="none" stroke-width="2"/>
+<text x="892" y="1283" fill="#875039" font-family="Segoe UI, Arial, sans-serif" font-size="25" font-weight="700">Control de versiones</text>
+<circle cx="1285" cy="1274" r="20" fill="#fffefb"/>
+<text x="1273.5" y="1279" fill="#875039" font-family="Segoe UI, Arial, sans-serif" font-size="17" font-weight="700">git</text>
+<text x="888" y="1344" fill="#263e30" font-family="Segoe UI, Arial, sans-serif" font-size="21" font-weight="700">Git · GitHub</text>
+<text x="888" y="1375" fill="#263e30" font-family="Segoe UI, Arial, sans-serif" font-size="21" font-weight="400">Branches e historial de cambios</text>
+<text x="888" y="1406" fill="#263e30" font-family="Segoe UI, Arial, sans-serif" font-size="21" font-weight="400">Repositorio compartido del equipo</text>
+<text x="888" y="1476" fill="#55654e" font-family="Segoe UI, Arial, sans-serif" font-size="17" font-weight="400">Colaboración y publicación del código.</text>
+<rect x="1635" y="1236" width="480" height="270" rx="22" fill="#e3e8dc" stroke="none" stroke-width="2"/>
+<rect x="1630" y="1230" width="480" height="270" rx="22" fill="#fffefb" stroke="#cad4c1" stroke-width="2"/>
+<rect x="1646" y="1246" width="448" height="57" rx="13" fill="#e4eaf5" stroke="none" stroke-width="2"/>
+<text x="1662" y="1283" fill="#3d567e" font-family="Segoe UI, Arial, sans-serif" font-size="25" font-weight="700">Herramientas</text>
+<circle cx="2055" cy="1274" r="20" fill="#fffefb"/>
+<text x="2049.0" y="1279" fill="#3d567e" font-family="Segoe UI, Arial, sans-serif" font-size="17" font-weight="700">{}</text>
+<text x="1658" y="1344" fill="#263e30" font-family="Segoe UI, Arial, sans-serif" font-size="21" font-weight="700">Node.js · npm · Vite</text>
+<text x="1658" y="1375" fill="#263e30" font-family="Segoe UI, Arial, sans-serif" font-size="21" font-weight="400">ESLint · Prettier</text>
+<text x="1658" y="1406" fill="#263e30" font-family="Segoe UI, Arial, sans-serif" font-size="21" font-weight="400">PostCSS · Autoprefixer</text>
+<text x="1658" y="1476" fill="#55654e" font-family="Segoe UI, Arial, sans-serif" font-size="17" font-weight="400">Dependencias, compilación, estilos y revisión.</text>
+<rect x="907" y="627" width="400" height="260" rx="24" fill="#dce4d1" stroke="none" stroke-width="2"/>
+<rect x="900" y="620" width="400" height="260" rx="24" fill="#fffefb" stroke="#527434" stroke-width="2"/>
+<rect x="918" y="638" width="364" height="40" rx="10" fill="#e4edda" stroke="none" stroke-width="2"/>
+<circle cx="935" cy="658" r="4" fill="#779658"/>
+<circle cx="951" cy="658" r="4" fill="#779658"/>
+<circle cx="967" cy="658" r="4" fill="#779658"/>
+<text x="983" y="735" fill="#263e30" font-family="Segoe UI, Arial, sans-serif" font-size="42" font-weight="700">BranchIT</text>
+<text x="955" y="777" fill="#263e30" font-family="Segoe UI, Arial, sans-serif" font-size="20" font-weight="400">Plataforma de empleabilidad</text>
+<text x="977" y="812" fill="#263e30" font-family="Segoe UI, Arial, sans-serif" font-size="20" font-weight="400">Egresados ↔ Empresas</text>
+<text x="969" y="845" fill="#53634b" font-family="Segoe UI, Arial, sans-serif" font-size="18" font-weight="400">Web · Portafolios · IA</text>
+<rect x="90" y="1560" width="2020" height="111" rx="18" fill="#e8edde" stroke="none" stroke-width="2"/>
+<text x="114" y="1596" fill="#263e30" font-family="Segoe UI, Arial, sans-serif" font-size="21" font-weight="700">Cómo se conectan</text>
+<text x="114" y="1631" fill="#263e30" font-family="Segoe UI, Arial, sans-serif" font-size="21" font-weight="400">React → API FastAPI → PostgreSQL / Neon y Gemini. Las funciones de archivos usan Vercel Blob.</text>
+<text x="114" y="1660" fill="#53634b" font-family="Segoe UI, Arial, sans-serif" font-size="17" font-weight="400">Las líneas agrupan tecnologías del proyecto; no representan conexiones directas entre cada bloque.</text>
+</svg>

@@ -1,0 +1,10 @@
+.env
+.env.*
+.venv
+venv
+__pycache__
+tests
+scripts/preview_sprints.py
+*.db
+*.sqlite
+*.sqlite3

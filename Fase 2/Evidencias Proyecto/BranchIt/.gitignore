@@ -6,6 +6,9 @@ venv/
 
 # Variables de entorno
 .env
+.env.*
+!.env.example
+.vercel/
 
 # Node
 node_modules/

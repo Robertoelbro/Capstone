@@ -1,0 +1,140 @@
+:root {
+  --color-bg: #FAFAF7;
+  --color-surface: #EFF1EA;
+  --color-ink: #16241C;
+  --color-primary: #1F3A2E;
+  --color-primary-light: #2E5442;
+  --color-accent: #B98A1E;
+  --color-muted: #62726A;
+  --color-border: #DBDFD6;
+  --color-danger: #A3382E;
+
+  --font-display: "Fraunces", Georgia, serif;
+  --font-body: "Inter", system-ui, sans-serif;
+
+  --radius: 8px;
+  --max-width: 960px;
+
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  line-height: 1.5;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  color: var(--color-primary);
+  line-height: 1.15;
+  margin: 0 0 0.5em;
+}
+
+a {
+  color: var(--color-primary);
+}
+
+button, input, select, textarea {
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.contenedor {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.boton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  padding: 0.6rem 1.1rem;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.boton-primario {
+  background: var(--color-primary);
+  color: white;
+}
+.boton-primario:hover {
+  background: var(--color-primary-light);
+}
+
+.boton-secundario {
+  background: transparent;
+  border-color: var(--color-border);
+  color: var(--color-primary);
+}
+.boton-secundario:hover {
+  border-color: var(--color-primary);
+}
+
+.boton-peligro {
+  background: transparent;
+  border-color: var(--color-danger);
+  color: var(--color-danger);
+}
+.boton-peligro:hover {
+  background: var(--color-danger);
+  color: white;
+}
+
+.tarjeta {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.5rem;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-bottom: 1rem;
+}
+
+.campo label {
+  font-size: 0.9rem;
+  color: var(--color-muted);
+}
+
+.campo input,
+.campo textarea,
+.campo select {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 0.55rem 0.7rem;
+  background: white;
+  color: var(--color-ink);
+}
+
+.mensaje-error {
+  color: var(--color-danger);
+  font-size: 0.9rem;
+}
+
+.mensaje-exito {
+  color: var(--color-primary);
+  font-size: 0.9rem;
+}
