@@ -5,6 +5,7 @@ from .. import models, schemas
 from ..database import get_db
 from ..security import require_owner
 from ..careers import recommendation
+from ..applicant_matching import affinity
 
 router = APIRouter(prefix="/egresados", tags=["egresados"], dependencies=[Depends(require_owner("egresado"))])
 
@@ -94,7 +95,17 @@ def recommendations(usuario_id: int, db: Session = Depends(get_db)):
     jobs = db.query(models.OfertaEmpleo).filter_by(activa=True).order_by(models.OfertaEmpleo.fecha_publicacion.desc()).all()
     result = [dict(schemas.OfertaEmpleoOut.model_validate(job).model_dump(),
                    nombre_empresa=job.empresa.nombre_empresa, empresa_foto_id=job.empresa.foto_id, empresa_logo_url=job.empresa.logo_url, **recommendation(job, profile.carrera)) for job in jobs]
-    return sorted(result, key=lambda job: not job['afin'])
+    for item, job in zip(result, jobs):
+        match = affinity(job, profile.carrera, profile.portfolio or {})
+        item['compatibilidad'] = match['puntos']
+        item['coincidencias'] = match['coincidencias']
+        item['afin'] = match['puntos'] > 0
+        if match['coincidencias']:
+            item['motivo'] = 'Coincide con: ' + ', '.join(match['coincidencias']) + '.'
+    result.sort(key=lambda item: (-item['compatibilidad'], -len(item['coincidencias'])))
+    for index, item in enumerate(result):
+        item['mostrar_compatibilidad'] = index < 10 and item['afin']
+    return result
 
 
 @router.delete('/{usuario_id}/presentacion', status_code=204)

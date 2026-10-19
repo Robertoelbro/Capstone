@@ -75,3 +75,6 @@
   .ai-chat-composer { padding: 10px 12px; }
   .ai-mode-tabs button { padding-inline: 8px; }
 }
+.ai-daily-limit { margin-top: 14px; padding: 12px 14px; background: #f5ebce; border: 1px solid #b8a575; border-radius: 14px; color: #51401c; font-size: .875rem; line-height: 1.6; }
+.ai-daily-limit strong { display: block; }
+.ai-daily-limit p { margin-top: 5px; }

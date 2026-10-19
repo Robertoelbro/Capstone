@@ -45,6 +45,7 @@ class Usuario(Base):
     token_version = Column(Integer, default=0, nullable=False)
     archivos = relationship('ArchivoPortfolio', cascade='all, delete-orphan')
     notificaciones = relationship('Notificacion', cascade='all, delete-orphan')
+    entrevistas_ia = relationship('EntrevistaIA', cascade='all, delete-orphan')
 
     perfil_egresado = relationship(
         "PerfilEgresado",
@@ -150,6 +151,17 @@ class Postulacion(Base):
     seleccionada = Column(Boolean, default=False, nullable=False)
     oferta = relationship('OfertaEmpleo', back_populates='postulaciones')
     egresado = relationship('PerfilEgresado', back_populates='postulaciones')
+
+
+class EntrevistaIA(Base):
+    __tablename__ = 'entrevistas_ia'
+    __table_args__ = (UniqueConstraint('usuario_id', 'fecha', name='uq_entrevista_usuario_dia'),)
+    id = Column(String(32), primary_key=True)
+    usuario_id = Column(Integer, ForeignKey('usuarios.id'), nullable=False)
+    fecha = Column(Date, nullable=False)
+    oferta_id = Column(Integer, ForeignKey('ofertas_empleo.id', ondelete='SET NULL'), nullable=True)
+    datos_cifrados = Column(Text, nullable=False)
+    turnos = Column(Integer, nullable=False, default=0)
 
 
 class Notificacion(Base):

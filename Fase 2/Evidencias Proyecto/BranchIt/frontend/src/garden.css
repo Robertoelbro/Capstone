@@ -1838,3 +1838,7 @@ video {
 .portfolio-editor .editor-section:nth-child(3n + 1) { background: #fcf4eb; border-top-color: #c8906e; }
 .portfolio-editor .editor-section:nth-child(3n + 2) { background: #f0f6ef; border-top-color: #7fa98e; }
 .portfolio-editor .editor-section:nth-child(3n) { background: #f5f1fa; border-top-color: #a296be; }
+.job-compatibility { display: inline-flex; align-items: center; gap: 7px; width: fit-content; padding: 5px 9px; border: 1px solid #b5c79c; border-radius: 999px; background: #edf3e2; color: #304d25; font-size: .8rem; margin-bottom: 10px; }
+.compatibility-ring { width: 22px; height: 22px; border-radius: 50%; background: conic-gradient(#527434 var(--compatibility), #d0dac3 0); position: relative; flex-shrink: 0; }
+.compatibility-ring::after { content: ''; position: absolute; inset: 4px; border-radius: 50%; background: #edf3e2; }
+.job-ai-question { min-height: 44px; text-align: left; color: #385e28; font-size: .8rem; text-decoration: underline; text-underline-offset: 3px; padding-block: 8px; }

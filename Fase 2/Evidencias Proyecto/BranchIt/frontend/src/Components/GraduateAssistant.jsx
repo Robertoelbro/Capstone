@@ -34,6 +34,8 @@ export default function GraduateAssistant() {
   const [messages, setMessages] = useState([]);
   const [consent, setConsent] = useState(false);
   const [available, setAvailable] = useState(false);
+  const [dailyInterview, setDailyInterview] = useState(null);
+  const [interviewId, setInterviewId] = useState(null);
   const [checking, setChecking] = useState(false);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
@@ -53,7 +55,7 @@ export default function GraduateAssistant() {
     setContextError("");
     Promise.allSettled([api.assistantStatus(), api.jobs(), api.obtenerPerfilEgresado(user.id)]).then(([status, offers, account]) => {
       if (!alive) return;
-      if (status.status === "fulfilled") setAvailable(status.value.disponible);
+      if (status.status === "fulfilled") { setAvailable(status.value.disponible); setDailyInterview(status.value.entrevista_hoy); }
       else { setAvailable(false); setContextError(status.reason.message); }
       if (offers.status === "fulfilled") setJobs(offers.value);
       else setContextError((e) => e || offers.reason.message);
@@ -73,10 +75,14 @@ export default function GraduateAssistant() {
     }
   }, [busy, open, error]);
   useEffect(() => {
-    function fromNavigation() {
+    function fromNavigation(event) {
+      if (event.detail?.ofertaId && !sendingRef.current) {
+        setMode('postulacion'); setJobId(String(event.detail.ofertaId));
+        setMessages([]); setMessage(''); setError(''); setConsent(false); setSetupOpen(true); setInterviewId(null);
+      }
       setHidden(false);
       try { sessionStorage.removeItem(`branchit-ai-hidden-${user.id}`); } catch { /* Storage may be unavailable. */ }
-      dialogRef.current.showModal();
+      if (!dialogRef.current.open) dialogRef.current.showModal();
       setOpen(true);
       titleRef.current.focus();
     }
@@ -97,7 +103,12 @@ export default function GraduateAssistant() {
     titleRef.current.focus();
   }
   function resetConversation() {
-    setMessages([]); setMessage(""); setError(""); setConsent(false); setSetupOpen(true);
+    setMessages([]); setMessage(""); setError(""); setConsent(false); setSetupOpen(true); setInterviewId(null);
+  }
+  function resumeInterview() {
+    setMode('entrevista'); setJobId(String(dailyInterview.oferta_id));
+    setInterviewId(dailyInterview.id); setMessages(dailyInterview.historial);
+    setError(''); setMessage(''); setConsent(false); setSetupOpen(false);
   }
   function changeMode(value) {
     if (value === mode) return;
@@ -108,9 +119,13 @@ export default function GraduateAssistant() {
     event.preventDefault();
     if (busy || checking || !available || !consent) return;
     if (mode === "presentacion" && !draft.trim()) { setSetupOpen(true); setError("Añade un borrador de tu presentación antes de enviarlo."); return; }
-    if (mode === "entrevista" && !jobId) { setSetupOpen(true); setError("Selecciona una oferta antes de comenzar la práctica."); return; }
+    if (mode !== "presentacion" && !jobId) { setSetupOpen(true); setError("Selecciona una oferta antes de comenzar."); return; }
+    if (mode === 'entrevista' && dailyInterview && (!interviewId || dailyInterview.finalizada)) {
+      setError('Ya utilizaste tu entrevista diaria. Retoma la de hoy o vuelve mañana, según la hora de Santiago.'); return;
+    }
     const text = message.trim() || (mode === "presentacion"
       ? "Revisa mi presentación y propón una versión mejorada sin inventar antecedentes."
+      : mode === 'postulacion' ? '¿Qué necesito para postular a esta oferta y cómo puedo prepararme?'
       : "Comencemos una entrevista de práctica para esta oferta. Hazme la primera pregunta.");
     if (messages.length && !message.trim()) return;
     sendingRef.current = true;
@@ -118,13 +133,20 @@ export default function GraduateAssistant() {
     try {
       const result = await api.assistantChat({modo: mode, mensaje: text,
         borrador: mode === "presentacion" ? draft : "",
-        oferta_id: mode === "entrevista" ? Number(jobId) : null,
+        oferta_id: mode !== "presentacion" ? Number(jobId) : null,
+        entrevista_id: mode === 'entrevista' ? interviewId : null,
         historial: messages.slice(-20).map(({role, text}) => ({role, text})),
         contenido_anonimo: true});
       setMessages((previous) => [...previous, {role: "user", text},
         {role: "model", text: result.respuesta, incomplete: result.incompleta}]);
+      if (result.entrevista) { setInterviewId(result.entrevista.id); setDailyInterview(result.entrevista); }
       setMessage("");
-    } catch (err) { setError(err.message); }
+    } catch (err) {
+      setError(err.message);
+      if (mode === 'entrevista') {
+        try { const status = await api.assistantStatus(); setDailyInterview(status.entrevista_hoy); } catch { /* Keep original error. */ }
+      }
+    }
     finally { setBusy(false); setPendingText(""); }
   }
 
@@ -148,7 +170,7 @@ export default function GraduateAssistant() {
           <header className="ai-dialog-header">
             <div className="ai-heading"><span className="ai-heading-icon" aria-hidden="true"><FiMessageCircle /></span><div>
               <h2 id="graduate-ai-title" ref={titleRef} tabIndex={-1}>Modo IA <span aria-hidden="true">✦</span></h2>
-              <p id="graduate-ai-status" role="status" className="ai-availability">{checking ? "Conectando…" : available ? "Gemini conectado" : "Conexión pendiente con Gemini"}</p>
+              <p id="graduate-ai-status" role="status" className="ai-availability">{checking ? "Comprobando disponibilidad…" : available ? "Gemini habilitado" : "Conexión pendiente con Gemini"}</p>
             </div></div>
             <div className="ai-header-actions">
               <button className="ai-icon-button" type="button" disabled={busy} onClick={resetConversation} aria-label="Nueva conversación" title="Nueva conversación"><FiPlus aria-hidden="true" /></button>
@@ -162,7 +184,14 @@ export default function GraduateAssistant() {
               <div className="ai-mode-tabs" aria-label="Tipo de orientación">
                 <button type="button" aria-pressed={mode === "presentacion"} disabled={busy} onClick={() => changeMode("presentacion")}>Mi presentación</button>
                 <button type="button" aria-pressed={mode === "entrevista"} disabled={busy} onClick={() => changeMode("entrevista")}>Entrevista de práctica</button>
+                <button type="button" aria-pressed={mode === "postulacion"} disabled={busy} onClick={() => changeMode("postulacion")}>Preparar postulación</button>
               </div>
+              {mode === 'entrevista' && <div className="ai-daily-limit" role="status">
+                <strong>1 entrevista por día</strong>
+                <p>5 preguntas y una devolución final. Se renueva al cambiar el día en Santiago. Puedes retomarla hoy; un fallo de Gemini no consume tu práctica.</p>
+                {dailyInterview && <p>{dailyInterview.finalizada ? 'Ya completaste la entrevista de hoy. Mañana tendrás otra disponible.' : `Entrevista de hoy iniciada · ${dailyInterview.turnos}/6 turnos.`}</p>}
+                {dailyInterview && !interviewId && !dailyInterview.finalizada && <button type="button" className="ai-text-button" disabled={busy} onClick={resumeInterview}>Retomar entrevista de hoy</button>}
+              </div>}
               {!messages.length && !busy && <div className="ai-chat-welcome"><span aria-hidden="true">❧</span><h3>¿Qué preparamos hoy?</h3></div>}
               <div className="ai-context">
                 <button type="button" className="ai-context-toggle" disabled={busy} aria-expanded={setupOpen} aria-controls="ai-context-fields" onClick={() => setSetupOpen(!setupOpen)}>
@@ -177,11 +206,11 @@ export default function GraduateAssistant() {
                     {profile?.presentacion && <button className="ai-text-button" type="button" disabled={busy} onClick={() => {setDraft(anonymousDraft(profile)); resetConversation();}}>Usar mi presentación como borrador</button>}
                   </> : <>
                     <label htmlFor="ai-job">Elige una oferta activa</label>
-                    <select id="ai-job" value={jobId} required disabled={busy || checking} onChange={(e) => {setJobId(e.target.value); resetConversation();}}>
+                    <select id="ai-job" value={jobId} required disabled={busy || checking || (mode === 'entrevista' && !!interviewId)} onChange={(e) => {setJobId(e.target.value); resetConversation();}}>
                       <option value="">Selecciona una oferta</option>
                       {jobs.map((job) => <option key={job.id} value={job.id}>{job.titulo} · {job.nombre_empresa}</option>)}
                     </select>
-                    <p className="ai-help">{!checking && !jobs.length ? "No hay ofertas disponibles en este momento." : "Recibirás una pregunta por turno y comentarios para mejorar. Es una práctica, no una entrevista con la empresa."}</p>
+                    <p className="ai-help">{!checking && !jobs.length ? "No hay ofertas disponibles en este momento." : mode === 'postulacion' ? 'Consulta requisitos, qué antecedentes preparar y qué habilidades reforzar. La IA distingue lo exigido de sus sugerencias.' : "Recibirás una pregunta por turno y comentarios para mejorar. Es una práctica, no una entrevista con la empresa."}</p>
                   </>}
                 </div>
               </div>
@@ -197,7 +226,7 @@ export default function GraduateAssistant() {
             </div>
             <footer className="ai-chat-composer">
               {error && <p ref={errorRef} tabIndex={-1} role="alert" className="mensaje-error">{error}</p>}
-              <details className="ai-privacy"><summary>Antes de conversar · privacidad</summary><p id="ai-sharing">Google recibirá el texto y la conversación y, al practicar entrevistas, el contenido de la oferta. El servicio gratuito puede usar lo enviado para mejorar sus productos. Usa únicamente texto ficticio o anonimizado, sin nombres, contactos ni información confidencial. Revisa el borrador incluso después de copiarlo.</p></details>
+              <details className="ai-privacy"><summary>Antes de conversar · privacidad</summary><p id="ai-sharing">Google recibirá el texto y la conversación y, al consultar una oferta o practicar entrevistas, su contenido. La entrevista se guarda cifrada en BranchIT para retomarla y controlar el uso diario. El servicio gratuito puede usar lo enviado para mejorar sus productos. Usa únicamente texto ficticio o anonimizado, sin nombres, contactos ni información confidencial. Revisa el borrador incluso después de copiarlo.</p></details>
               <label className="ai-consent"><input type="checkbox" checked={consent} required disabled={busy} onChange={(e) => setConsent(e.target.checked)} />Confirmo que el contenido es ficticio o anonimizado y quiero enviarlo a Gemini.</label>
               <label className="sr-only" htmlFor="graduate-ai-message">{messages.length ? "Tu mensaje" : "Tu consulta opcional"}</label>
               <div className="ai-input-box">
@@ -208,8 +237,8 @@ export default function GraduateAssistant() {
                     }
                   }}
                   placeholder={messages.length ? "Escribe tu mensaje…" : mode === "presentacion" ? "¿En qué quieres mejorar? (opcional)" : "¿Qué te gustaría practicar? (opcional)"} />
-                <button type="submit" className="ai-send" disabled={busy || checking || !available || !consent || (!!messages.length && !message.trim())}
-                  aria-label={messages.length ? "Enviar mensaje" : mode === "presentacion" ? "Revisar presentación" : "Comenzar entrevista"} title={messages.length ? "Enviar mensaje" : "Comenzar conversación"}><FiSend aria-hidden="true" /></button>
+                <button type="submit" className="ai-send" disabled={busy || checking || !available || !consent || (!!messages.length && !message.trim()) || (mode === 'entrevista' && !!dailyInterview && (!interviewId || dailyInterview.finalizada))}
+                  aria-label={messages.length ? "Enviar mensaje" : mode === "presentacion" ? "Revisar presentación" : mode === 'postulacion' ? 'Consultar requisitos' : "Comenzar entrevista"} title={messages.length ? "Enviar mensaje" : "Comenzar conversación"}><FiSend aria-hidden="true" /></button>
               </div>
               <p className="ai-composer-note">{!messages.length ? "Pulsa enviar para comenzar. " : ""}Gemini puede equivocarse. Revisa sus sugerencias.</p>
               <span id="ai-keyboard-help" className="sr-only">Enter para enviar. Mayúsculas y Enter para añadir una línea.</span>

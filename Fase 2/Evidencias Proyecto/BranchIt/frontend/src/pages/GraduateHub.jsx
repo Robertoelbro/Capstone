@@ -90,18 +90,18 @@ export default function GraduateHub() {
         <div className="hub-main">
           <section className="recommendation-banner">
             <div>
-              <span className="pill">PARA TI · SEGÚN TU CARRERA</span>
-              <h2>Ofertas afines a mi carrera</h2>
+              <span className="pill">PARA TI · SEGÚN TU PERFIL</span>
+              <h2>Ofertas afines a mi perfil</h2>
               <p>
                 {area
                   ? `Encontramos ${
                       matching.length
-                    } ofertas del área de ${area.toLowerCase()}.`
+                    } ofertas con coincidencias de carrera o habilidades.`
                   : "Añade tu carrera al perfil para encontrar oportunidades afines."}
               </p>
               <small>
-                Coincidencias por carrera y categoría. Revisa siempre los
-                requisitos de cada oferta.
+                Afinidad estimada por carrera y habilidades declaradas; no es una
+                probabilidad de contratación. Revisa los requisitos de cada oferta.
               </small>
               <a href="#hub-ofertas">
                 Ver ofertas <FiArrowRight />
@@ -237,10 +237,15 @@ export default function GraduateHub() {
                     {j.ubicacion || "Ubicación por definir"}
                   </p>
                   <span className="category-tag">{j.categoria}</span>
+                  {j.mostrar_compatibilidad && <span className="job-compatibility" title="Carrera afín: 20 puntos. Habilidades o tecnologías: 40 por coincidencia, hasta 80.">
+                    <span className="compatibility-ring" style={{'--compatibility': `${j.compatibilidad}%`}} aria-hidden="true" />
+                    <strong>{j.compatibilidad}%</strong> afinidad estimada
+                  </span>}
                   {j.afin && <p className="match-reason">❧ {j.motivo}</p>}
                   <Link to={`/ofertas/${j.id}/postular`}>
                     Ver oportunidad <FiArrowUpRight />
                   </Link>
+                  <button type="button" className="job-ai-question" onClick={() => window.dispatchEvent(new CustomEvent('branchit-open-ai', {detail: {modo: 'postulacion', ofertaId: j.id}}))}>¿Qué necesito para postular?</button>
                 </article>
               ))}
             </div>
