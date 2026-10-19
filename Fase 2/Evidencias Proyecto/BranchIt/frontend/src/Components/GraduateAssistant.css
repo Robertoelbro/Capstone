@@ -78,3 +78,9 @@
 .ai-daily-limit { margin-top: 14px; padding: 12px 14px; background: #f5ebce; border: 1px solid #b8a575; border-radius: 14px; color: #51401c; font-size: .875rem; line-height: 1.6; }
 .ai-daily-limit strong { display: block; }
 .ai-daily-limit p { margin-top: 5px; }
+.ai-certification-resources { margin-top: 14px; padding: 12px 14px; background: #eef3e5; border: 1px solid #b8c9a8; border-radius: 14px; color: #263e30; }
+.ai-certification-resources summary { cursor: pointer; min-height: 44px; display: list-item; padding: 10px 0; font-weight: 600; font-size: .875rem; }
+.ai-certification-resources ul { list-style: none; padding: 0; margin: 0; }
+.ai-certification-resources li { padding-block: 12px; border-top: 1px solid #bdcdb0; }
+.ai-certification-resources a { display: inline-block; padding-block: 8px; color: #2f5326; text-decoration: underline; text-underline-offset: 3px; font-weight: 600; }
+.ai-certification-resources li p { font-size: .875rem; margin-top: 2px; }

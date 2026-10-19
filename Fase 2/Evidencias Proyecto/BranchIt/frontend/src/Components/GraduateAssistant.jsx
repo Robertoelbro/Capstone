@@ -138,7 +138,7 @@ export default function GraduateAssistant() {
         historial: messages.slice(-20).map(({role, text}) => ({role, text})),
         contenido_anonimo: true});
       setMessages((previous) => [...previous, {role: "user", text},
-        {role: "model", text: result.respuesta, incomplete: result.incompleta}]);
+        {role: "model", text: result.respuesta, incomplete: result.incompleta, recursos: result.recursos_certificacion || []}]);
       if (result.entrevista) { setInterviewId(result.entrevista.id); setDailyInterview(result.entrevista); }
       setMessage("");
     } catch (err) {
@@ -210,7 +210,8 @@ export default function GraduateAssistant() {
                       <option value="">Selecciona una oferta</option>
                       {jobs.map((job) => <option key={job.id} value={job.id}>{job.titulo} · {job.nombre_empresa}</option>)}
                     </select>
-                    <p className="ai-help">{!checking && !jobs.length ? "No hay ofertas disponibles en este momento." : mode === 'postulacion' ? 'Consulta requisitos, qué antecedentes preparar y qué habilidades reforzar. La IA distingue lo exigido de sus sugerencias.' : "Recibirás una pregunta por turno y comentarios para mejorar. Es una práctica, no una entrevista con la empresa."}</p>
+                    <p className="ai-help">{!checking && !jobs.length ? "No hay ofertas disponibles en este momento." : mode === 'postulacion' ? 'Consulta requisitos, qué habilidades reforzar y dónde obtener certificaciones.' : "Recibirás una pregunta por turno y comentarios para mejorar. Es una práctica, no una entrevista con la empresa."}</p>
+                    {mode === 'postulacion' && <button type="button" className="ai-text-button" disabled={busy} onClick={() => {setMessage('Recomiéndame sitios gratuitos para obtener certificaciones que me ayuden a prepararme para esta oferta. Distingue qué credencial obtendría y qué habilidad reforzaría.'); messageRef.current?.focus();}}>Pedir sitios para certificarme</button>}
                   </>}
                 </div>
               </div>
@@ -218,6 +219,16 @@ export default function GraduateAssistant() {
                 {messages.map((item, index) => <article key={index} className={`ai-message ai-message-${item.role}`}>
                   <strong>{item.role === "user" ? "Tú" : "BranchIT · Gemini"}</strong><p>{item.text}</p>
                   {item.incomplete && <small>La respuesta quedó incompleta. Puedes pedir que continúe.</small>}
+                  {item.recursos?.length > 0 && <details className="ai-certification-resources">
+                    <summary>Sitios para certificarte · {item.recursos.length} opciones</summary>
+                    <ul>{item.recursos.map(resource => <li key={resource.url}>
+                      <a href={resource.url} target="_blank" rel="noopener noreferrer">{resource.nombre} ↗<span className="sr-only"> (abre en otra pestaña)</span></a>
+                      <p>{resource.motivo}</p>
+                      <small>Curso: {resource.curso}. {resource.credencial}.</small>
+                      <small>{resource.nota}</small>
+                    </li>)}</ul>
+                    <small>Revisión de referencias: {item.recursos[0].revision}. Confirma las condiciones en el sitio antes de inscribirte.</small>
+                  </details>}
                 </article>)}
                 {busy && <><article className="ai-message ai-message-user"><strong>Tú</strong><p>{pendingText}</p></article>
                   <article className="ai-message ai-message-model"><strong>BranchIT · Gemini</strong><p role="status" className="ai-thinking">Preparando una respuesta…</p></article></>}
