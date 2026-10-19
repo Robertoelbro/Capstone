@@ -6,6 +6,7 @@ import "./garden.css";
 import "./accessibility.css";
 import { BrowserRouter } from "react-router-dom";
 import SessionProvider from "./SessionProvider";
+import { Analytics } from "@vercel/analytics/react";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -13,6 +14,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <SessionProvider>
         <App />
       </SessionProvider>
+      <Analytics />
     </BrowserRouter>
   </React.StrictMode>,
 );

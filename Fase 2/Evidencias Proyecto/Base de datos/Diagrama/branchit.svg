@@ -1,0 +1,332 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2300" height="2250" viewBox="0 0 2300 2250"><title>BranchIT — Diagrama físico de base de datos</title><desc>Ocho tablas y diez claves foráneas, generadas desde los modelos SQLAlchemy.</desc><rect width="100%" height="100%" fill="#f6f7f2"/>
+<text x="90" y="85" fill="#263e30" font-family="Segoe UI, Arial, sans-serif" font-size="40" font-weight="700">BranchIT</text>
+<text x="285" y="85" fill="#263e30" font-family="Segoe UI, Arial, sans-serif" font-size="27" font-weight="400">Diagrama físico de base de datos</text>
+<text x="90" y="125" fill="#53634b" font-family="Segoe UI, Arial, sans-serif" font-size="19" font-weight="400">Modelos SQLAlchemy · PostgreSQL / Neon · Migraciones hasta 0008 · 19 de octubre de 2026</text>
+<text x="90" y="156" fill="#53634b" font-family="Segoe UI, Arial, sans-serif" font-size="17" font-weight="400">PK: clave primaria   FK: clave foránea   UK: valor único   ?: campo que permite NULL   Flecha: FK → tabla referenciada</text>
+<polyline points="570,370 850,370" fill="none" stroke="#738c79" stroke-width="3" stroke-linejoin="round"/>
+<polygon points="850.0,370.0 839.2,375.2 839.2,364.8" fill="#738c79"/>
+<text x="630" y="358" fill="#738c79" font-family="Segoe UI, Arial, sans-serif" font-size="16" font-weight="400">usuario_id</text>
+<polyline points="1630,370 1330,370" fill="none" stroke="#738c79" stroke-width="3" stroke-linejoin="round"/>
+<polygon points="1330.0,370.0 1340.8,364.8 1340.8,375.2" fill="#738c79"/>
+<text x="1400" y="358" fill="#738c79" font-family="Segoe UI, Arial, sans-serif" font-size="16" font-weight="400">usuario_id</text>
+<polyline points="330,900 330,790 740,790 740,550 850,550" fill="none" stroke="#738c79" stroke-width="3" stroke-linejoin="round"/>
+<polygon points="850.0,550.0 839.2,555.2 839.2,544.8" fill="#738c79"/>
+<text x="435" y="778" fill="#738c79" font-family="Segoe UI, Arial, sans-serif" font-size="16" font-weight="400">usuario_id · UK</text>
+<polyline points="1090,900 1090,576" fill="none" stroke="#738c79" stroke-width="3" stroke-linejoin="round"/>
+<polygon points="1090.0,576.0 1095.2,586.8 1084.8,586.8" fill="#738c79"/>
+<text x="1115" y="744" fill="#738c79" font-family="Segoe UI, Arial, sans-serif" font-size="16" font-weight="400">usuario_id · UK</text>
+<polyline points="2110,1660 2220,1660 2220,550 1330,550" fill="none" stroke="#738c79" stroke-width="3" stroke-linejoin="round"/>
+<polygon points="1330.0,550.0 1340.8,544.8 1340.8,555.2" fill="#738c79"/>
+<text x="2050" y="1046" fill="#738c79" font-family="Segoe UI, Arial, sans-serif" font-size="16" font-weight="400">usuario_id</text>
+<polyline points="330,1530 330,1256" fill="none" stroke="#738c79" stroke-width="3" stroke-linejoin="round"/>
+<polygon points="330.0,1256.0 335.2,1266.8 324.8,1266.8" fill="#738c79"/>
+<text x="350" y="1396" fill="#738c79" font-family="Segoe UI, Arial, sans-serif" font-size="16" font-weight="400">egresado_id</text>
+<polyline points="1090,1470 1090,1198" fill="none" stroke="#738c79" stroke-width="3" stroke-linejoin="round"/>
+<polygon points="1090.0,1198.0 1095.2,1208.8 1084.8,1208.8" fill="#738c79"/>
+<text x="1115" y="1356" fill="#738c79" font-family="Segoe UI, Arial, sans-serif" font-size="16" font-weight="400">empresa_id</text>
+<polyline points="570,1650 850,1650" fill="none" stroke="#738c79" stroke-width="3" stroke-linejoin="round"/>
+<polygon points="850.0,1650.0 839.2,1655.2 839.2,1644.8" fill="#738c79"/>
+<text x="645" y="1638" fill="#738c79" font-family="Segoe UI, Arial, sans-serif" font-size="16" font-weight="400">oferta_id</text>
+<polyline points="1630,1650 1330,1650" fill="none" stroke="#738c79" stroke-width="3" stroke-linejoin="round"/>
+<polygon points="1330.0,1650.0 1340.8,1644.8 1340.8,1655.2" fill="#738c79"/>
+<text x="1390" y="1638" fill="#738c79" font-family="Segoe UI, Arial, sans-serif" font-size="16" font-weight="400">oferta_id · opcional</text>
+<polyline points="1330,1090 1450,1090 1450,715 330,715 330,576" fill="none" stroke="#a47751" stroke-width="3" stroke-linejoin="round"/>
+<polygon points="330.0,576.0 335.2,586.8 324.8,586.8" fill="#a47751"/>
+<text x="740" y="702" fill="#a47751" font-family="Segoe UI, Arial, sans-serif" font-size="16" font-weight="400">foto_id · opcional</text>
+<rect x="94" y="225" width="480" height="356" rx="16" fill="#e6e9df" stroke="none" stroke-width="2"/>
+<rect x="90" y="220" width="480" height="356" rx="16" fill="#fffefb" stroke="#d3c48d" stroke-width="2"/>
+<rect x="92" y="222" width="476" height="48" rx="14" fill="#f3ebcb" stroke="none" stroke-width="2"/>
+<text x="108" y="253" fill="#263e30" font-family="Segoe UI, Arial, sans-serif" font-size="23" font-weight="700">archivos_portfolio</text>
+<text x="106" y="293" fill="#263e30" font-family="Consolas, monospace" font-size="16" font-weight="400">id</text>
+<text x="370" y="291" fill="#56645a" font-family="Consolas, monospace" font-size="14" font-weight="400">VARCHAR(32)</text>
+<text x="511" y="290" fill="#385d28" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700">PK</text>
+<rect x="93" y="304" width="474" height="28" rx="0" fill="#f5f6f0" stroke="none" stroke-width="2"/>
+<text x="106" y="322" fill="#263e30" font-family="Consolas, monospace" font-size="16" font-weight="400">usuario_id</text>
+<text x="370" y="320" fill="#56645a" font-family="Consolas, monospace" font-size="14" font-weight="400">INTEGER</text>
+<text x="511" y="319" fill="#385d28" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700">FK</text>
+<text x="106" y="351" fill="#263e30" font-family="Consolas, monospace" font-size="16" font-weight="400">tipo</text>
+<text x="370" y="349" fill="#56645a" font-family="Consolas, monospace" font-size="14" font-weight="400">VARCHAR(20)</text>
+<text x="511" y="348" fill="#385d28" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700"></text>
+<rect x="93" y="362" width="474" height="28" rx="0" fill="#f5f6f0" stroke="none" stroke-width="2"/>
+<text x="106" y="380" fill="#263e30" font-family="Consolas, monospace" font-size="16" font-weight="400">nombre</text>
+<text x="370" y="378" fill="#56645a" font-family="Consolas, monospace" font-size="14" font-weight="400">VARCHAR(180)</text>
+<text x="511" y="377" fill="#385d28" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700"></text>
+<text x="106" y="409" fill="#263e30" font-family="Consolas, monospace" font-size="16" font-weight="400">mime</text>
+<text x="370" y="407" fill="#56645a" font-family="Consolas, monospace" font-size="14" font-weight="400">VARCHAR(80)</text>
+<text x="511" y="406" fill="#385d28" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700"></text>
+<rect x="93" y="420" width="474" height="28" rx="0" fill="#f5f6f0" stroke="none" stroke-width="2"/>
+<text x="106" y="438" fill="#263e30" font-family="Consolas, monospace" font-size="16" font-weight="400">tamano</text>
+<text x="370" y="436" fill="#56645a" font-family="Consolas, monospace" font-size="14" font-weight="400">INTEGER</text>
+<text x="511" y="435" fill="#385d28" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700"></text>
+<text x="106" y="467" fill="#263e30" font-family="Consolas, monospace" font-size="16" font-weight="400">duracion ?</text>
+<text x="370" y="465" fill="#56645a" font-family="Consolas, monospace" font-size="14" font-weight="400">INTEGER</text>
+<text x="511" y="464" fill="#385d28" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700"></text>
+<rect x="93" y="478" width="474" height="28" rx="0" fill="#f5f6f0" stroke="none" stroke-width="2"/>
+<text x="106" y="496" fill="#263e30" font-family="Consolas, monospace" font-size="16" font-weight="400">pathname</text>
+<text x="370" y="494" fill="#56645a" font-family="Consolas, monospace" font-size="14" font-weight="400">VARCHAR(255)</text>
+<text x="511" y="493" fill="#385d28" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700">UK</text>
+<text x="106" y="525" fill="#263e30" font-family="Consolas, monospace" font-size="16" font-weight="400">verificado</text>
+<text x="370" y="523" fill="#56645a" font-family="Consolas, monospace" font-size="14" font-weight="400">BOOLEAN</text>
+<text x="511" y="522" fill="#385d28" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700"></text>
+<rect x="93" y="536" width="474" height="28" rx="0" fill="#f5f6f0" stroke="none" stroke-width="2"/>
+<text x="106" y="554" fill="#263e30" font-family="Consolas, monospace" font-size="16" font-weight="400">creado</text>
+<text x="370" y="552" fill="#56645a" font-family="Consolas, monospace" font-size="14" font-weight="400">TIMESTAMP</text>
+<text x="511" y="551" fill="#385d28" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700"></text>
+<rect x="854" y="225" width="480" height="356" rx="16" fill="#e6e9df" stroke="none" stroke-width="2"/>
+<rect x="850" y="220" width="480" height="356" rx="16" fill="#fffefb" stroke="#b4c7a3" stroke-width="2"/>
+<rect x="852" y="222" width="476" height="48" rx="14" fill="#dce9d1" stroke="none" stroke-width="2"/>
+<text x="868" y="253" fill="#263e30" font-family="Segoe UI, Arial, sans-serif" font-size="23" font-weight="700">usuarios</text>
+<text x="866" y="293" fill="#263e30" font-family="Consolas, monospace" font-size="16" font-weight="400">id</text>
+<text x="1130" y="291" fill="#56645a" font-family="Consolas, monospace" font-size="14" font-weight="400">INTEGER</text>
+<text x="1271" y="290" fill="#385d28" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700">PK</text>
+<rect x="853" y="304" width="474" height="28" rx="0" fill="#f5f6f0" stroke="none" stroke-width="2"/>
+<text x="866" y="322" fill="#263e30" font-family="Consolas, monospace" font-size="16" font-weight="400">rut ?</text>
+<text x="1130" y="320" fill="#56645a" font-family="Consolas, monospace" font-size="14" font-weight="400">VARCHAR(12)</text>
+<text x="1271" y="319" fill="#385d28" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700">UK</text>
+<text x="866" y="351" fill="#263e30" font-family="Consolas, monospace" font-size="16" font-weight="400">telefono ?</text>
+<text x="1130" y="349" fill="#56645a" font-family="Consolas, monospace" font-size="14" font-weight="400">VARCHAR(30)</text>
+<text x="1271" y="348" fill="#385d28" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700"></text>
+<rect x="853" y="362" width="474" height="28" rx="0" fill="#f5f6f0" stroke="none" stroke-width="2"/>
+<text x="866" y="380" fill="#263e30" font-family="Consolas, monospace" font-size="16" font-weight="400">fecha_identidad ?</text>
+<text x="1130" y="378" fill="#56645a" font-family="Consolas, monospace" font-size="14" font-weight="400">DATE</text>
+<text x="1271" y="377" fill="#385d28" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700"></text>
+<text x="866" y="409" fill="#263e30" font-family="Consolas, monospace" font-size="16" font-weight="400">email</text>
+<text x="1130" y="407" fill="#56645a" font-family="Consolas, monospace" font-size="14" font-weight="400">VARCHAR(255)</text>
+<text x="1271" y="406" fill="#385d28" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700">UK</text>
+<rect x="853" y="420" width="474" height="28" rx="0" fill="#f5f6f0" stroke="none" stroke-width="2"/>
+<text x="866" y="438" fill="#263e30" font-family="Consolas, monospace" font-size="16" font-weight="400">password_hash</text>
+<text x="1130" y="436" fill="#56645a" font-family="Consolas, monospace" font-size="14" font-weight="400">VARCHAR(255)</text>
+<text x="1271" y="435" fill="#385d28" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700"></text>
+<text x="866" y="467" fill="#263e30" font-family="Consolas, monospace" font-size="16" font-weight="400">tipo</text>
+<text x="1130" y="465" fill="#56645a" font-family="Consolas, monospace" font-size="14" font-weight="400">tipousuario</text>
+<text x="1271" y="464" fill="#385d28" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700"></text>
+<rect x="853" y="478" width="474" height="28" rx="0" fill="#f5f6f0" stroke="none" stroke-width="2"/>
+<text x="866" y="496" fill="#263e30" font-family="Consolas, monospace" font-size="16" font-weight="400">fecha_registro</text>
+<text x="1130" y="494" fill="#56645a" font-family="Consolas, monospace" font-size="14" font-weight="400">TIMESTAMP</text>
+<text x="1271" y="493" fill="#385d28" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700"></text>
+<text x="866" y="525" fill="#263e30" font-family="Consolas, monospace" font-size="16" font-weight="400">activo</text>
+<text x="1130" y="523" fill="#56645a" font-family="Consolas, monospace" font-size="14" font-weight="400">BOOLEAN</text>
+<text x="1271" y="522" fill="#385d28" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700"></text>
+<rect x="853" y="536" width="474" height="28" rx="0" fill="#f5f6f0" stroke="none" stroke-width="2"/>
+<text x="866" y="554" fill="#263e30" font-family="Consolas, monospace" font-size="16" font-weight="400">token_version</text>
+<text x="1130" y="552" fill="#56645a" font-family="Consolas, monospace" font-size="14" font-weight="400">INTEGER</text>
+<text x="1271" y="551" fill="#385d28" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700"></text>
+<rect x="1634" y="225" width="480" height="240" rx="16" fill="#e6e9df" stroke="none" stroke-width="2"/>
+<rect x="1630" y="220" width="480" height="240" rx="16" fill="#fffefb" stroke="#d9b8b8" stroke-width="2"/>
+<rect x="1632" y="222" width="476" height="48" rx="14" fill="#f5dfdf" stroke="none" stroke-width="2"/>
+<text x="1648" y="253" fill="#263e30" font-family="Segoe UI, Arial, sans-serif" font-size="23" font-weight="700">notificaciones</text>
+<text x="1646" y="293" fill="#263e30" font-family="Consolas, monospace" font-size="16" font-weight="400">id</text>
+<text x="1910" y="291" fill="#56645a" font-family="Consolas, monospace" font-size="14" font-weight="400">INTEGER</text>
+<text x="2051" y="290" fill="#385d28" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700">PK</text>
+<rect x="1633" y="304" width="474" height="28" rx="0" fill="#f5f6f0" stroke="none" stroke-width="2"/>
+<text x="1646" y="322" fill="#263e30" font-family="Consolas, monospace" font-size="16" font-weight="400">usuario_id</text>
+<text x="1910" y="320" fill="#56645a" font-family="Consolas, monospace" font-size="14" font-weight="400">INTEGER</text>
+<text x="2051" y="319" fill="#385d28" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700">FK</text>
+<text x="1646" y="351" fill="#263e30" font-family="Consolas, monospace" font-size="16" font-weight="400">mensaje</text>
+<text x="1910" y="349" fill="#56645a" font-family="Consolas, monospace" font-size="14" font-weight="400">VARCHAR(400)</text>
+<text x="2051" y="348" fill="#385d28" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700"></text>
+<rect x="1633" y="362" width="474" height="28" rx="0" fill="#f5f6f0" stroke="none" stroke-width="2"/>
+<text x="1646" y="380" fill="#263e30" font-family="Consolas, monospace" font-size="16" font-weight="400">destino</text>
+<text x="1910" y="378" fill="#56645a" font-family="Consolas, monospace" font-size="14" font-weight="400">VARCHAR(200)</text>
+<text x="2051" y="377" fill="#385d28" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700"></text>
+<text x="1646" y="409" fill="#263e30" font-family="Consolas, monospace" font-size="16" font-weight="400">leida</text>
+<text x="1910" y="407" fill="#56645a" font-family="Consolas, monospace" font-size="14" font-weight="400">BOOLEAN</text>
+<text x="2051" y="406" fill="#385d28" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700"></text>
+<rect x="1633" y="420" width="474" height="28" rx="0" fill="#f5f6f0" stroke="none" stroke-width="2"/>
+<text x="1646" y="438" fill="#263e30" font-family="Consolas, monospace" font-size="16" font-weight="400">creada</text>
+<text x="1910" y="436" fill="#56645a" font-family="Consolas, monospace" font-size="14" font-weight="400">TIMESTAMP</text>
+<text x="2051" y="435" fill="#385d28" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700"></text>
+<rect x="94" y="905" width="480" height="356" rx="16" fill="#e6e9df" stroke="none" stroke-width="2"/>
+<rect x="90" y="900" width="480" height="356" rx="16" fill="#fffefb" stroke="#b7c4df" stroke-width="2"/>
+<rect x="92" y="902" width="476" height="48" rx="14" fill="#e3e9f5" stroke="none" stroke-width="2"/>
+<text x="108" y="933" fill="#263e30" font-family="Segoe UI, Arial, sans-serif" font-size="23" font-weight="700">perfiles_egresado</text>
+<text x="106" y="973" fill="#263e30" font-family="Consolas, monospace" font-size="16" font-weight="400">id</text>
+<text x="370" y="971" fill="#56645a" font-family="Consolas, monospace" font-size="14" font-weight="400">INTEGER</text>
+<text x="511" y="970" fill="#385d28" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700">PK</text>
+<rect x="93" y="984" width="474" height="28" rx="0" fill="#f5f6f0" stroke="none" stroke-width="2"/>
+<text x="106" y="1002" fill="#263e30" font-family="Consolas, monospace" font-size="16" font-weight="400">usuario_id</text>
+<text x="370" y="1000" fill="#56645a" font-family="Consolas, monospace" font-size="14" font-weight="400">INTEGER</text>
+<text x="511" y="999" fill="#385d28" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700">FK UK</text>
+<text x="106" y="1031" fill="#263e30" font-family="Consolas, monospace" font-size="16" font-weight="400">nombre</text>
+<text x="370" y="1029" fill="#56645a" font-family="Consolas, monospace" font-size="14" font-weight="400">VARCHAR(100)</text>
+<text x="511" y="1028" fill="#385d28" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700"></text>
+<rect x="93" y="1042" width="474" height="28" rx="0" fill="#f5f6f0" stroke="none" stroke-width="2"/>
+<text x="106" y="1060" fill="#263e30" font-family="Consolas, monospace" font-size="16" font-weight="400">apellido</text>
+<text x="370" y="1058" fill="#56645a" font-family="Consolas, monospace" font-size="14" font-weight="400">VARCHAR(100)</text>
+<text x="511" y="1057" fill="#385d28" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700"></text>
+<text x="106" y="1089" fill="#263e30" font-family="Consolas, monospace" font-size="16" font-weight="400">carrera ?</text>
+<text x="370" y="1087" fill="#56645a" font-family="Consolas, monospace" font-size="14" font-weight="400">VARCHAR(150)</text>
+<text x="511" y="1086" fill="#385d28" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700"></text>
+<rect x="93" y="1100" width="474" height="28" rx="0" fill="#f5f6f0" stroke="none" stroke-width="2"/>
+<text x="106" y="1118" fill="#263e30" font-family="Consolas, monospace" font-size="16" font-weight="400">anio_egreso ?</text>
+<text x="370" y="1116" fill="#56645a" font-family="Consolas, monospace" font-size="14" font-weight="400">INTEGER</text>
+<text x="511" y="1115" fill="#385d28" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700"></text>
+<text x="106" y="1147" fill="#263e30" font-family="Consolas, monospace" font-size="16" font-weight="400">presentacion ?</text>
+<text x="370" y="1145" fill="#56645a" font-family="Consolas, monospace" font-size="14" font-weight="400">TEXT</text>
+<text x="511" y="1144" fill="#385d28" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700"></text>
+<rect x="93" y="1158" width="474" height="28" rx="0" fill="#f5f6f0" stroke="none" stroke-width="2"/>
+<text x="106" y="1176" fill="#263e30" font-family="Consolas, monospace" font-size="16" font-weight="400">linkedin_url ?</text>
+<text x="370" y="1174" fill="#56645a" font-family="Consolas, monospace" font-size="14" font-weight="400">VARCHAR(255)</text>
+<text x="511" y="1173" fill="#385d28" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700"></text>
+<text x="106" y="1205" fill="#263e30" font-family="Consolas, monospace" font-size="16" font-weight="400">foto_url ?</text>
+<text x="370" y="1203" fill="#56645a" font-family="Consolas, monospace" font-size="14" font-weight="400">VARCHAR(255)</text>
+<text x="511" y="1202" fill="#385d28" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700"></text>
+<rect x="93" y="1216" width="474" height="28" rx="0" fill="#f5f6f0" stroke="none" stroke-width="2"/>
+<text x="106" y="1234" fill="#263e30" font-family="Consolas, monospace" font-size="16" font-weight="400">portfolio</text>
+<text x="370" y="1232" fill="#56645a" font-family="Consolas, monospace" font-size="14" font-weight="400">JSON</text>
+<text x="511" y="1231" fill="#385d28" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700"></text>
+<rect x="854" y="905" width="480" height="298" rx="16" fill="#e6e9df" stroke="none" stroke-width="2"/>
+<rect x="850" y="900" width="480" height="298" rx="16" fill="#fffefb" stroke="#ddc4aa" stroke-width="2"/>
+<rect x="852" y="902" width="476" height="48" rx="14" fill="#f6e5d5" stroke="none" stroke-width="2"/>
+<text x="868" y="933" fill="#263e30" font-family="Segoe UI, Arial, sans-serif" font-size="23" font-weight="700">perfiles_empresa</text>
+<text x="866" y="973" fill="#263e30" font-family="Consolas, monospace" font-size="16" font-weight="400">id</text>
+<text x="1130" y="971" fill="#56645a" font-family="Consolas, monospace" font-size="14" font-weight="400">INTEGER</text>
+<text x="1271" y="970" fill="#385d28" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700">PK</text>
+<rect x="853" y="984" width="474" height="28" rx="0" fill="#f5f6f0" stroke="none" stroke-width="2"/>
+<text x="866" y="1002" fill="#263e30" font-family="Consolas, monospace" font-size="16" font-weight="400">usuario_id</text>
+<text x="1130" y="1000" fill="#56645a" font-family="Consolas, monospace" font-size="14" font-weight="400">INTEGER</text>
+<text x="1271" y="999" fill="#385d28" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700">FK UK</text>
+<text x="866" y="1031" fill="#263e30" font-family="Consolas, monospace" font-size="16" font-weight="400">nombre_empresa</text>
+<text x="1130" y="1029" fill="#56645a" font-family="Consolas, monospace" font-size="14" font-weight="400">VARCHAR(150)</text>
+<text x="1271" y="1028" fill="#385d28" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700"></text>
+<rect x="853" y="1042" width="474" height="28" rx="0" fill="#f5f6f0" stroke="none" stroke-width="2"/>
+<text x="866" y="1060" fill="#263e30" font-family="Consolas, monospace" font-size="16" font-weight="400">rubro ?</text>
+<text x="1130" y="1058" fill="#56645a" font-family="Consolas, monospace" font-size="14" font-weight="400">VARCHAR(150)</text>
+<text x="1271" y="1057" fill="#385d28" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700"></text>
+<text x="866" y="1089" fill="#263e30" font-family="Consolas, monospace" font-size="16" font-weight="400">descripcion ?</text>
+<text x="1130" y="1087" fill="#56645a" font-family="Consolas, monospace" font-size="14" font-weight="400">TEXT</text>
+<text x="1271" y="1086" fill="#385d28" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700"></text>
+<rect x="853" y="1100" width="474" height="28" rx="0" fill="#f5f6f0" stroke="none" stroke-width="2"/>
+<text x="866" y="1118" fill="#263e30" font-family="Consolas, monospace" font-size="16" font-weight="400">sitio_web ?</text>
+<text x="1130" y="1116" fill="#56645a" font-family="Consolas, monospace" font-size="14" font-weight="400">VARCHAR(255)</text>
+<text x="1271" y="1115" fill="#385d28" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700"></text>
+<text x="866" y="1147" fill="#263e30" font-family="Consolas, monospace" font-size="16" font-weight="400">logo_url ?</text>
+<text x="1130" y="1145" fill="#56645a" font-family="Consolas, monospace" font-size="14" font-weight="400">VARCHAR(255)</text>
+<text x="1271" y="1144" fill="#385d28" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700"></text>
+<rect x="853" y="1158" width="474" height="28" rx="0" fill="#f5f6f0" stroke="none" stroke-width="2"/>
+<text x="866" y="1176" fill="#263e30" font-family="Consolas, monospace" font-size="16" font-weight="400">foto_id ?</text>
+<text x="1130" y="1174" fill="#56645a" font-family="Consolas, monospace" font-size="14" font-weight="400">VARCHAR(32)</text>
+<text x="1271" y="1173" fill="#385d28" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700">FK</text>
+<rect x="94" y="1535" width="480" height="240" rx="16" fill="#e6e9df" stroke="none" stroke-width="2"/>
+<rect x="90" y="1530" width="480" height="240" rx="16" fill="#fffefb" stroke="#cbb7d9" stroke-width="2"/>
+<rect x="92" y="1532" width="476" height="48" rx="14" fill="#ece3f3" stroke="none" stroke-width="2"/>
+<text x="108" y="1563" fill="#263e30" font-family="Segoe UI, Arial, sans-serif" font-size="23" font-weight="700">postulaciones</text>
+<text x="106" y="1603" fill="#263e30" font-family="Consolas, monospace" font-size="16" font-weight="400">id</text>
+<text x="370" y="1601" fill="#56645a" font-family="Consolas, monospace" font-size="14" font-weight="400">INTEGER</text>
+<text x="511" y="1600" fill="#385d28" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700">PK</text>
+<rect x="93" y="1614" width="474" height="28" rx="0" fill="#f5f6f0" stroke="none" stroke-width="2"/>
+<text x="106" y="1632" fill="#263e30" font-family="Consolas, monospace" font-size="16" font-weight="400">oferta_id</text>
+<text x="370" y="1630" fill="#56645a" font-family="Consolas, monospace" font-size="14" font-weight="400">INTEGER</text>
+<text x="511" y="1629" fill="#385d28" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700">FK</text>
+<text x="106" y="1661" fill="#263e30" font-family="Consolas, monospace" font-size="16" font-weight="400">egresado_id</text>
+<text x="370" y="1659" fill="#56645a" font-family="Consolas, monospace" font-size="14" font-weight="400">INTEGER</text>
+<text x="511" y="1658" fill="#385d28" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700">FK</text>
+<rect x="93" y="1672" width="474" height="28" rx="0" fill="#f5f6f0" stroke="none" stroke-width="2"/>
+<text x="106" y="1690" fill="#263e30" font-family="Consolas, monospace" font-size="16" font-weight="400">fecha_postulacion</text>
+<text x="370" y="1688" fill="#56645a" font-family="Consolas, monospace" font-size="14" font-weight="400">TIMESTAMP</text>
+<text x="511" y="1687" fill="#385d28" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700"></text>
+<text x="106" y="1719" fill="#263e30" font-family="Consolas, monospace" font-size="16" font-weight="400">datos_cifrados</text>
+<text x="370" y="1717" fill="#56645a" font-family="Consolas, monospace" font-size="14" font-weight="400">TEXT</text>
+<text x="511" y="1716" fill="#385d28" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700"></text>
+<rect x="93" y="1730" width="474" height="28" rx="0" fill="#f5f6f0" stroke="none" stroke-width="2"/>
+<text x="106" y="1748" fill="#263e30" font-family="Consolas, monospace" font-size="16" font-weight="400">seleccionada</text>
+<text x="370" y="1746" fill="#56645a" font-family="Consolas, monospace" font-size="14" font-weight="400">BOOLEAN</text>
+<text x="511" y="1745" fill="#385d28" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700"></text>
+<rect x="854" y="1475" width="480" height="588" rx="16" fill="#e6e9df" stroke="none" stroke-width="2"/>
+<rect x="850" y="1470" width="480" height="588" rx="16" fill="#fffefb" stroke="#adcbbc" stroke-width="2"/>
+<rect x="852" y="1472" width="476" height="48" rx="14" fill="#dcece5" stroke="none" stroke-width="2"/>
+<text x="868" y="1503" fill="#263e30" font-family="Segoe UI, Arial, sans-serif" font-size="23" font-weight="700">ofertas_empleo</text>
+<text x="866" y="1543" fill="#263e30" font-family="Consolas, monospace" font-size="16" font-weight="400">id</text>
+<text x="1130" y="1541" fill="#56645a" font-family="Consolas, monospace" font-size="14" font-weight="400">INTEGER</text>
+<text x="1271" y="1540" fill="#385d28" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700">PK</text>
+<rect x="853" y="1554" width="474" height="28" rx="0" fill="#f5f6f0" stroke="none" stroke-width="2"/>
+<text x="866" y="1572" fill="#263e30" font-family="Consolas, monospace" font-size="16" font-weight="400">empresa_id</text>
+<text x="1130" y="1570" fill="#56645a" font-family="Consolas, monospace" font-size="14" font-weight="400">INTEGER</text>
+<text x="1271" y="1569" fill="#385d28" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700">FK</text>
+<text x="866" y="1601" fill="#263e30" font-family="Consolas, monospace" font-size="16" font-weight="400">titulo</text>
+<text x="1130" y="1599" fill="#56645a" font-family="Consolas, monospace" font-size="14" font-weight="400">VARCHAR(150)</text>
+<text x="1271" y="1598" fill="#385d28" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700"></text>
+<rect x="853" y="1612" width="474" height="28" rx="0" fill="#f5f6f0" stroke="none" stroke-width="2"/>
+<text x="866" y="1630" fill="#263e30" font-family="Consolas, monospace" font-size="16" font-weight="400">descripcion</text>
+<text x="1130" y="1628" fill="#56645a" font-family="Consolas, monospace" font-size="14" font-weight="400">TEXT</text>
+<text x="1271" y="1627" fill="#385d28" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700"></text>
+<text x="866" y="1659" fill="#263e30" font-family="Consolas, monospace" font-size="16" font-weight="400">requisitos ?</text>
+<text x="1130" y="1657" fill="#56645a" font-family="Consolas, monospace" font-size="14" font-weight="400">TEXT</text>
+<text x="1271" y="1656" fill="#385d28" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700"></text>
+<rect x="853" y="1670" width="474" height="28" rx="0" fill="#f5f6f0" stroke="none" stroke-width="2"/>
+<text x="866" y="1688" fill="#263e30" font-family="Consolas, monospace" font-size="16" font-weight="400">ubicacion ?</text>
+<text x="1130" y="1686" fill="#56645a" font-family="Consolas, monospace" font-size="14" font-weight="400">VARCHAR(150)</text>
+<text x="1271" y="1685" fill="#385d28" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700"></text>
+<text x="866" y="1717" fill="#263e30" font-family="Consolas, monospace" font-size="16" font-weight="400">modalidad ?</text>
+<text x="1130" y="1715" fill="#56645a" font-family="Consolas, monospace" font-size="14" font-weight="400">VARCHAR(50)</text>
+<text x="1271" y="1714" fill="#385d28" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700"></text>
+<rect x="853" y="1728" width="474" height="28" rx="0" fill="#f5f6f0" stroke="none" stroke-width="2"/>
+<text x="866" y="1746" fill="#263e30" font-family="Consolas, monospace" font-size="16" font-weight="400">fecha_publicacion</text>
+<text x="1130" y="1744" fill="#56645a" font-family="Consolas, monospace" font-size="14" font-weight="400">TIMESTAMP</text>
+<text x="1271" y="1743" fill="#385d28" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700"></text>
+<text x="866" y="1775" fill="#263e30" font-family="Consolas, monospace" font-size="16" font-weight="400">activa</text>
+<text x="1130" y="1773" fill="#56645a" font-family="Consolas, monospace" font-size="14" font-weight="400">BOOLEAN</text>
+<text x="1271" y="1772" fill="#385d28" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700"></text>
+<rect x="853" y="1786" width="474" height="28" rx="0" fill="#f5f6f0" stroke="none" stroke-width="2"/>
+<text x="866" y="1804" fill="#263e30" font-family="Consolas, monospace" font-size="16" font-weight="400">preguntas</text>
+<text x="1130" y="1802" fill="#56645a" font-family="Consolas, monospace" font-size="14" font-weight="400">JSON</text>
+<text x="1271" y="1801" fill="#385d28" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700"></text>
+<text x="866" y="1833" fill="#263e30" font-family="Consolas, monospace" font-size="16" font-weight="400">formulario_version</text>
+<text x="1130" y="1831" fill="#56645a" font-family="Consolas, monospace" font-size="14" font-weight="400">INTEGER</text>
+<text x="1271" y="1830" fill="#385d28" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700"></text>
+<rect x="853" y="1844" width="474" height="28" rx="0" fill="#f5f6f0" stroke="none" stroke-width="2"/>
+<text x="866" y="1862" fill="#263e30" font-family="Consolas, monospace" font-size="16" font-weight="400">categoria</text>
+<text x="1130" y="1860" fill="#56645a" font-family="Consolas, monospace" font-size="14" font-weight="400">VARCHAR(80)</text>
+<text x="1271" y="1859" fill="#385d28" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700"></text>
+<text x="866" y="1891" fill="#263e30" font-family="Consolas, monospace" font-size="16" font-weight="400">demo_clave ?</text>
+<text x="1130" y="1889" fill="#56645a" font-family="Consolas, monospace" font-size="14" font-weight="400">VARCHAR(80)</text>
+<text x="1271" y="1888" fill="#385d28" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700">UK</text>
+<rect x="853" y="1902" width="474" height="28" rx="0" fill="#f5f6f0" stroke="none" stroke-width="2"/>
+<text x="866" y="1920" fill="#263e30" font-family="Consolas, monospace" font-size="16" font-weight="400">sueldo ?</text>
+<text x="1130" y="1918" fill="#56645a" font-family="Consolas, monospace" font-size="14" font-weight="400">BIGINT</text>
+<text x="1271" y="1917" fill="#385d28" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700"></text>
+<text x="866" y="1949" fill="#263e30" font-family="Consolas, monospace" font-size="16" font-weight="400">funciones ?</text>
+<text x="1130" y="1947" fill="#56645a" font-family="Consolas, monospace" font-size="14" font-weight="400">TEXT</text>
+<text x="1271" y="1946" fill="#385d28" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700"></text>
+<rect x="853" y="1960" width="474" height="28" rx="0" fill="#f5f6f0" stroke="none" stroke-width="2"/>
+<text x="866" y="1978" fill="#263e30" font-family="Consolas, monospace" font-size="16" font-weight="400">perfiles_deseados ?</text>
+<text x="1130" y="1976" fill="#56645a" font-family="Consolas, monospace" font-size="14" font-weight="400">JSON</text>
+<text x="1271" y="1975" fill="#385d28" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700"></text>
+<text x="866" y="2007" fill="#263e30" font-family="Consolas, monospace" font-size="16" font-weight="400">condiciones_laborales ?</text>
+<text x="1130" y="2005" fill="#56645a" font-family="Consolas, monospace" font-size="14" font-weight="400">TEXT</text>
+<text x="1271" y="2004" fill="#385d28" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700"></text>
+<rect x="853" y="2018" width="474" height="28" rx="0" fill="#f5f6f0" stroke="none" stroke-width="2"/>
+<text x="866" y="2036" fill="#263e30" font-family="Consolas, monospace" font-size="16" font-weight="400">adaptada_discapacidad ?</text>
+<text x="1130" y="2034" fill="#56645a" font-family="Consolas, monospace" font-size="14" font-weight="400">BOOLEAN</text>
+<text x="1271" y="2033" fill="#385d28" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700"></text>
+<rect x="1634" y="1535" width="480" height="240" rx="16" fill="#e6e9df" stroke="none" stroke-width="2"/>
+<rect x="1630" y="1530" width="480" height="240" rx="16" fill="#fffefb" stroke="#b0c9d2" stroke-width="2"/>
+<rect x="1632" y="1532" width="476" height="48" rx="14" fill="#deebef" stroke="none" stroke-width="2"/>
+<text x="1648" y="1563" fill="#263e30" font-family="Segoe UI, Arial, sans-serif" font-size="23" font-weight="700">entrevistas_ia</text>
+<text x="1646" y="1603" fill="#263e30" font-family="Consolas, monospace" font-size="16" font-weight="400">id</text>
+<text x="1910" y="1601" fill="#56645a" font-family="Consolas, monospace" font-size="14" font-weight="400">VARCHAR(32)</text>
+<text x="2051" y="1600" fill="#385d28" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700">PK</text>
+<rect x="1633" y="1614" width="474" height="28" rx="0" fill="#f5f6f0" stroke="none" stroke-width="2"/>
+<text x="1646" y="1632" fill="#263e30" font-family="Consolas, monospace" font-size="16" font-weight="400">usuario_id</text>
+<text x="1910" y="1630" fill="#56645a" font-family="Consolas, monospace" font-size="14" font-weight="400">INTEGER</text>
+<text x="2051" y="1629" fill="#385d28" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700">FK</text>
+<text x="1646" y="1661" fill="#263e30" font-family="Consolas, monospace" font-size="16" font-weight="400">fecha</text>
+<text x="1910" y="1659" fill="#56645a" font-family="Consolas, monospace" font-size="14" font-weight="400">DATE</text>
+<text x="2051" y="1658" fill="#385d28" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700"></text>
+<rect x="1633" y="1672" width="474" height="28" rx="0" fill="#f5f6f0" stroke="none" stroke-width="2"/>
+<text x="1646" y="1690" fill="#263e30" font-family="Consolas, monospace" font-size="16" font-weight="400">oferta_id ?</text>
+<text x="1910" y="1688" fill="#56645a" font-family="Consolas, monospace" font-size="14" font-weight="400">INTEGER</text>
+<text x="2051" y="1687" fill="#385d28" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700">FK</text>
+<text x="1646" y="1719" fill="#263e30" font-family="Consolas, monospace" font-size="16" font-weight="400">datos_cifrados</text>
+<text x="1910" y="1717" fill="#56645a" font-family="Consolas, monospace" font-size="14" font-weight="400">TEXT</text>
+<text x="2051" y="1716" fill="#385d28" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700"></text>
+<rect x="1633" y="1730" width="474" height="28" rx="0" fill="#f5f6f0" stroke="none" stroke-width="2"/>
+<text x="1646" y="1748" fill="#263e30" font-family="Consolas, monospace" font-size="16" font-weight="400">turnos</text>
+<text x="1910" y="1746" fill="#56645a" font-family="Consolas, monospace" font-size="14" font-weight="400">INTEGER</text>
+<text x="2051" y="1745" fill="#385d28" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700"></text>
+<rect x="90" y="2115" width="2020" height="115" rx="14" fill="#e8eddf" stroke="none" stroke-width="2"/>
+<text x="110" y="2144" fill="#263e30" font-family="Segoe UI, Arial, sans-serif" font-size="19" font-weight="700">Restricciones adicionales</text>
+<text x="110" y="2171" fill="#263e30" font-family="Segoe UI, Arial, sans-serif" font-size="17" font-weight="400">Postulaciones: UNIQUE(oferta_id, egresado_id) · Una selección por oferta (índice único parcial).</text>
+<text x="110" y="2196" fill="#263e30" font-family="Segoe UI, Arial, sans-serif" font-size="17" font-weight="400">Entrevistas IA: UNIQUE(usuario_id, fecha) · Una sesión diaria por cuenta. El historial y los antecedentes se guardan cifrados.</text>
+<text x="110" y="2220" fill="#263e30" font-family="Segoe UI, Arial, sans-serif" font-size="17" font-weight="400">Relaciones: usuario 1 → 0..1 perfil; empresa 1 → N ofertas; egresados N ↔ M ofertas mediante postulaciones. TIMESTAMP: sin zona horaria.</text>
+</svg>
