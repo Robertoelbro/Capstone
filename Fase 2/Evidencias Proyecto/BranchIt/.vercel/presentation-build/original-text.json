@@ -1,0 +1,103 @@
+[
+  {
+    "slide": "ppt/slides/slide1.xml",
+    "text": [
+      "BranchIt",
+      "Integrantes: / Cristobal Lara / Roberto Orrego / Matías /  Werner",
+      "Docente: / Aldo Martínez / Asignatura: / Capstone 800D"
+    ]
+  },
+  {
+    "slide": "ppt/slides/slide2.xml",
+    "text": [
+      "Índice",
+      "Problemática / Links / Solución propuesta / Público objetivo / Competencias e intereses dentro del proyecto / Metodología de desarrollo / Sprints / Mapa Tecnológico / Riesgos / Modelo de negocio / Mockup / Conclusión"
+    ]
+  },
+  {
+    "slide": "ppt/slides/slide3.xml",
+    "text": [
+      "Problemática",
+      "Durante muchos años los  / recién /  egresados de carreras  / universitarias, técnico /  profesionales, doctorados, etc. Han tenido que enfrentarse a un mismo problema, encontrar trabajo en su rubro, y plataformas como LinkedIn ya  / están /  muy pobladas con profesionales con mucha experiencia."
+    ]
+  },
+  {
+    "slide": "ppt/slides/slide4.xml",
+    "text": [
+      "Links",
+      "DiarioUSACH",
+      "ElObservaTodo",
+      "Enfoque Laboral N°57 / OCECUDP"
+    ]
+  },
+  {
+    "slide": "ppt/slides/slide5.xml",
+    "text": [
+      "Solución /  propuesta",
+      "Debido a aquel problema nosotros como el equipo desarrollador de  / BranchIt /  pensamos en una plataforma similar a LinkedIn, pero con el  / objetivo /  de enfocarnos únicamente en las personas sin experiencia o  / recién /  egresadas para que puedan conseguir trabajo, y apoyarlos utilizando IA para entregarles consejos y recomendaciones que los ayuden a conseguir dicho trabajo."
+    ]
+  },
+  {
+    "slide": "ppt/slides/slide6.xml",
+    "text": [
+      "Público /  Objetivo",
+      "El  / público /  objetivo que tiene la iniciativa  / BranchIt /  son  / recién /   / egresados de todo tipos de carreras en Chile, ya sean t / écnicos / , profesionales o personas sin experiencia / , junto a las  / empresas que busquen este tipo de personal / . T / ambién /   / está /  provisto que  / instituciones educativas /  formen parte del  / público, /  ya que la IA  / derivaría /  a los egresados a conseguir estudiantes para certificaciones, cursos, incluso continuidades de carrera."
+    ]
+  },
+  {
+    "slide": "ppt/slides/slide7.xml",
+    "text": [
+      "Competencias e intereses dentro del proyecto",
+      "Las principales competencias desarrolladas con  / BranchIT /  son el  / desarrollo de software / , la  / programación / , el  / diseño y gestión de bases de datos / , la  / arquitectura de soluciones / , la  / gestión de proyectos informáticos /  y la  / integración de inteligencia artificial / . Estas competencias permiten construir una plataforma web funcional, organizada y orientada a facilitar la inserción laboral de personas recién egresadas. ",
+      "Nuestro principal interés por desarrollar este proyecto nace de ser parte del público objetivo del mismo, viendo tanto como nosotros como otros estudiantes sufrimos de las dificultades del mercado laboral actual junto con evidenciar que las plataformas de software online tampoco son de mucha ayuda cuando estas brindan espacio también a públicos experimentados que pueden presentar un mayor éxito en su búsqueda por la naturaleza del tiempo dentro del mercado / ."
+    ]
+  },
+  {
+    "slide": "ppt/slides/slide8.xml",
+    "text": [
+      "Metodología /  de desarrollo",
+      "La  / metodología /   / que elegimos como equipo es  / ágil /   / específicamente /  una enfocada en  / S / crum / , para dividir el trabajo en roles y  / Sprints / Roles: / Roberto Orrego: Desarrollo/ Scrum Master / Cristobal Lara: Desarrollador/ Ciberseguridad / Matias Werner: Desarrollador/  / Módulo /  IA"
+    ]
+  },
+  {
+    "slide": "ppt/slides/slide9.xml",
+    "text": [
+      "Sprints",
+      "Sprint 1: Elaboración presentación de proyecto (presentación, documentación, mockups, entre otros documentos. / Sprint 2: Elaboración de Presentacion, Informe, principios de codificación de código (Creación de módulos, Clases, dependencias, entre otros) / Sprint 3: Codificación de base de datos, Registro de usuario (egresado y empresa) y template para la página. / Sprint 4: Codificación de las vistas de: inicio de sesión, Hub principal usuario egresado, Hub principal usuario empresa. / Sprint 5: Codificación vistas de: Crud (empresa, creando ofertas de empleo, leer, modificación, eliminación de ofertas) Vista de ofertas de empresas en hub de usuario egresado, vista crud usuario egresado (creación, leer, modificar, eliminar, para la sección de presentación del egresado) / Sprint 6: Codificación de cifrado de datos sensibles, vista opción de postular a oferta laboral (pudiendo rellenar los campos que la empresa solicitó para la oferta), codificación de seguridad para el código y el software en general. / Sprint 7: Implementacion modulo de IA, entrenamiento de IA, limitación de preguntas a la IA / Sprint 8: Creación de función para hacer seguimiento de un egresado trabajando, función de desactivación de funciones para usuarios con la experiencia suficiente, función para dar de baja la cuenta. / Sprint 9: Limpieza de código, mejoras de cifrado, mejoras de seguridad / Sprint 10: pruebas de calidad de software, carga de usuarios y auditoría de software / Sprint 11: Implementación de host, elaboración de presentación y últimas pruebas de calidad."
+    ]
+  },
+  {
+    "slide": "ppt/slides/slide10.xml",
+    "text": [
+      "Mapa  / Tecnológico",
+      "El mapa tecnológico presenta aspectos particulares del software junto a algunos de los servicios y softwares específicos que decidimos utilizar, basados en la experiencia que tenemos con ellos, la cantidad de documentación existente que presentan y  / cuán /  activa y grande son las comunidades que las utilizan, puesto que todo esto facilita el desarrollo."
+    ]
+  },
+  {
+    "slide": "ppt/slides/slide11.xml",
+    "text": [
+      "Riesgos",
+      "Baja diferenciación: /  Que BranchIT no entregue suficiente valor frente a plataformas de empleo ya existentes. / Altos costos de IA: /  El uso de inteligencia artificial podría aumentar considerablemente los costos de operación. / Equipo reducido: /  Contar con pocas personas puede dificultar el desarrollo y cumplimiento de los plazos. / Poca participación de empresas: /  Si no existen suficientes ofertas laborales, la plataforma pierde atractivo para los egresados. / Complejidad técnica y alcance: /  Implementar todas las funcionalidades propuestas dentro del tiempo disponible puede ser difícil."
+    ]
+  },
+  {
+    "slide": "ppt/slides/slide12.xml",
+    "text": [
+      "Modelo de negocio",
+      "Plan Premium accesible: /  mantiene gratuitas las funciones esenciales de búsqueda y postulación, y ofrece herramientas adicionales como IA avanzada, mejora de perfil, simulación de entrevistas, recomendaciones personalizadas, estadísticas profesionales y  / postulación /  diaria  / automática /  (10 diarias). "
+    ]
+  },
+  {
+    "slide": "ppt/slides/slide13.xml",
+    "text": [
+      "Mockup"
+    ]
+  },
+  {
+    "slide": "ppt/slides/slide14.xml",
+    "text": [
+      "Conclusión\t",
+      "BranchIT busca facilitar la inserción laboral de personas recién egresadas mediante una plataforma enfocada en oportunidades para usuarios con poca o ninguna experiencia. El proyecto combina desarrollo web, gestión de información e inteligencia artificial para entregar orientación profesional, conectar talento con empresas y apoyar el crecimiento laboral de los usuarios. Su desarrollo permite aplicar competencias propias de Ingeniería en Informática y, al mismo tiempo, proponer una solución tecnológica con potencial de impacto social y laboral. "
+    ]
+  }
+]

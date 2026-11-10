@@ -1,0 +1,13 @@
+import fs from 'node:fs/promises';
+import { Workbook } from '@oai/artifact-tool';
+const accounts=JSON.parse(await fs.readFile(new URL('./company_accounts.json',import.meta.url),'utf8'));
+const wb=Workbook.create(); const sheet=wb.worksheets.add('Empresas');
+const rows=[['Empresa','Correo','Contraseña'],...accounts.map(a=>[a.empresa,a.correo,a.contraseña])];
+sheet.getRange('A1:C11').values=rows;
+sheet.getRange('A1:C11').format.columnWidth=38;
+sheet.getRange('A1:C11').format.rowHeight=25;
+wb.recalculate();
+const values=sheet.getRange('A1:C11').values;
+if(values.length!==11||new Set(values.slice(1).map(r=>r[1])).size!==10||values.slice(1).some(r=>r[2]!=='contraseña'))throw Error('Invalid CSV');
+await fs.writeFile(new URL('./empresas_testing.csv',import.meta.url),'\ufeff'+values.map(r=>r.map(v=>'"'+String(v).replaceAll('"','""')+'"').join(',')).join('\r\n')+'\r\n','utf8');
+console.log('CSV verified: 10 unique accounts, UTF-8 BOM.');

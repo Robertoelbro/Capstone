@@ -1,0 +1,18 @@
+[
+  {
+    "type": "plain",
+    "key": "VITE_API_URL",
+    "value": "https://branchit-api.vercel.app",
+    "target": [
+      "production"
+    ]
+  },
+  {
+    "type": "plain",
+    "key": "VITE_DEMO_MODE",
+    "value": "false",
+    "target": [
+      "production"
+    ]
+  }
+]

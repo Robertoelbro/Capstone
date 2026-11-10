@@ -1,0 +1,8 @@
+{
+  "key": "VITE_DEMO_MODE",
+  "value": "false",
+  "target": [
+    "production"
+  ],
+  "type": "plain"
+}

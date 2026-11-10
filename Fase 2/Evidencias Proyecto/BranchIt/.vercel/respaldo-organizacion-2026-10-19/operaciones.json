@@ -1,0 +1,108 @@
+[
+  {
+    "tipo": "movimiento_completado_previamente",
+    "origen": "Fase 2\\Evidencias Proyecto\\BranchIt\\docs\\presentacion\\BranchIT_Avances_Proyecto.pptx",
+    "destino": "Fase 2\\Evidencias Proyecto\\Presentacion Proyecto.pptx"
+  },
+  {
+    "tipo": "movimiento_completado_previamente",
+    "origen": "Fase 2\\Evidencias Proyecto\\BranchIt\\docs\\diagrama",
+    "destino": "Fase 2\\Evidencias Proyecto\\Base de datos\\Diagrama"
+  },
+  {
+    "tipo": "movimiento_completado_previamente",
+    "origen": "Fase 2\\Evidencias Proyecto\\BranchIt\\docs\\mapa-tecnologico",
+    "destino": "Fase 2\\Evidencias Proyecto\\Evidencias de documentacion\\Mapa tecnologico"
+  },
+  {
+    "tipo": "adjunto_copiado_previamente",
+    "origen": "C:\\Users\\Roberto\\Downloads\\Resumen evidencias (1).xlsx",
+    "destino": "Pauta de evidencias.xlsx"
+  },
+  {
+    "tipo": "adjunto_copiado_previamente",
+    "origen": "C:\\Users\\Roberto\\Downloads\\BranchIT_Informe_Contexto_para_Codex.docx",
+    "destino": "Fase 2\\Evidencias Proyecto\\Evidencias de documentacion\\Contexto\\BranchIT_Informe_Contexto_para_Codex.docx"
+  },
+  {
+    "tipo": "adjunto_copiado_previamente",
+    "origen": "C:\\Users\\Roberto\\Downloads\\Presentacion proyecto (1).pptx",
+    "destino": "Fase 2\\Evidencias Proyecto\\Evidencias de documentacion\\Referencias\\Presentacion original.pptx"
+  },
+  {
+    "tipo": "adjunto_copiado_previamente",
+    "origen": "C:\\Users\\Roberto\\Downloads\\1.5_GuiaEstudiante_Fase 1_Definicion Proyecto APT (2).docx",
+    "destino": "Fase 1\\Evidencias Grupales\\Versiones de referencia\\1.5_Definicion Proyecto APT - adjunto.docx"
+  },
+  {
+    "tipo": "normalizacion_nombre",
+    "origen": "Fase 1\\Evidencias Individuales\\Orrego_roberto_1.3_APT122_AutoevaluacionFase1.docx",
+    "destino": "Fase 1\\Evidencias Individuales\\Orrego_Roberto_1.3_APT122_AutoevaluacionFase1.docx"
+  },
+  {
+    "tipo": "movimiento",
+    "origen": "Fase 2\\Evidencias Grupales\\notas.txt",
+    "destino": "Fase 2\\Evidencias Proyecto\\Evidencias de documentacion\\Referencias\\Marcadores originales\\notas.txt"
+  },
+  {
+    "tipo": "movimiento",
+    "origen": "Fase 2\\Evidencias Proyecto\\notas 2.txt",
+    "destino": "Fase 2\\Evidencias Proyecto\\Evidencias de documentacion\\Referencias\\Marcadores originales\\notas 2.txt"
+  },
+  {
+    "tipo": "indice",
+    "destino": "README.md"
+  },
+  {
+    "tipo": "indice",
+    "destino": "Fase 1\\README.md"
+  },
+  {
+    "tipo": "indice",
+    "destino": "Fase 2\\README.md"
+  },
+  {
+    "tipo": "indice",
+    "destino": "Fase 2\\Evidencias Individuales\\README.md"
+  },
+  {
+    "tipo": "indice",
+    "destino": "Fase 2\\Evidencias Grupales\\README.md"
+  },
+  {
+    "tipo": "indice",
+    "destino": "Fase 2\\Evidencias Proyecto\\README.md"
+  },
+  {
+    "tipo": "indice",
+    "destino": "Fase 2\\Evidencias Proyecto\\Evidencias de documentacion\\README.md"
+  },
+  {
+    "tipo": "indice",
+    "destino": "Fase 2\\Evidencias Proyecto\\Base de datos\\README.md"
+  },
+  {
+    "tipo": "indice",
+    "destino": "Fase 3\\README.md"
+  },
+  {
+    "tipo": "indice",
+    "destino": "Fase 3\\Evidencias Individuales\\README.md"
+  },
+  {
+    "tipo": "indice",
+    "destino": "Fase 3\\Evidencias Grupales\\README.md"
+  },
+  {
+    "tipo": "indice",
+    "destino": "ESTADO_EVIDENCIAS.md"
+  },
+  {
+    "tipo": "indice",
+    "destino": "Fase 2\\Evidencias Proyecto\\BranchIt\\README.md"
+  },
+  {
+    "tipo": "indice",
+    "destino": "Fase 2\\Evidencias Proyecto\\BranchIt\\database\\README.md"
+  }
+]

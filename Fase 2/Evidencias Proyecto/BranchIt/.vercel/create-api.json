@@ -1,0 +1,10 @@
+{
+  "gitRepository": {
+    "type": "github",
+    "repo": "Robertoelbro/Capstone"
+  },
+  "rootDirectory": "Fase 2/Evidencias Proyecto/BranchIt/backend",
+  "framework": "fastapi",
+  "serverlessFunctionRegion": "gru1",
+  "name": "branchit-api"
+}
