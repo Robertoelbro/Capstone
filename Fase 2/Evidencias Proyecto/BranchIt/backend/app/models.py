@@ -16,6 +16,7 @@ from sqlalchemy import (
     UniqueConstraint,
     Index,
     text,
+    func,
 )
 from sqlalchemy.orm import relationship
 
@@ -46,6 +47,7 @@ class Usuario(Base):
     archivos = relationship('ArchivoPortfolio', cascade='all, delete-orphan')
     notificaciones = relationship('Notificacion', cascade='all, delete-orphan')
     entrevistas_ia = relationship('EntrevistaIA', cascade='all, delete-orphan')
+    seguimiento_laboral = relationship('SeguimientoLaboral', cascade='all, delete-orphan', uselist=False)
 
     perfil_egresado = relationship(
         "PerfilEgresado",
@@ -153,15 +155,29 @@ class Postulacion(Base):
     egresado = relationship('PerfilEgresado', back_populates='postulaciones')
 
 
+class SeguimientoLaboral(Base):
+    """Estado declarado por el egresado; los antecedentes laborales son privados."""
+
+    __tablename__ = 'seguimiento_laboral'
+    id = Column(Integer, primary_key=True)
+    usuario_id = Column(Integer, ForeignKey('usuarios.id'), nullable=False, unique=True)
+    situacion = Column(String(20), nullable=False)
+    busqueda_activa = Column(Boolean, nullable=False)
+    limite_experiencia = Column(Boolean, default=False, nullable=False)
+    datos_cifrados = Column(Text, nullable=False)
+    actualizado = Column(DateTime, default=datetime.utcnow, nullable=False)
+
+
 class EntrevistaIA(Base):
     __tablename__ = 'entrevistas_ia'
-    __table_args__ = (UniqueConstraint('usuario_id', 'fecha', name='uq_entrevista_usuario_dia'),)
+    __table_args__ = (Index('ix_entrevistas_usuario_fecha', 'usuario_id', 'fecha'),)
     id = Column(String(32), primary_key=True)
     usuario_id = Column(Integer, ForeignKey('usuarios.id'), nullable=False)
     fecha = Column(Date, nullable=False)
     oferta_id = Column(Integer, ForeignKey('ofertas_empleo.id', ondelete='SET NULL'), nullable=True)
     datos_cifrados = Column(Text, nullable=False)
     turnos = Column(Integer, nullable=False, default=0)
+    creada = Column(DateTime, default=datetime.utcnow, server_default=func.now(), nullable=False)
 
 
 class Notificacion(Base):

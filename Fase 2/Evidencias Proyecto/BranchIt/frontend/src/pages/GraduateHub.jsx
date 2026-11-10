@@ -11,6 +11,7 @@ import {
 } from "react-icons/fi";
 import { api } from "../api";
 import CompanyPhoto from '../Components/CompanyPhoto';
+import ShareJob from "../Components/ShareJob";
 import { useSession } from "../session";
 import { growth, normalize } from "../portfolio";
 import GraduateLayout from "../Components/GraduateLayout";
@@ -245,6 +246,7 @@ export default function GraduateHub() {
                   <Link to={`/ofertas/${j.id}/postular`}>
                     Ver oportunidad <FiArrowUpRight />
                   </Link>
+                  <ShareJob job={j} />
                   <button type="button" className="job-ai-question" onClick={() => window.dispatchEvent(new CustomEvent('branchit-open-ai', {detail: {modo: 'postulacion', ofertaId: j.id}}))}>¿Qué necesito para postular?</button>
                 </article>
               ))}

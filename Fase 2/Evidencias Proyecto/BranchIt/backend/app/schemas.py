@@ -290,6 +290,15 @@ class PostulacionCreate(InputModel):
 
 class CierreConvocatoria(InputModel):
     postulacion_id: Optional[Annotated[int, Field(strict=True, gt=0)]] = None
+    fecha_inicio: Optional[date] = None
+
+    @field_validator('fecha_inicio')
+    @classmethod
+    def valid_hiring_date(cls, value):
+        from zoneinfo import ZoneInfo
+        if value and value > datetime.now(ZoneInfo('America/Santiago')).date():
+            raise ValueError('La fecha de inicio no puede estar en el futuro.')
+        return value
 
 
 class PresentacionInput(InputModel):

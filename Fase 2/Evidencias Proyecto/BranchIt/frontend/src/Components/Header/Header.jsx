@@ -56,6 +56,7 @@ export default function Header() {
           {user ? (
             <>
               <NavLink to={panelPath(user)}>Mi panel</NavLink>
+              <NavLink to="/cuenta">Mi cuenta</NavLink>
               {user.tipo === "egresado" && <button id="graduate-ai-nav" type="button" className="nav-ai-button" onClick={() => window.dispatchEvent(new Event("branchit-open-ai"))}>Modo IA</button>}
               <button
                 className="boton boton-secundario"

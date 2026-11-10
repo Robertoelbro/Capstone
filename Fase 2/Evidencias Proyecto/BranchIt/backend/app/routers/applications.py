@@ -9,6 +9,8 @@ from ..encryption import encrypt_data, decrypt_data
 from ..security import current_user
 from .notifications import notify_job_change
 from ..applicant_matching import affinity
+from ..subscription_models import Subscription, subscription_active
+from .career import record_hiring, today, lock_account
 
 router = APIRouter(prefix='/api/employment', tags=['postulaciones'])
 
@@ -27,6 +29,11 @@ def serialize(item, private=False):
     result['empresa_logo_url'] = item.oferta.empresa.logo_url
     if private:
         result['seleccionada'] = item.seleccionada
+        tracking = item.egresado.usuario.seguimiento_laboral
+        employment = decrypt_data(tracking.datos_cifrados) if tracking else {}
+        periods = [employment, *employment.get('historial_empleos', [])]
+        result['fecha_inicio_contratacion'] = next((period.get('fecha_inicio') for period in periods
+            if period.get('postulacion_id') == item.id and period.get('origen') == 'empresa'), None)
         profile = item.egresado
         result['portfolio_url'] = f'/p/{profile.usuario_id}' if (profile.portfolio or {}).get('publico') else None
         # New applications keep the declared evidence as a snapshot. Legacy ones
@@ -43,11 +50,20 @@ def serialize(item, private=False):
 @router.post('/applications', status_code=201)
 def apply(data: schemas.PostulacionCreate, user=Depends(current_user), db: Session = Depends(get_db)):
     role(user, 'egresado')
+    # Serialize submissions with search-state changes and account deactivation.
+    db.query(models.Usuario).filter_by(id=user.id).populate_existing().with_for_update().one()
+    if not user.activo:
+        raise HTTPException(401, 'La cuenta está desactivada.')
+    follow_up = db.query(models.SeguimientoLaboral).filter_by(usuario_id=user.id).first()
+    if follow_up and follow_up.limite_experiencia:
+        raise HTTPException(409, 'Alcanzaste un año en un empleo registrado. Las nuevas postulaciones quedan deshabilitadas permanentemente.')
+    if follow_up and (follow_up.situacion == 'trabajando' or not follow_up.busqueda_activa):
+        raise HTTPException(409, 'Tu búsqueda está bloqueada o pausada. Revisa tu seguimiento laboral antes de postular.')
     # Serialize closing/editing the offer with submissions on PostgreSQL.
     job = db.query(models.OfertaEmpleo).filter_by(id=data.oferta_id).with_for_update().first()
     if not job:
         raise HTTPException(404, 'Oferta no encontrada.')
-    if not job.activa:
+    if not job.activa or not job.empresa.usuario.activo:
         raise HTTPException(409, 'La oferta ya no recibe postulaciones.')
     if data.formulario_version != job.formulario_version:
         raise HTTPException(409, 'La empresa actualizó el formulario. Recarga la página antes de postular.')
@@ -121,15 +137,37 @@ def applicants(job_id: int, user=Depends(current_user), db: Session = Depends(ge
     results = [serialize(item, private=True) for item in db.query(models.Postulacion).filter_by(oferta_id=job.id)
             .order_by(models.Postulacion.fecha_postulacion.asc(), models.Postulacion.id.asc()).all()]
     results.sort(key=lambda item: (-item['afinidad']['puntos'], -len(item['afinidad']['coincidencias'])))
+    # Entitlements only affect the common highlight, never ordering or the
+    # public/recruiter payload. No payment, plan or billing reason is serialized.
+    plans = (db.query(Subscription, models.Postulacion.id)
+             .join(models.PerfilEgresado, models.PerfilEgresado.usuario_id == Subscription.usuario_id)
+             .join(models.Postulacion, models.Postulacion.egresado_id == models.PerfilEgresado.id)
+             .filter(models.Postulacion.oferta_id == job.id).all())
+    paid_applications = {application_id for plan, application_id in plans if subscription_active(plan)}
     for position, item in enumerate(results):
         item['posicion'] = position + 1
-        item['destacado'] = position < 10 and item['afinidad']['puntos'] > 0
+        item['destacado'] = (position < 10 and item['afinidad']['puntos'] > 0) or item['id'] in paid_applications
     return results
 
 
 @router.put('/jobs/{job_id}/closure')
 def close_call(job_id: int, data: schemas.CierreConvocatoria, user=Depends(current_user), db: Session = Depends(get_db)):
     role(user, 'empresa')
+    lock_account(db, user)
+    owned_job = (db.query(models.OfertaEmpleo.id).join(models.PerfilEmpresa)
+        .filter(models.OfertaEmpleo.id == job_id, models.PerfilEmpresa.usuario_id == user.id).first())
+    if not owned_job:
+        raise HTTPException(404, 'Oferta no encontrada.')
+    # Match apply's lock order: graduate -> offer, then revalidate selection.
+    if data.postulacion_id is not None:
+        candidate = (db.query(models.Postulacion).join(models.OfertaEmpleo).join(models.PerfilEmpresa)
+            .filter(models.Postulacion.id == data.postulacion_id, models.OfertaEmpleo.id == job_id,
+                    models.PerfilEmpresa.usuario_id == user.id).first())
+        if not candidate:
+            raise HTTPException(422, 'Selecciona un postulante de esta oferta.')
+        graduate = db.query(models.Usuario).filter_by(id=candidate.egresado.usuario_id).populate_existing().with_for_update().one()
+        if not graduate.activo:
+            raise HTTPException(409, 'El candidato tiene su cuenta desactivada.')
     job = (db.query(models.OfertaEmpleo).join(models.PerfilEmpresa)
            .filter(models.OfertaEmpleo.id == job_id, models.PerfilEmpresa.usuario_id == user.id)
            .with_for_update(of=models.OfertaEmpleo).first())
@@ -140,6 +178,7 @@ def close_call(job_id: int, data: schemas.CierreConvocatoria, user=Depends(curre
         selected = db.query(models.Postulacion).filter_by(id=data.postulacion_id, oferta_id=job.id).first()
         if not selected:
             raise HTTPException(422, 'Selecciona un postulante de esta oferta.')
+        record_hiring(db, selected, data.fecha_inicio or today())
     db.query(models.Postulacion).filter_by(oferta_id=job.id).update({'seleccionada': False}, synchronize_session='fetch')
     db.flush()
     if selected:

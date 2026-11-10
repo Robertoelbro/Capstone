@@ -13,6 +13,10 @@ import Apply from "./pages/Apply";
 import Applications from "./pages/Applications";
 import PublicPortfolio from "./pages/PublicPortfolio";
 import GraduateHub from "./pages/GraduateHub";
+import Employment from "./pages/Employment";
+import Account from "./pages/Account";
+import Subscription from "./pages/Subscription";
+import JobDetail from "./pages/JobDetail";
 import GraduateAssistant from "./Components/GraduateAssistant";
 import { panelPath, useSession } from "./session";
 
@@ -25,11 +29,11 @@ function Protected({ role, children }) {
       </p>
     );
   if (!user) return <Navigate to="/iniciar-sesion" replace />;
-  if (user.tipo !== role) return <Navigate to={panelPath(user)} replace />;
+  if (role && user.tipo !== role) return <Navigate to={panelPath(user)} replace />;
   return children;
 }
 Protected.propTypes = {
-  role: PropTypes.string.isRequired,
+  role: PropTypes.string,
   children: PropTypes.node.isRequired,
 };
 
@@ -51,6 +55,9 @@ export default function App() {
       "/hub-empresa": "Panel de empresa",
       "/hub-egresado": "Panel de egresado",
       "/mis-postulaciones": "Mis postulaciones",
+      "/seguimiento": "Mi seguimiento laboral",
+      "/cuenta": "Cuenta y seguridad",
+      "/suscripcion": "Mi suscripción",
       "/ofertas-empresa": "Ofertas creadas",
       "/ofertas-empresa/nueva": "Crear oferta laboral",
     };
@@ -58,6 +65,8 @@ export default function App() {
       titles[location.pathname] ||
       (location.pathname.startsWith("/p/")
         ? "Portafolio profesional"
+        : /^\/ofertas\/\d+$/.test(location.pathname)
+        ? "Detalle de oferta"
         : location.pathname.endsWith("/postular")
         ? "Postular a una oferta"
         : location.pathname.endsWith("/postulaciones")
@@ -81,6 +90,16 @@ export default function App() {
       <Header />
       <main id="contenido" tabIndex={-1}>
         <Routes>
+          <Route path="/ofertas/:jobId" element={<JobDetail key={location.pathname} />} />
+          <Route path="/suscripcion" element={<Protected role="egresado"><Subscription /></Protected>} />
+          <Route
+            path="/seguimiento"
+            element={<Protected role="egresado"><Employment /></Protected>}
+          />
+          <Route
+            path="/cuenta"
+            element={<Protected><Account /></Protected>}
+          />
           <Route
             path="/perfil-empresa"
             element={

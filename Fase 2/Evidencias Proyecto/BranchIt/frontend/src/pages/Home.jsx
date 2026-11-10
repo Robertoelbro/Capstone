@@ -12,6 +12,7 @@ import {
 import { api } from "../api";
 import { useSession } from "../session";
 import WorkspaceNav from "../Components/WorkspaceNav";
+import ShareJob from "../Components/ShareJob";
 
 export default function Home() {
   const { user } = useSession();
@@ -191,6 +192,7 @@ export default function Home() {
                 {selected === job.id ? "Cerrar detalle" : "Ver oportunidad"}{" "}
                 <FiArrowUpRight />
               </button>
+              <ShareJob job={job} />
               {selected === job.id && (
                 <div className="job-expanded" id={`job-detail-${job.id}`}>
                   <p>{job.descripcion}</p>

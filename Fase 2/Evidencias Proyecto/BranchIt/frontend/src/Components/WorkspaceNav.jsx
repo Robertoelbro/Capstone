@@ -20,9 +20,12 @@ export default function WorkspaceNav() {
         <>
           <NavLink to="/perfil-egresado">Mi presentación</NavLink>
           <NavLink to="/mis-postulaciones">Mis postulaciones</NavLink>
+          <NavLink to="/seguimiento">Seguimiento laboral</NavLink>
+          <NavLink to="/suscripcion">Mi suscripción</NavLink>
           <NavLink to="/ofertas">Explorar ofertas</NavLink>
         </>
       )}
+      <NavLink to="/cuenta">Cuenta y seguridad</NavLink>
     </nav>
   );
 }

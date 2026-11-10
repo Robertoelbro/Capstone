@@ -8,9 +8,10 @@ El hub ordena las ofertas por coincidencias reales del perfil y muestra un anill
 
 ## Una entrevista al día
 
-- Una sesión por cuenta y día calendario en `America/Santiago`; incluye 5 preguntas y una respuesta final de retroalimentación (6 turnos del modelo).
+- Plan gratuito: una sesión por cuenta y día calendario en `America/Santiago`; incluye 5 preguntas y una respuesta final de retroalimentación (6 turnos del modelo).
 - La advertencia se muestra antes de comenzar. La sesión puede retomarse desde otro dispositivo, recuperando su historial cifrado.
-- El límite se comprueba en el servidor. Un bloqueo de la fila de usuario y la restricción única `(usuario_id, fecha)` evitan crear sesiones paralelas en distintos workers de Vercel.
+- El límite gratuito se comprueba en el servidor bajo bloqueo de la fila del usuario. Desde `0012` se permiten varias sesiones por día solo con suscripción vigente; se reemplazó la restricción única por un índice de búsqueda. Las sesiones se identifican por ID y se recupera la más reciente por fecha de creación.
+- La suscripción permite nuevas prácticas sin límite diario de BranchIT, manteniendo seis turnos por entrevista. Las cuotas, tiempos de espera y límites de Gemini siguen aplicando. No se reciben indicadores de pago desde el cliente.
 - El cliente no controla el historial de entrevista: el servidor utiliza la copia guardada. No permite cambiar la oferta de una sesión.
 - Una generación fallida no crea la sesión ni aumenta sus turnos. Una respuesta exitosa consume el turno aunque el cliente pierda la conexión; se puede recuperar desde el estado del asistente.
 - Presentación y consultas de requisitos no consumen la entrevista diaria. No se añadió un límite diario propio a esos dos modos; se mantienen las cuotas y errores del proveedor.

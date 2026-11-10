@@ -6,6 +6,8 @@ import {
   FiUser,
   FiSend,
   FiArrowUpRight,
+  FiBriefcase,
+  FiSettings,
 } from "react-icons/fi";
 import { growth } from "../portfolio";
 import GrowthTree from "./GrowthTree";
@@ -35,6 +37,18 @@ export default function GraduateLayout({ profile, children }) {
           <NavLink to="/mis-postulaciones">
             <FiSend />
             Mis postulaciones
+          </NavLink>
+          <NavLink to="/seguimiento">
+            <FiBriefcase />
+            Seguimiento laboral
+          </NavLink>
+          <NavLink to="/cuenta">
+            <FiSettings />
+            Cuenta y seguridad
+          </NavLink>
+          <NavLink to="/suscripcion">
+            <FiArrowUpRight />
+            Mi suscripción
           </NavLink>
         </nav>
         <div className="sidebar-growth">

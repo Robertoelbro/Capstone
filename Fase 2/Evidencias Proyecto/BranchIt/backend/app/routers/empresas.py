@@ -6,6 +6,7 @@ from .. import models, schemas
 from ..database import get_db
 from ..security import require_owner
 from .notifications import notify_job_change
+from .career import lock_account
 
 router = APIRouter(prefix="/empresas", tags=["empresas"], dependencies=[Depends(require_owner("empresa"))])
 
@@ -43,6 +44,7 @@ def _obtener_oferta_o_404(db: Session, empresa_id: int, oferta_id: int) -> model
 def crear_oferta(
     usuario_id: int, datos: schemas.OfertaEmpleoCreate, db: Session = Depends(get_db)
 ):
+    lock_account(db, db.get(models.Usuario, usuario_id))
     perfil_empresa = _obtener_perfil_empresa_o_404(db, usuario_id)
     oferta = models.OfertaEmpleo(empresa_id=perfil_empresa.id, **datos.model_dump())
     db.add(oferta)
@@ -75,6 +77,7 @@ def actualizar_oferta(
     datos: schemas.OfertaEmpleoUpdate,
     db: Session = Depends(get_db),
 ):
+    lock_account(db, db.get(models.Usuario, usuario_id))
     perfil_empresa = _obtener_perfil_empresa_o_404(db, usuario_id)
     oferta = _obtener_oferta_o_404(db, perfil_empresa.id, oferta_id)
     changes = datos.model_dump(exclude_unset=True)
@@ -101,6 +104,7 @@ def actualizar_oferta(
 
 @router.delete("/{usuario_id}/ofertas/{oferta_id}", status_code=status.HTTP_204_NO_CONTENT)
 def eliminar_oferta(usuario_id: int, oferta_id: int, db: Session = Depends(get_db)):
+    lock_account(db, db.get(models.Usuario, usuario_id))
     perfil_empresa = _obtener_perfil_empresa_o_404(db, usuario_id)
     oferta = _obtener_oferta_o_404(db, perfil_empresa.id, oferta_id)
     if db.query(models.Postulacion).filter_by(oferta_id=oferta.id).first():
@@ -126,6 +130,7 @@ def company_summary(usuario_id: int, db: Session = Depends(get_db)):
 
 @router.put('/{usuario_id}/perfil', response_model=schemas.PerfilEmpresaOut)
 def update_company_profile(usuario_id: int, data: schemas.PerfilEmpresaUpdate, db: Session=Depends(get_db)):
+    lock_account(db, db.get(models.Usuario, usuario_id))
     profile = _obtener_perfil_empresa_o_404(db, usuario_id)
     if data.foto_id:
         asset = db.get(models.ArchivoPortfolio, data.foto_id)

@@ -22,6 +22,7 @@ if config.config_file_name is not None:
 from app.config import DATABASE_URL
 from app.database import Base  # noqa: E402
 from app import models  # noqa: E402,F401  (registra los modelos en Base)
+from app import subscription_models  # noqa: E402,F401
 
 target_metadata = Base.metadata
 

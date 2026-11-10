@@ -1,45 +1,45 @@
-# Sprints 4, 5 y 6
+# Avance de sprints · BranchIT
 
-Alcance tomado de la sección 8 de la guía APT entregada por el usuario.
-La revisión inicial se realizó antes de implementar estos sprints y está en
-[VERIFICACION_PREVIA.md](VERIFICACION_PREVIA.md).
+Estado revisado el 9 de noviembre de 2026. Los README antiguos conservan evidencias históricas; sus conteos no representan el resultado actual.
 
-| Sprint | Egresado | Empresa | Verificación |
-| --- | --- | --- | --- |
-| [4](sprint_4/README.md) | Login y hub con resumen, presentación y postulaciones | Login y hub con ofertas abiertas y postulaciones recibidas | Login de ambos roles y navegación en navegador |
-| [5](sprint_5/README.md) | Crear, leer, editar y eliminar presentación; consultar ofertas | Crear, leer, editar, cerrar y eliminar ofertas sin postulaciones | Pruebas API y creación/edición visual |
-| [6](sprint_6/README.md) | Formulario dinámico, consentimiento, envío e historial | Preguntas por oferta y consulta privada de postulantes | Recorrido completo y pruebas de seguridad |
+| Sprint | Funciones implementadas | Verificación |
+| --- | --- | --- |
+| [4](sprint_4/README.md) | Login, permisos por rol y hubs. | Recorridos y pruebas automatizadas. |
+| [5](sprint_5/README.md) | Portafolio, ofertas y formularios de empresa. | CRUD, validaciones y privacidad. |
+| [6](sprint_6/README.md) | Postulación dinámica, cifrado e historial privado. | Permisos, versiones y cifrado. |
+| [7](sprint_7/README.md) | Gemini, entrevista diaria, preparación por oferta y certificaciones. | Proveedor simulado; validar contenido real en producción. |
+| [8](sprint_8/README.md) | Contratación desde reclutador, bloqueo de postulaciones, finiquito PDF privado, regla de un año y desactivación. | API, migraciones y navegador con cuentas ficticias. |
+| [9](sprint_9/README.md) | Refuerzo de seguridad, límites de solicitudes, errores genéricos, cabeceras y dependencias. | Pruebas adversariales y revisión de dependencias de producción. |
+| [10](sprint_10/README.md) | Regresión, carga sintética reproducible y protocolo de piloto/accesibilidad. | Ejecución local; piloto real y carga remota pendientes. |
 
-## Resultado de validación
+## Resultado local
 
-- `npm run lint`: aprobado.
-- `npm run build`: aprobado.
-- `python -m unittest discover -s tests -v`: 16 pruebas aprobadas.
-- Migración de una base con datos previos a `0002_postulaciones`, comparación
-  del esquema con los modelos y reversión a `0001`: aprobadas en SQLite aislado.
-- SQL generado para PostgreSQL: comprobado sin conectarse a una base real.
-- Navegador: login de egresado, guardar presentación, abrir oferta, responder
-  preguntas, enviar postulación; login de empresa, ver los antecedentes,
-  crear una oferta con selección personalizada, cerrarla y cerrar sesión.
-- Las capturas en cada carpeta son evidencias de una sesión con datos ficticios.
+- Backend: 75 casos verificados, incluidos seguimiento, contratación/finiquito, seguridad, suscripción y beneficios.
+- Migraciones: hasta `0012_entrevistas_suscripcion`; conservación de datos, comparación con modelos, reversión y SQL PostgreSQL comprobados. [Aplicación en Neon](../docs/CONTRATACION_FINIQUITO_2026-11-09.md).
+- Frontend: lint y compilación aprobados. Rutas `/seguimiento` y `/cuenta` incorporadas.
+- Dependencias de producción npm: cero avisos después de las correcciones. No equivale a ausencia de vulnerabilidades desconocidas ni a auditoría externa.
+- Carga: 200 lecturas sintéticas con 100 ofertas, a concurrencia 1 y 10; cero errores. [Métricas y limitaciones](../docs/VALIDACION_SPRINT_10.md).
+- Navegador: confirmación requerida, estado guardado, formulario bloqueado al trabajar y cierre de sesión al desactivar. [Capturas ficticias](sprint_8/evidencias/).
 
-## Pendiente del entorno real
+## Activación en Vercel y Neon
 
-PostgreSQL local no estaba disponible. Estas evidencias certifican el código
-y el recorrido en una base temporal, no una ejecución contra PostgreSQL ni un
-despliegue. Antes de usar datos reales hay que iniciar/configurar PostgreSQL,
-conservar las claves y ejecutar `alembic upgrade head` desde `backend`.
+El despliegue existente se adelantó al sprint 11. Neon BranchIt/main/neondb ya se migró hasta `0012`, con respaldo. Los cambios de código siguen locales: falta publicarlos y desplegarlos.
 
-## Vista de prueba reproducible
+1. En otras bases, respaldar y ejecutar `alembic upgrade head` desde `backend`, con su conexión privada configurada. Se espera `0012_entrevistas_suscripcion`. No repetir el SQL de migración sobre Neon ya actualizado.
+2. Publicar los cambios y desplegar frontend y API. Node debe ser 20 o superior.
+3. Comprobar `/health` y `/health/ready`, y probar con cuentas ficticias en un entorno de ensayo.
 
-Terminal 1, desde `backend`:
+Los endpoints de salud no muestran conexiones ni credenciales. El segundo devuelve 503 si faltan las tablas/columnas nuevas. Conservar las claves de cifrado existentes. La suscripción cuesta $2.990 CLP/mes y sus beneficios están implementados; Webpay permanece sin cobros hasta terminar la integración transaccional.
 
-```powershell
-.\.venv\Scripts\python.exe -m pip install -r requirements-dev.txt
-.\.venv\Scripts\python.exe scripts/preview_sprints.py
-```
+## Próxima etapa
 
-Terminal 2, desde `frontend`:
+Sprint 11: validación y entrega final, incluyendo piloto con usuarios, comprobación del despliegue y cierre de documentación. Los protocolos del sprint 10 están preparados; no se presentan como actividades ya realizadas con personas reales.
+
+## Vista local reproducible
+
+Desde `backend`: `.\.venv\Scripts\python.exe scripts/preview_sprints.py`.
+
+Desde `frontend`:
 
 ```powershell
 $env:VITE_API_URL='http://127.0.0.1:8001'
@@ -47,19 +47,4 @@ $env:VITE_DEMO_MODE='true'
 npm run dev -- --host 127.0.0.1 --port 5174 --strictPort
 ```
 
-Abrir `http://127.0.0.1:5174`. Cuentas ficticias y exclusivas de esta vista:
-
-| Rol | Correo | Contraseña de prueba |
-| --- | --- | --- |
-| Egresado | egresado@example.com | EgresadoDemo2026! |
-| Empresa | empresa@example.com | EmpresaDemo2026! |
-
-El script usa una base SQLite temporal, claves aleatorias de proceso y escucha
-solo en loopback. No modifica `.env` ni PostgreSQL. Los datos desaparecen al
-cerrar el proceso normalmente. No utilizar este script para producción.
-
-## Fuera de alcance
-
-IA, seguimiento de contratación, recuperación de contraseña, cierre definitivo
-de cuentas y hosting corresponden a otras tareas o sprints. Las postulaciones
-tienen estado «recibida»; no se simulan decisiones de contratación.
+El script crea una base SQLite desechable con migraciones y cuentas ficticias. No modifica Neon. Los datos desaparecen al detenerlo. Las cuentas se describen en el script; no deben usarse en producción.

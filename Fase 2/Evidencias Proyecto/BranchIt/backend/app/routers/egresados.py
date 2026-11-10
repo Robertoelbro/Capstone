@@ -66,7 +66,8 @@ def ver_ofertas_disponibles(usuario_id: int, db: Session = Depends(get_db)):
     ofertas = (
         db.query(models.OfertaEmpleo, models.PerfilEmpresa.nombre_empresa)
         .join(models.PerfilEmpresa, models.OfertaEmpleo.empresa_id == models.PerfilEmpresa.id)
-        .filter(models.OfertaEmpleo.activa.is_(True))
+        .join(models.Usuario, models.Usuario.id == models.PerfilEmpresa.usuario_id)
+        .filter(models.OfertaEmpleo.activa.is_(True), models.Usuario.activo.is_(True))
         .order_by(models.OfertaEmpleo.fecha_publicacion.desc())
         .all()
     )
@@ -92,7 +93,10 @@ def create_presentation(usuario_id: int, data: schemas.PresentacionInput, db: Se
 @router.get('/{usuario_id}/recomendaciones')
 def recommendations(usuario_id: int, db: Session = Depends(get_db)):
     profile = _obtener_perfil_o_404(db, usuario_id)
-    jobs = db.query(models.OfertaEmpleo).filter_by(activa=True).order_by(models.OfertaEmpleo.fecha_publicacion.desc()).all()
+    jobs = (db.query(models.OfertaEmpleo).join(models.PerfilEmpresa).join(
+        models.Usuario, models.Usuario.id == models.PerfilEmpresa.usuario_id)
+        .filter(models.OfertaEmpleo.activa.is_(True), models.Usuario.activo.is_(True))
+        .order_by(models.OfertaEmpleo.fecha_publicacion.desc()).all())
     result = [dict(schemas.OfertaEmpleoOut.model_validate(job).model_dump(),
                    nombre_empresa=job.empresa.nombre_empresa, empresa_foto_id=job.empresa.foto_id, empresa_logo_url=job.empresa.logo_url, **recommendation(job, profile.carrera)) for job in jobs]
     for item, job in zip(result, jobs):

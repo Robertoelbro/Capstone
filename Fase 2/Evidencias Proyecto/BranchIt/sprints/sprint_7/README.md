@@ -1,5 +1,7 @@
 # Sprint 7 — Orientación del egresado con Gemini
 
+> La primera integración descrita aquí fue ampliada: ver [entrevista diaria y preparación](../../docs/IA_ENTREVISTA_DIARIA.md), [certificaciones](../../docs/IA_CERTIFICACIONES.md) y [suscripción](../../docs/SUSCRIPCION_WEBPAY.md). La migración vigente es `0012_entrevistas_suscripcion`; los límites y el historial actuales no son los de la versión inicial de este registro.
+
 Primera integración: Gemini 3.5 Flash-Lite mediante el backend FastAPI.
 No requiere migraciones. El usuario administra los commits y pushes de GitHub.
 

@@ -66,7 +66,7 @@ apuntando a la base de destino autorizada:
 .\.venv\Scripts\python.exe -m alembic current
 ```
 
-Se espera `0004_identidad_empresa (head)`. Las migraciones se ejecutan como un paso
+Se espera `0012_entrevistas_suscripcion (head)`. Las migraciones se ejecutan como un paso
 controlado, no durante cada solicitud ni automáticamente en cada preview.
 No usar el script SQLite temporal en Vercel.
 
@@ -77,6 +77,30 @@ ruta interna y comprobar persistencia. Abrir `/docs` no prueba acceso a la base.
 El limitador de autenticación actual usa memoria por proceso; no ofrece un
 límite global entre instancias de Vercel. Antes de uso público amplio, añadir
 un contador compartido o protección equivalente en la plataforma.
+
+## Actualización de sprints 8–10
+
+Las migraciones `0009`–`0012` ya se aplicaron en Neon BranchIt/main/neondb el
+9 de noviembre de 2026, con respaldo y verificación de cantidades. En otras
+bases, aplicarlas antes de publicar la API y frontend nuevos. Conservar
+`DATA_ENCRYPTION_KEY`. No ejecutar de nuevo el SQL incremental en la base actualizada.
+
+Después de publicar:
+
+- `GET /health` debe devolver `{"estado":"ok"}`.
+- `GET /health/ready` debe devolver `{"estado":"listo"}`. Un 503 requiere revisar
+  conexión y migración en registros privados, sin mostrar credenciales.
+- Probar `/seguimiento` y `/cuenta` con cuentas ficticias en un entorno de ensayo.
+- Probar `/suscripcion`, los PDFs privados y los enlaces públicos de ofertas.
+
+El frontend requiere Node 20 o superior. Las raíces de Vercel se conservan.
+Las cabeceras y la exclusión de `/_vercel/` se aplican al desplegar frontend.
+No es necesario modificar Gemini.
+
+Webpay está pendiente: las variables privadas reservadas en `.env.example` no
+activan por sí solas cobros. Consultar [suscripción y Webpay](SUSCRIPCION_WEBPAY.md)
+antes de configurar credenciales de integración. No se activó ninguna suscripción
+de producción en esta entrega.
 
 Referencias: https://vercel.com/docs/frameworks/backend/fastapi y
 https://vercel.com/docs/frameworks/frontend/vite.

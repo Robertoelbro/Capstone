@@ -61,6 +61,17 @@ async function solicitud(path, options = {}) {
 }
 
 export const api = {
+  employment: () => solicitud("/employment/me"),
+  saveEmployment: (data) =>
+    solicitud("/employment/me", { method: "PUT", body: JSON.stringify(data) }),
+  releaseEmployment: (data) =>
+    solicitud("/employment/release", { method: "POST", body: JSON.stringify(data) }),
+  billing: () => solicitud("/billing/me"),
+  deactivate: (password_actual) =>
+    solicitud("/auth/deactivate", {
+      method: "POST",
+      body: JSON.stringify({ password_actual }),
+    }),
   notifications: () => solicitud('/notifications'),
   readNotification: (id) => solicitud(`/notifications/${id}/read`, { method: 'PUT' }),
   readAllNotifications: () => solicitud('/notifications/read-all', { method: 'PUT' }),
@@ -94,10 +105,10 @@ export const api = {
       body: JSON.stringify(data),
     }),
   myApplications: () => solicitud("/api/employment/applications/me"),
-  closeJob: (id, postulacion_id) =>
+  closeJob: (id, postulacion_id, fecha_inicio = null) =>
     solicitud(`/api/employment/jobs/${id}/closure`, {
       method: "PUT",
-      body: JSON.stringify({ postulacion_id }),
+      body: JSON.stringify({ postulacion_id, ...(fecha_inicio ? { fecha_inicio } : {}) }),
     }),
   applicants: (id) => solicitud(`/api/employment/jobs/${id}/applications`),
   crearPresentacion: (id, presentacion) =>

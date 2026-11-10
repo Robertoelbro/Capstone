@@ -81,6 +81,7 @@ const limits = {
   certificado: 5,
   presentacion: 15,
   proyecto: 30,
+  finiquito: 5,
 };
 const accept = {
   foto: "image/jpeg,image/png,image/webp",
@@ -88,6 +89,7 @@ const accept = {
   certificado: "application/pdf,image/jpeg,image/png,image/webp",
   presentacion: "video/mp4,video/webm",
   proyecto: "video/mp4,video/webm",
+  finiquito: "application/pdf",
 };
 function duration(file) {
   return new Promise((resolve, reject) => {
@@ -195,7 +197,9 @@ export function UploadField({ kind, value, onChange, label, onBusy }) {
           ? " · 3 minutos"
           : ""}
         .{" "}
-        {kind === "certificado"
+        {kind === "finiquito"
+          ? "PDF"
+          : kind === "certificado"
           ? "PDF o imagen"
           : kind === "presentacion" || kind === "proyecto"
           ? "MP4 o WebM"
@@ -207,7 +211,7 @@ export function UploadField({ kind, value, onChange, label, onBusy }) {
         <div className="upload-selected">
           <span>Archivo adjunto ✓</span>
           <button type="button" onClick={() => onChange(null)}>
-            Quitar del perfil
+            {kind === "finiquito" ? "Quitar adjunto" : "Quitar del perfil"}
           </button>
         </div>
       )}

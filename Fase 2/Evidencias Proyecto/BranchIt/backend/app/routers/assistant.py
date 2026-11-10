@@ -14,10 +14,11 @@ from pydantic import BaseModel, ConfigDict, Field, model_validator
 from sqlalchemy.orm import Session
 
 from ..database import get_db
-from ..models import OfertaEmpleo, PerfilEgresado, Usuario, EntrevistaIA
+from ..models import OfertaEmpleo, PerfilEgresado, PerfilEmpresa, Usuario, EntrevistaIA
 from ..encryption import encrypt_data, decrypt_data
 from ..certifications import recommend_certifications, requests_training
 from ..security import current_user
+from ..subscription_models import has_subscription
 
 router = APIRouter(prefix='/assistant', tags=['orientación con IA'])
 MODEL = 'gemini-3.5-flash-lite'
@@ -130,10 +131,12 @@ def generate(contents, instruction):
 
 @router.get('/status')
 def status(user=Depends(graduate), db: Session=Depends(get_db)):
-    item = db.query(EntrevistaIA).filter_by(usuario_id=user.id, fecha=today()).first()
+    item = (db.query(EntrevistaIA).filter_by(usuario_id=user.id, fecha=today())
+            .order_by(EntrevistaIA.creada.desc(), EntrevistaIA.id.desc()).first())
     return {'disponible': bool(os.getenv('GEMINI_API_KEY', '').strip()), 'modelo': MODEL,
             'entrevista_hoy': interview_state(item), 'zona_horaria': 'America/Santiago',
-            'max_turnos_entrevista': INTERVIEW_TURNS}
+            'max_turnos_entrevista': INTERVIEW_TURNS,
+            'entrevistas_ilimitadas': has_subscription(db, user.id)}
 
 
 @router.post('/chat')
@@ -151,7 +154,8 @@ def chat(data: CoachingRequest, user=Depends(graduate), db: Session=Depends(get_
         task = ('Revisa claridad, estructura y redacción del borrador. Da observaciones concretas y una '
                 'versión sugerida, sin inventar experiencia, habilidades ni certificaciones. No guardas cambios en el perfil.')
     else:
-        job = db.query(OfertaEmpleo).filter_by(id=data.oferta_id, activa=True).first()
+        job = (db.query(OfertaEmpleo).join(PerfilEmpresa).join(Usuario)
+               .filter(OfertaEmpleo.id == data.oferta_id, OfertaEmpleo.activa.is_(True), Usuario.activo.is_(True)).first())
         if not job:
             raise HTTPException(404, 'La oferta no existe o ya está cerrada. Selecciona otra.')
         context['oferta'] = {field: clean(getattr(job, field)) for field in
@@ -168,13 +172,14 @@ def chat(data: CoachingRequest, user=Depends(graduate), db: Session=Depends(get_
             # generation consumes the day; failures roll back without a reservation.
             db.query(Usuario).filter_by(id=user.id).with_for_update().one()
             session_day = today()
-            session = db.query(EntrevistaIA).filter_by(usuario_id=user.id, fecha=session_day).first()
+            sessions = db.query(EntrevistaIA).filter_by(usuario_id=user.id, fecha=session_day)
             if data.entrevista_id:
-                if not session or session.id != data.entrevista_id or session.oferta_id != job.id:
+                session = sessions.filter_by(id=data.entrevista_id).first()
+                if not session or session.oferta_id != job.id:
                     raise HTTPException(404, 'La entrevista no corresponde a esta cuenta, oferta o día.')
                 if session.turnos >= INTERVIEW_TURNS:
-                    raise HTTPException(429, 'Ya completaste tu entrevista diaria. Puedes volver mañana, según la hora de Santiago.')
-            elif session:
+                    raise HTTPException(429, 'Esta entrevista ya está finalizada.')
+            elif not has_subscription(db, user.id) and sessions.first():
                 raise HTTPException(429, 'Ya utilizaste tu entrevista diaria. Retoma la entrevista de hoy o vuelve mañana, según la hora de Santiago.')
             stored_history = decrypt_data(session.datos_cifrados) if session else []
             history = [Turn(role=turn['role'], text=turn['text']) for turn in stored_history]

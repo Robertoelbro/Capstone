@@ -9,6 +9,9 @@ export default function JobClosure({ job, onSaved }) {
     [choice, setChoice] = useState("");
   const [busy, setBusy] = useState(false),
     [error, setError] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const today = new Date();
+  const maxDate = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`;
   async function show() {
     setOpen(true);
     setBusy(true);
@@ -16,7 +19,9 @@ export default function JobClosure({ job, onSaved }) {
     try {
       const values = await api.applicants(job.id);
       setItems(values);
-      setChoice(values.find((v) => v.seleccionada)?.id?.toString() || "");
+      const selected = values.find((v) => v.seleccionada);
+      setChoice(selected?.id?.toString() || "");
+      setStartDate(selected?.fecha_inicio_contratacion || maxDate);
     } catch (e) {
       setError(e.message);
     } finally {
@@ -28,7 +33,7 @@ export default function JobClosure({ job, onSaved }) {
     setBusy(true);
     setError("");
     try {
-      await api.closeJob(job.id, choice === "none" ? null : Number(choice));
+      await api.closeJob(job.id, choice === "none" ? null : Number(choice), choice === "none" ? null : startDate);
       await onSaved();
       setOpen(false);
     } catch (e) {
@@ -54,7 +59,10 @@ export default function JobClosure({ job, onSaved }) {
               <select
                 required
                 value={choice}
-                onChange={(e) => setChoice(e.target.value)}
+                onChange={(e) => {
+                  setChoice(e.target.value);
+                  setStartDate(items.find((item) => String(item.id) === e.target.value)?.fecha_inicio_contratacion || maxDate);
+                }}
               >
                 <option value="">Seleccionar</option>
                 <option value="none">Cerrar sin seleccionar candidato</option>
@@ -66,10 +74,21 @@ export default function JobClosure({ job, onSaved }) {
                 ))}
               </select>
             </label>
+            {choice && choice !== "none" && <>
+              <label className="editor-field">
+                Fecha de inicio de la contratación
+                <input type="date" required max={maxDate} value={startDate} readOnly={!!items.find((item) => String(item.id) === choice)?.fecha_inicio_contratacion} onChange={(e) => setStartDate(e.target.value)} />
+              </label>
+              <label className="consent">
+                <input type="checkbox" required />
+                Confirmo la contratación de este candidato. Se bloquearán sus nuevas postulaciones hasta que presente su finiquito.
+              </label>
+            </>}
             <p className="muted">
               La selección es privada. Los egresados solo verán que la
               convocatoria está cerrada.
             </p>
+            <p className="muted">Reabrir o cambiar esta convocatoria no libera automáticamente una contratación registrada.</p>
             <div className="offer-actions">
               <button className="boton boton-primario">
                 {busy

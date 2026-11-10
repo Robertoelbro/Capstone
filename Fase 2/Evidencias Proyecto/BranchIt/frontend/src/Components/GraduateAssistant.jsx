@@ -35,6 +35,7 @@ export default function GraduateAssistant() {
   const [consent, setConsent] = useState(false);
   const [available, setAvailable] = useState(false);
   const [dailyInterview, setDailyInterview] = useState(null);
+  const [unlimitedInterviews, setUnlimitedInterviews] = useState(false);
   const [interviewId, setInterviewId] = useState(null);
   const [checking, setChecking] = useState(false);
   const [busy, setBusy] = useState(false);
@@ -55,7 +56,7 @@ export default function GraduateAssistant() {
     setContextError("");
     Promise.allSettled([api.assistantStatus(), api.jobs(), api.obtenerPerfilEgresado(user.id)]).then(([status, offers, account]) => {
       if (!alive) return;
-      if (status.status === "fulfilled") { setAvailable(status.value.disponible); setDailyInterview(status.value.entrevista_hoy); }
+      if (status.status === "fulfilled") { setAvailable(status.value.disponible); setDailyInterview(status.value.entrevista_hoy); setUnlimitedInterviews(Boolean(status.value.entrevistas_ilimitadas)); }
       else { setAvailable(false); setContextError(status.reason.message); }
       if (offers.status === "fulfilled") setJobs(offers.value);
       else setContextError((e) => e || offers.reason.message);
@@ -105,6 +106,10 @@ export default function GraduateAssistant() {
   function resetConversation() {
     setMessages([]); setMessage(""); setError(""); setConsent(false); setSetupOpen(true); setInterviewId(null);
   }
+  function newPractice() {
+    resetConversation();
+    setJobId("");
+  }
   function resumeInterview() {
     setMode('entrevista'); setJobId(String(dailyInterview.oferta_id));
     setInterviewId(dailyInterview.id); setMessages(dailyInterview.historial);
@@ -120,8 +125,11 @@ export default function GraduateAssistant() {
     if (busy || checking || !available || !consent) return;
     if (mode === "presentacion" && !draft.trim()) { setSetupOpen(true); setError("Añade un borrador de tu presentación antes de enviarlo."); return; }
     if (mode !== "presentacion" && !jobId) { setSetupOpen(true); setError("Selecciona una oferta antes de comenzar."); return; }
-    if (mode === 'entrevista' && dailyInterview && (!interviewId || dailyInterview.finalizada)) {
-      setError('Ya utilizaste tu entrevista diaria. Retoma la de hoy o vuelve mañana, según la hora de Santiago.'); return;
+    if (mode === 'entrevista' && dailyInterview && (
+      (!unlimitedInterviews && (!interviewId || dailyInterview.finalizada)) ||
+      (unlimitedInterviews && interviewId === dailyInterview.id && dailyInterview.finalizada)
+    )) {
+      setError(unlimitedInterviews ? 'Esta práctica terminó. Inicia una nueva práctica para continuar.' : 'Ya utilizaste tu entrevista diaria. Retoma la de hoy o vuelve mañana, según la hora de Santiago.'); return;
     }
     const text = message.trim() || (mode === "presentacion"
       ? "Revisa mi presentación y propón una versión mejorada sin inventar antecedentes."
@@ -144,7 +152,7 @@ export default function GraduateAssistant() {
     } catch (err) {
       setError(err.message);
       if (mode === 'entrevista') {
-        try { const status = await api.assistantStatus(); setDailyInterview(status.entrevista_hoy); } catch { /* Keep original error. */ }
+        try { const status = await api.assistantStatus(); setDailyInterview(status.entrevista_hoy); setUnlimitedInterviews(Boolean(status.entrevistas_ilimitadas)); } catch { /* Keep original error. */ }
       }
     }
     finally { setBusy(false); setPendingText(""); }
@@ -187,10 +195,11 @@ export default function GraduateAssistant() {
                 <button type="button" aria-pressed={mode === "postulacion"} disabled={busy} onClick={() => changeMode("postulacion")}>Preparar postulación</button>
               </div>
               {mode === 'entrevista' && <div className="ai-daily-limit" role="status">
-                <strong>1 entrevista por día</strong>
-                <p>5 preguntas y una devolución final. Se renueva al cambiar el día en Santiago. Puedes retomarla hoy; un fallo de Gemini no consume tu práctica.</p>
-                {dailyInterview && <p>{dailyInterview.finalizada ? 'Ya completaste la entrevista de hoy. Mañana tendrás otra disponible.' : `Entrevista de hoy iniciada · ${dailyInterview.turnos}/6 turnos.`}</p>}
+                <strong>{unlimitedInterviews ? "Entrevistas sin límite diario de BranchIT" : "1 entrevista por día"}</strong>
+                <p>{unlimitedInterviews ? "Cada práctica incluye 5 preguntas y una devolución final. Siguen aplicando la disponibilidad y las cuotas de Gemini." : "5 preguntas y una devolución final. Se renueva al cambiar el día en Santiago. Puedes retomarla hoy; un fallo de Gemini no consume tu práctica."}</p>
+                {dailyInterview && <p>{dailyInterview.finalizada ? unlimitedInterviews ? 'Práctica completada. Puedes comenzar otra.' : 'Ya completaste la entrevista de hoy. Mañana tendrás otra disponible.' : `Entrevista iniciada · ${dailyInterview.turnos}/6 turnos.`}</p>}
                 {dailyInterview && !interviewId && !dailyInterview.finalizada && <button type="button" className="ai-text-button" disabled={busy} onClick={resumeInterview}>Retomar entrevista de hoy</button>}
+                {unlimitedInterviews && dailyInterview?.finalizada && <button type="button" className="ai-text-button" disabled={busy} onClick={newPractice}>Nueva práctica</button>}
               </div>}
               {!messages.length && !busy && <div className="ai-chat-welcome"><span aria-hidden="true">❧</span><h3>¿Qué preparamos hoy?</h3></div>}
               <div className="ai-context">
@@ -248,7 +257,7 @@ export default function GraduateAssistant() {
                     }
                   }}
                   placeholder={messages.length ? "Escribe tu mensaje…" : mode === "presentacion" ? "¿En qué quieres mejorar? (opcional)" : "¿Qué te gustaría practicar? (opcional)"} />
-                <button type="submit" className="ai-send" disabled={busy || checking || !available || !consent || (!!messages.length && !message.trim()) || (mode === 'entrevista' && !!dailyInterview && (!interviewId || dailyInterview.finalizada))}
+                <button type="submit" className="ai-send" disabled={busy || checking || !available || !consent || (!!messages.length && !message.trim()) || (mode === 'entrevista' && !!dailyInterview && (unlimitedInterviews ? interviewId === dailyInterview.id && dailyInterview.finalizada : !interviewId || dailyInterview.finalizada))}
                   aria-label={messages.length ? "Enviar mensaje" : mode === "presentacion" ? "Revisar presentación" : mode === 'postulacion' ? 'Consultar requisitos' : "Comenzar entrevista"} title={messages.length ? "Enviar mensaje" : "Comenzar conversación"}><FiSend aria-hidden="true" /></button>
               </div>
               <p className="ai-composer-note">{!messages.length ? "Pulsa enviar para comenzar. " : ""}Gemini puede equivocarse. Revisa sus sugerencias.</p>

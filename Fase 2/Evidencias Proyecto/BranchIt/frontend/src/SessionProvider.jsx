@@ -41,8 +41,13 @@ export default function SessionProvider({ children }) {
     clearToken();
     setUser(null);
   }
+  async function deactivate(password) {
+    await api.deactivate(password);
+    clearToken();
+    setUser(null);
+  }
   return (
-    <SessionContext.Provider value={{ user, loading, login, logout }}>
+    <SessionContext.Provider value={{ user, loading, login, logout, deactivate }}>
       {children}
     </SessionContext.Provider>
   );

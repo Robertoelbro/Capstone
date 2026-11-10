@@ -9,6 +9,7 @@ from ..database import get_db
 from ..security import current_user, bearer
 from ..models import PerfilEgresado, PerfilEmpresa, ArchivoPortfolio, Usuario
 from ..portfolio_schemas import Portfolio, MediaReserve, media_references
+from .career import document_referenced
 
 router = APIRouter(tags=['portafolio'])
 
@@ -51,6 +52,7 @@ def reserve(data: MediaReserve, user=Depends(current_user), db: Session=Depends(
     limits = {'foto': (3, ['image/jpeg','image/png','image/webp']),
               'qr': (3, ['image/jpeg','image/png','image/webp']),
               'certificado': (5, ['application/pdf','image/jpeg','image/png','image/webp']),
+              'finiquito': (5, ['application/pdf']),
               'presentacion': (15, ['video/mp4','video/webm']),
               'proyecto': (30, ['video/mp4','video/webm'])}
     size, types = limits[data.tipo]
@@ -88,11 +90,13 @@ def media_access(asset_id: str, upload: bool=False, remove: bool=False, credenti
     profile = db.query(PerfilEgresado).join(Usuario).filter(PerfilEgresado.usuario_id==asset.usuario_id, Usuario.activo.is_(True)).first()
     company = db.query(PerfilEmpresa).filter_by(usuario_id=asset.usuario_id).first()
     public = profile and (profile.portfolio or {}).get('publico') and asset_id in {r[0] for r in media_references(profile.portfolio)}
-    public = public or (company and company.foto_id == asset_id and db.get(Usuario, company.usuario_id).activo)
+    public = (public or (company and company.foto_id == asset_id and db.get(Usuario, company.usuario_id).activo)) and asset.tipo != 'finiquito'
     if ((upload or remove) and not owner) or (not owner and not public):
         raise HTTPException(404, 'Archivo no disponible.')
     if remove and company and company.foto_id == asset_id:
         raise HTTPException(409, 'Quita la foto del perfil y guarda antes de eliminarla.')
+    if (remove or upload) and document_referenced(db, asset.usuario_id, asset.id):
+        raise HTTPException(409, 'Este finiquito respalda un seguimiento laboral y no se puede modificar ni eliminar.')
     if upload and asset.creado < datetime.utcnow() - timedelta(minutes=15):
         raise HTTPException(409, 'La reserva expiró. Selecciona nuevamente tu archivo.')
     if remove and profile and asset_id in {r[0] for r in media_references(profile.portfolio or {})}:
@@ -116,10 +120,14 @@ def verified(asset_id: str, user=Depends(current_user), db: Session=Depends(get_
 
 @router.delete('/media/{asset_id}', status_code=204, dependencies=[Depends(media_service)])
 def remove_reservation(asset_id: str, user=Depends(current_user), db: Session=Depends(get_db)):
+    # Same user -> file order as release, to prevent deletion while linking it.
+    db.query(Usuario).filter_by(id=user.id).with_for_update().one()
     profile = db.query(PerfilEgresado).filter_by(usuario_id=user.id).first()
     company = db.query(PerfilEmpresa).filter_by(usuario_id=user.id).first()
-    asset = db.get(ArchivoPortfolio, asset_id)
+    asset = db.query(ArchivoPortfolio).filter_by(id=asset_id).with_for_update().first()
     if not asset or asset.usuario_id != user.id: raise HTTPException(404, 'Archivo no encontrado.')
+    if document_referenced(db, user.id, asset.id):
+        raise HTTPException(409, 'Este finiquito respalda un seguimiento laboral y no se puede eliminar.')
     if (profile and asset_id in {r[0] for r in media_references(profile.portfolio or {})}) or (company and company.foto_id == asset_id):
         raise HTTPException(409, 'Quita el archivo del portafolio y guarda antes de eliminarlo.')
     db.delete(asset)

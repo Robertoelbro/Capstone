@@ -100,7 +100,7 @@ def media_references(data):
     return refs
 
 class MediaReserve(Item):
-    tipo: Literal['foto', 'presentacion', 'certificado', 'proyecto', 'qr']
+    tipo: Literal['foto', 'presentacion', 'certificado', 'proyecto', 'qr', 'finiquito']
     nombre: str = Field(min_length=1, max_length=180)
     mime: Literal['image/jpeg', 'image/png', 'image/webp', 'application/pdf', 'video/mp4', 'video/webm']
     tamano: int = Field(gt=0, le=30 * 1024 * 1024)

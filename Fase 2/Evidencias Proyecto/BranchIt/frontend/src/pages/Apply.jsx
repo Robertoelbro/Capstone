@@ -8,6 +8,7 @@ import { ValidatedForm, PhoneField } from "../Components/FormFields";
 import AnswerField from "../Components/AnswerField";
 import JobFacts from "../Components/JobFacts";
 import CompanyPhoto from '../Components/CompanyPhoto';
+import ShareJob from "../Components/ShareJob";
 
 export default function Apply() {
   const { jobId } = useParams();
@@ -16,12 +17,14 @@ export default function Apply() {
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
   const [sent, setSent] = useState(false);
+  const [employment, setEmployment] = useState(null);
   useEffect(() => {
     let active = true;
-    Promise.all([api.job(jobId), api.myApplications()])
-      .then(([value, applications]) => {
+    Promise.all([api.job(jobId), api.myApplications(), api.employment()])
+      .then(([value, applications, status]) => {
         if (active) {
           setJob(value);
+          setEmployment(status);
           setSent(applications.some((item) => item.oferta_id === value.id));
         }
       })
@@ -34,6 +37,10 @@ export default function Apply() {
   }, [jobId]);
   async function submit(event) {
     event.preventDefault();
+    if (!employment?.puede_postular) {
+      setError("Tu búsqueda está pausada. Revisa tu seguimiento laboral antes de postular.");
+      return;
+    }
     setBusy(true);
     setError("");
     const form = new FormData(event.currentTarget);
@@ -91,6 +98,8 @@ export default function Apply() {
             <JobFacts job={job} />
             <h3>Requisitos</h3>
             <p>{job.requisitos || "No se indicaron requisitos adicionales."}</p>
+            <ShareJob job={job} />
+            <button type="button" className="job-ai-question" onClick={() => window.dispatchEvent(new CustomEvent("branchit-open-ai", { detail: { modo: "postulacion", ofertaId: job.id } }))}>Prepararme con IA</button>
           </aside>
           {sent ? (
             <div className="tarjeta">
@@ -102,6 +111,18 @@ export default function Apply() {
               <Link className="boton boton-primario" to="/mis-postulaciones">
                 Ver mis postulaciones
               </Link>
+            </div>
+          ) : !employment?.puede_postular ? (
+            <div className="tarjeta">
+              <h2>{employment?.limite_experiencia ? "Límite de experiencia alcanzado" : "Nuevas postulaciones bloqueadas"}</h2>
+              <p>
+                {employment?.limite_experiencia
+                  ? "Alcanzaste un año de experiencia en la contratación registrada. Puedes consultar y compartir ofertas y usar la IA, pero no enviar nuevas postulaciones. Una suscripción no cambia esta condición."
+                  : employment?.requiere_finiquito
+                  ? "Tienes una contratación registrada. Presenta tu finiquito desde el seguimiento laboral para revisar si puedes volver a postular."
+                  : "Puedes seguir consultando ofertas, pero necesitas reanudar tu búsqueda para postular."}
+              </p>
+              <Link className="boton boton-secundario" to="/seguimiento">Revisar seguimiento laboral</Link>
             </div>
           ) : !job.activa ? (
             <div className="empty-state">

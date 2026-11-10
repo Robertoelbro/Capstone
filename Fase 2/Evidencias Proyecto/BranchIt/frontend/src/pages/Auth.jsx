@@ -71,6 +71,11 @@ export default function Auth() {
     <section className="auth-layout auth-layout-compact">
       <div className="auth-form-panel">
         <h1>{registering ? "Crear cuenta" : "Iniciar sesión"}</h1>
+        {location.state?.deactivated && (
+          <p className="mensaje-exito" role="status">
+            Tu cuenta está desactivada y tus sesiones se cerraron. No podrás iniciar sesión mientras permanezca desactivada.
+          </p>
+        )}
         {registering && (
           <div className="role-tabs" aria-label="Tipo de cuenta">
             <button

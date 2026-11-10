@@ -9,7 +9,8 @@ router = APIRouter(prefix='/api/employment', tags=['ofertas'])
 @router.get('/jobs', response_model=list[schemas.OfertaEmpleoConEmpresa])
 def list_jobs(db: Session = Depends(get_db)):
     rows = (db.query(models.OfertaEmpleo, models.PerfilEmpresa.nombre_empresa)
-            .join(models.PerfilEmpresa).filter(models.OfertaEmpleo.activa.is_(True))
+            .join(models.PerfilEmpresa).join(models.Usuario, models.Usuario.id == models.PerfilEmpresa.usuario_id)
+            .filter(models.OfertaEmpleo.activa.is_(True), models.Usuario.activo.is_(True))
             .order_by(models.OfertaEmpleo.fecha_publicacion.desc()).all())
     return [dict(schemas.OfertaEmpleoOut.model_validate(job).model_dump(), nombre_empresa=company, empresa_foto_id=job.empresa.foto_id, empresa_logo_url=job.empresa.logo_url)
             for job, company in rows]
@@ -18,6 +19,6 @@ def list_jobs(db: Session = Depends(get_db)):
 @router.get('/jobs/{job_id}', response_model=schemas.OfertaEmpleoConEmpresa)
 def job_detail(job_id: int, db: Session = Depends(get_db)):
     job = db.get(models.OfertaEmpleo, job_id)
-    if not job:
+    if not job or not job.empresa.usuario.activo:
         raise HTTPException(404, 'Oferta no encontrada.')
     return dict(schemas.OfertaEmpleoOut.model_validate(job).model_dump(), nombre_empresa=job.empresa.nombre_empresa, empresa_foto_id=job.empresa.foto_id, empresa_logo_url=job.empresa.logo_url)

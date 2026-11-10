@@ -1,0 +1,106 @@
+{
+  "timestamp_utc": "2026-11-09T02:57:26.167142+00:00",
+  "kind": "local_synthetic_asgi_smoke",
+  "python": "3.14.5",
+  "platform": "Windows",
+  "dataset": {
+    "companies": 1,
+    "graduates": 1,
+    "offers": 100
+  },
+  "percentile_method": "nearest rank",
+  "scope": "SQLite temporal y ASGI en proceso; sin red, Neon, Blob, Gemini ni credenciales reales.",
+  "limits": "No mide cold starts, red, PostgreSQL, navegador ni capacidad de Vercel. No es una auditoría ni un SLA.",
+  "scenarios": [
+    {
+      "requests": 100,
+      "errors": 0,
+      "status_codes": {
+        "200": 100
+      },
+      "p50_ms": 13.48,
+      "p95_ms": 32.59,
+      "max_ms": 38.48,
+      "concurrency": 1,
+      "elapsed_seconds": 1.587,
+      "requests_per_second": 62.99,
+      "routes": {
+        "public_jobs": {
+          "requests": 34,
+          "errors": 0,
+          "status_codes": {
+            "200": 34
+          },
+          "p50_ms": 13.48,
+          "p95_ms": 17.07,
+          "max_ms": 20.17
+        },
+        "private_session": {
+          "requests": 33,
+          "errors": 0,
+          "status_codes": {
+            "200": 33
+          },
+          "p50_ms": 4.51,
+          "p95_ms": 9.07,
+          "max_ms": 9.29
+        },
+        "recommendations": {
+          "requests": 33,
+          "errors": 0,
+          "status_codes": {
+            "200": 33
+          },
+          "p50_ms": 27.31,
+          "p95_ms": 36.4,
+          "max_ms": 38.48
+        }
+      }
+    },
+    {
+      "requests": 100,
+      "errors": 0,
+      "status_codes": {
+        "200": 100
+      },
+      "p50_ms": 184.86,
+      "p95_ms": 369.29,
+      "max_ms": 426.43,
+      "concurrency": 10,
+      "elapsed_seconds": 1.914,
+      "requests_per_second": 52.26,
+      "routes": {
+        "public_jobs": {
+          "requests": 34,
+          "errors": 0,
+          "status_codes": {
+            "200": 34
+          },
+          "p50_ms": 252.13,
+          "p95_ms": 382.8,
+          "max_ms": 426.43
+        },
+        "private_session": {
+          "requests": 33,
+          "errors": 0,
+          "status_codes": {
+            "200": 33
+          },
+          "p50_ms": 17.63,
+          "p95_ms": 49.41,
+          "max_ms": 57.88
+        },
+        "recommendations": {
+          "requests": 33,
+          "errors": 0,
+          "status_codes": {
+            "200": 33
+          },
+          "p50_ms": 272.42,
+          "p95_ms": 350.97,
+          "max_ms": 373.0
+        }
+      }
+    }
+  ]
+}

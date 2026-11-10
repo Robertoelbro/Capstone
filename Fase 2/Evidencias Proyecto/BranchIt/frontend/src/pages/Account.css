@@ -1,0 +1,27 @@
+.account-page { padding-bottom: 3rem; }
+.account-grid { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 1.5rem; align-items: start; }
+.account-grid > * { min-width: 0; }
+.account-fields { border: 0; padding: 0; margin: 0; min-width: 0; }
+.account-fields > label:not(.consent) { display: block; margin: 1rem 0 .35rem; }
+.account-fields > select { width: 100%; padding: .8rem; background: #fffef8; color: #213d2d; border: 1px solid #829b71; border-radius: .6rem; }
+.account-fields .consent { display: flex; align-items: flex-start; gap: .7rem; margin: 1.25rem 0; font-weight: 400; }
+.account-fields .consent input { flex: 0 0 auto; width: 1.2rem; height: 1.2rem; margin: .15rem 0 0; accent-color: #426937; }
+.account-fields .boton { margin-top: .75rem; }
+.employment-notice { background: #f4edcf; padding: 1rem; border-radius: .7rem; color: #51431c; }
+.employment-summary { background: #eaf1dd; }
+.employment-summary .employment-state { font-size: 1.2rem; font-weight: 700; color: #325728; }
+.account-deactivation { border-color: #b28c7d; }
+.account-page .account-danger-button { background: #803d32; color: #fff; border: 1px solid #803d32; }
+.account-page .account-danger-button:hover:not(:disabled) { background: #652d24; color: #fff; }
+.employment-details { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: .5rem 1rem; margin: 1rem 0; }
+.employment-details dt { font-weight: 600; }
+.employment-details dd { margin: 0; overflow-wrap: anywhere; }
+.employment-links { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1rem; }
+.subscription-price { font-size: 2rem !important; font-weight: 700; color: #325728; }
+.subscription-price span { font-size: 1rem; font-weight: 400; }
+.share-job { display: flex; align-items: center; flex-wrap: wrap; gap: .6rem; margin: .65rem 0; }
+.share-job span { font-size: .9rem; }
+.share-job label { width: 100%; }
+.share-job input { display: block; width: 100%; border: 1px solid #829b71; border-radius: .5rem; padding: .65rem; background: #fffef8; color: #213d2d; }
+.public-job-detail { max-width: 900px; }
+@media (max-width: 800px) { .account-grid { grid-template-columns: 1fr; gap: .5rem; } }

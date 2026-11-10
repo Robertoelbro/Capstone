@@ -1,5 +1,7 @@
 # Integración de BranchIT
 
+> Registro histórico de la integración inicial. Los pendientes y conteos de este documento corresponden a esa etapa. Para el estado actual hasta el sprint 10, consultar [el índice de sprints](../sprints/README.md).
+
 La aplicación integrada está en `Fase 2/Evidencias Proyecto/BranchIt`. La carpeta
 `Fase 2 Version Cristobal/BranchIt` se conserva como referencia y no fue modificada.
 

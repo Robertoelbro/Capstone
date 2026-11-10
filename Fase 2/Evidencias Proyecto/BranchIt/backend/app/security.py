@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta, timezone
 
 import bcrypt
-from fastapi import Depends, HTTPException
+from fastapi import Depends, HTTPException, Request
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from jose import JWTError, jwt
 from sqlalchemy.orm import Session
@@ -46,8 +46,15 @@ def current_user(credentials: HTTPAuthorizationCredentials = Depends(bearer), db
 
 
 def require_owner(role: str):
-    def check(usuario_id: int, user: Usuario = Depends(current_user)):
+    def check(usuario_id: int, request: Request, user: Usuario = Depends(current_user), db: Session = Depends(get_db)):
         if user.id != usuario_id or user.tipo.value != role:
             raise HTTPException(403, 'No tienes permiso para acceder a estos datos.')
+        if request.method not in ('GET', 'HEAD', 'OPTIONS'):
+            # Order account -> resource locks like deactivate(). A request that
+            # waited behind deactivation/password rotation must not mutate data.
+            version = user.token_version
+            db.query(Usuario).filter_by(id=user.id).populate_existing().with_for_update().one()
+            if not user.activo or user.token_version != version:
+                raise HTTPException(401, 'Tu sesión dejó de estar activa. Inicia sesión nuevamente.')
         return user
     return check
