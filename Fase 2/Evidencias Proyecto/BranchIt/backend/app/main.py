@@ -1,4 +1,7 @@
-from fastapi import FastAPI
+import os
+import re
+
+from fastapi import FastAPI, Response
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from fastapi.exceptions import RequestValidationError
@@ -60,12 +63,20 @@ def health():
 
 
 @app.get('/health/ready')
-def readiness(db: Session = Depends(get_db)):
+def readiness(response: Response, db: Session = Depends(get_db)):
     # Checks required schema, without exposing data or credentials.
     for statement in ('SELECT usuario_id, limite_experiencia FROM seguimiento_laboral LIMIT 1',
                       'SELECT usuario_id, estado, vigente_hasta FROM suscripciones LIMIT 1',
-                      'SELECT creada FROM entrevistas_ia LIMIT 1'):
+                      'SELECT creada FROM entrevistas_ia LIMIT 1',
+                      'SELECT usuario_id, estado FROM pagos_webpay LIMIT 1'):
         db.execute(text(statement)).first()
+    # A remote load runner must prove this is a disposable PostgreSQL database.
+    # An environment flag alone cannot label the production database as a test.
+    run = os.getenv('QA_LOAD_RUN_ID', '')
+    if re.fullmatch(r'[a-f0-9]{32}', run) and db.bind.dialect.name == 'postgresql':
+        database = db.execute(text('SELECT current_database()')).scalar_one()
+        if database.startswith('branchit_qa_'):
+            response.headers['X-BranchIT-QA-Run'] = run
     return {'estado': 'listo'}
 
 @app.get("/")

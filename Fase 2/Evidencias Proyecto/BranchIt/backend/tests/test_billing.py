@@ -81,5 +81,5 @@ class BillingTests(unittest.TestCase):
         self.assertIn('No se ha realizado ningún cobro', result.json()['detail'])
         with self.session() as db:
             self.assertEqual(db.query(Subscription).count(), 0)
-        self.assertEqual(self.client.post('/billing/return?token_ws=fake', headers=headers).status_code, 404)
+        self.assertEqual(self.client.get('/billing/return?token_ws=fake', headers=headers).status_code, 404)
         self.assertEqual(self.client.put('/billing/me', headers=headers, json={'estado': 'activa'}).status_code, 405)

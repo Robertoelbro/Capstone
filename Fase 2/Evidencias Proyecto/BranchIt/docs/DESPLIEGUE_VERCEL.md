@@ -66,7 +66,7 @@ apuntando a la base de destino autorizada:
 .\.venv\Scripts\python.exe -m alembic current
 ```
 
-Se espera `0012_entrevistas_suscripcion (head)`. Las migraciones se ejecutan como un paso
+Se espera `0013_pagos_webpay (head)`. Las migraciones se ejecutan como un paso
 controlado, no durante cada solicitud ni automáticamente en cada preview.
 No usar el script SQLite temporal en Vercel.
 

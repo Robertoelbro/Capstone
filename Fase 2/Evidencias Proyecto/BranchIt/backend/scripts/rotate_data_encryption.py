@@ -16,7 +16,7 @@ from cryptography.fernet import Fernet, InvalidToken
 from sqlalchemy import create_engine, inspect, text
 from sqlalchemy.engine import Engine, make_url
 
-TABLES = frozenset({'postulaciones', 'entrevistas_ia', 'seguimiento_laboral'})
+TABLES = frozenset({'postulaciones', 'entrevistas_ia', 'seguimiento_laboral', 'pagos_webpay'})
 BACKUP_SCHEMA = re.compile(r'^branchit_backup_[A-Za-z0-9_]+$')
 BATCH_SIZE = 100
 

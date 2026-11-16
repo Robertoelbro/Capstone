@@ -56,6 +56,20 @@ class RotationTests(unittest.TestCase):
         self.assertNotIn('private_other', str(result))
         self.assertNotIn('archivos_portfolio', str(result))
 
+    def test_payment_tokens_are_rotated_alongside_existing_private_data(self):
+        token = OLD.encrypt(b'{"token":"integration-only-token"}').decode()
+        with self.engine.begin() as conn:
+            conn.exec_driver_sql('CREATE TABLE pagos_webpay (id TEXT PRIMARY KEY, datos_cifrados TEXT)')
+            conn.execute(text('INSERT INTO pagos_webpay VALUES (:id, :token)'), {'id':'test-order','token':token})
+        report = rotate_data(self.engine, OLD_KEY, NEW_KEY, apply=True)
+        payments = next(item for item in report if item['tabla'] == 'main.pagos_webpay')
+        self.assertEqual(payments['recifradas'], 1)
+        with self.engine.connect() as conn:
+            saved = conn.exec_driver_sql('SELECT datos_cifrados FROM pagos_webpay').scalar_one()
+        self.assertEqual(NEW.decrypt(saved.encode()), b'{"token":"integration-only-token"}')
+        with self.assertRaises(InvalidToken):
+            OLD.decrypt(saved.encode())
+
     def test_apply_rotates_public_and_backups_preserving_ids_plaintext_and_other_columns(self):
         before = self.tokens()
         result = rotate_data(self.engine, OLD_KEY, NEW_KEY, apply=True)
