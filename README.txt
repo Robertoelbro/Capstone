@@ -8,7 +8,7 @@ Para poder ejecutar el servicio de forma local hay que seguir las siguientes ins
 
 Primero, levantar Backend:
 
-	Set-Location -LiteralPath "...\Evidencias Proyecto\BranchIt\backend"
+	Set-Location -LiteralPath "...\Evidencias Proyecto\Evidencias de sistemas Aplicación\BranchIt\backend"
 
 	..venv\Scripts\python.exe -m pip install -r requirements-dev.txt
 
@@ -16,7 +16,7 @@ Primero, levantar Backend:
 
 Segundo, levantar Frontend
 
-	Set-Location -LiteralPath "...\Evidencias Proyecto\BranchIt\frontend"
+	Set-Location -LiteralPath "...\Evidencias Proyecto\Evidencias de sistemas Aplicación\BranchIt\frontend"
 
 	$env:VITE_API_URL='http://127.0.0.1:8001/'
 	$env:VITE_DEMO_MODE='true'
