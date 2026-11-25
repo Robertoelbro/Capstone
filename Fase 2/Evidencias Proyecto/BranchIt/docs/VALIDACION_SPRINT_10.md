@@ -1,5 +1,7 @@
 # Validación de calidad · Sprint 10
 
+Actualización de alcance del 15 de noviembre de 2026: ver [validación del equipo y carga PostgreSQL controlada](VALIDACION_EQUIPO_2026-11-15.md). El usuario autorizó por ahora pruebas del equipo con cuentas ficticias y aplazó el piloto con participantes externos. Los resultados del 8 de noviembre se conservan debajo como evidencia histórica y no acreditan la nueva iteración.
+
 ## Ensayo ejecutado
 
 Fecha local: 8 de noviembre de 2026, America/Santiago. Entorno: Windows, Python 3.14.5. Herramienta: `backend/scripts/load_smoke.py`, API ASGI mediante `TestClient`, base SQLite temporal. Los modelos crean el esquema para este ensayo; la validación de la cadena de migraciones corresponde a las pruebas de Alembic, no a este script.
@@ -64,7 +66,7 @@ Registrar navegador, ancho o zoom, tarea, resultado, incidencia y captura de eje
 | Actividad | Estado al preparar esta evidencia |
 | --- | --- |
 | Smoke local sintético de lectura, 1 y 10 workers | Ejecutado: resultados arriba. |
-| Piloto con egresados y reclutadores reales | Pendiente de participantes y ejecución. |
+| Piloto con egresados y reclutadores externos | Aplazado por decisión del usuario el 15 de noviembre; se realizan pruebas del equipo con cuentas ficticias. |
 | Revisión manual completa de teclado, lector y zoom | Pendiente de ejecución documentada. |
 | Carga remota en entorno de ensayo con PostgreSQL | Pendiente; no se atacó producción. |
 | Evaluación de respuestas reales del proveedor de IA | Pendiente de escenario y cuota. |

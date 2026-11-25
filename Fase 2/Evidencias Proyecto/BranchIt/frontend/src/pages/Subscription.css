@@ -1,0 +1,10 @@
+.subscription-page .subscription-test { background: #f4edcf; color: #51431c; border: 1px solid #c1ad60; border-radius: .7rem; padding: 1rem; margin: 1.2rem 0; }
+.subscription-receipt { border-color: #829b71; }
+.subscription-receipt dl { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: .5rem 1rem; margin: 1rem 0; }
+.subscription-receipt dt { font-weight: 600; }
+.subscription-receipt dd { margin: 0; overflow-wrap: anywhere; }
+.subscription-page .boton { min-height: 44px; }
+.subscription-page h2:focus, .subscription-page [role="alert"]:focus { outline: 3px solid #426937; outline-offset: 4px; }
+.subscription-new-operation { border-top: 1px solid #829b71; margin-top: 1.2rem; padding-top: .6rem; }
+.subscription-new-operation label { display: flex; gap: .7rem; align-items: flex-start; margin: 1rem 0; }
+.subscription-new-operation input { width: 1.2rem; height: 1.2rem; flex: 0 0 auto; margin-top: .15rem; accent-color: #426937; }

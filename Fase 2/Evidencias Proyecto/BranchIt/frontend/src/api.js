@@ -67,6 +67,11 @@ export const api = {
   releaseEmployment: (data) =>
     solicitud("/employment/release", { method: "POST", body: JSON.stringify(data) }),
   billing: () => solicitud("/billing/me"),
+  billingCheckout: (request_id) =>
+    solicitud("/billing/checkout", { method: "POST", body: JSON.stringify({ request_id }) }),
+  billingOrder: (id) => solicitud(`/billing/orders/${encodeURIComponent(id)}`),
+  reconcileBillingOrder: (id) =>
+    solicitud(`/billing/orders/${encodeURIComponent(id)}/reconcile`, { method: "POST" }),
   deactivate: (password_actual) =>
     solicitud("/auth/deactivate", {
       method: "POST",

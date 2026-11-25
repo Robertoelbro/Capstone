@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, contains_eager
 from ..database import get_db
 from .. import models, schemas
 
@@ -10,6 +10,7 @@ router = APIRouter(prefix='/api/employment', tags=['ofertas'])
 def list_jobs(db: Session = Depends(get_db)):
     rows = (db.query(models.OfertaEmpleo, models.PerfilEmpresa.nombre_empresa)
             .join(models.PerfilEmpresa).join(models.Usuario, models.Usuario.id == models.PerfilEmpresa.usuario_id)
+            .options(contains_eager(models.OfertaEmpleo.empresa))
             .filter(models.OfertaEmpleo.activa.is_(True), models.Usuario.activo.is_(True))
             .order_by(models.OfertaEmpleo.fecha_publicacion.desc()).all())
     return [dict(schemas.OfertaEmpleoOut.model_validate(job).model_dump(), nombre_empresa=company, empresa_foto_id=job.empresa.foto_id, empresa_logo_url=job.empresa.logo_url)

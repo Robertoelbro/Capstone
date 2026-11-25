@@ -19,16 +19,20 @@ import Subscription from "./pages/Subscription";
 import JobDetail from "./pages/JobDetail";
 import GraduateAssistant from "./Components/GraduateAssistant";
 import { panelPath, useSession } from "./session";
+import { safeSubscriptionReturn } from "./billingReturn";
 
 function Protected({ role, children }) {
   const { user, loading } = useSession();
+  const location = useLocation();
   if (loading)
     return (
       <p className="contenedor" role="status">
         Recuperando tu sesión…
       </p>
     );
-  if (!user) return <Navigate to="/iniciar-sesion" replace />;
+  if (!user) return <Navigate to="/iniciar-sesion" replace state={{
+    subscriptionReturn: safeSubscriptionReturn(location.pathname + location.search),
+  }} />;
   if (role && user.tipo !== role) return <Navigate to={panelPath(user)} replace />;
   return children;
 }

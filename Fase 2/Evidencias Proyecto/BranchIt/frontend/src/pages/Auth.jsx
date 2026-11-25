@@ -3,6 +3,7 @@ import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { FiArrowRight, FiEye, FiEyeOff } from "react-icons/fi";
 import { api } from "../api";
 import { panelPath, useSession } from "../session";
+import { safeSubscriptionReturn } from "../billingReturn";
 
 import {
   ValidatedForm,
@@ -27,7 +28,10 @@ export default function Auth() {
   useEffect(() => {
     if (error) errorRef.current?.focus();
   }, [error]);
-  if (user) return <Navigate to={panelPath(user)} replace />;
+  const destination = (account) => account.tipo === "egresado"
+    ? safeSubscriptionReturn(location.state?.subscriptionReturn) || panelPath(account)
+    : panelPath(account);
+  if (user) return <Navigate to={destination(user)} replace />;
 
   async function submit(event) {
     event.preventDefault();
@@ -58,7 +62,7 @@ export default function Auth() {
         });
       } else {
         const account = await login(data);
-        navigate(panelPath(account), { replace: true });
+        navigate(destination(account), { replace: true });
       }
     } catch (err) {
       setError(err.message);

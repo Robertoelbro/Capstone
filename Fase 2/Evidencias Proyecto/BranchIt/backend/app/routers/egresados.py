@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException, status
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, contains_eager
 
 from .. import models, schemas
 from ..database import get_db
@@ -66,6 +66,7 @@ def ver_ofertas_disponibles(usuario_id: int, db: Session = Depends(get_db)):
     ofertas = (
         db.query(models.OfertaEmpleo, models.PerfilEmpresa.nombre_empresa)
         .join(models.PerfilEmpresa, models.OfertaEmpleo.empresa_id == models.PerfilEmpresa.id)
+        .options(contains_eager(models.OfertaEmpleo.empresa))
         .join(models.Usuario, models.Usuario.id == models.PerfilEmpresa.usuario_id)
         .filter(models.OfertaEmpleo.activa.is_(True), models.Usuario.activo.is_(True))
         .order_by(models.OfertaEmpleo.fecha_publicacion.desc())
@@ -95,6 +96,7 @@ def recommendations(usuario_id: int, db: Session = Depends(get_db)):
     profile = _obtener_perfil_o_404(db, usuario_id)
     jobs = (db.query(models.OfertaEmpleo).join(models.PerfilEmpresa).join(
         models.Usuario, models.Usuario.id == models.PerfilEmpresa.usuario_id)
+        .options(contains_eager(models.OfertaEmpleo.empresa))
         .filter(models.OfertaEmpleo.activa.is_(True), models.Usuario.activo.is_(True))
         .order_by(models.OfertaEmpleo.fecha_publicacion.desc()).all())
     result = [dict(schemas.OfertaEmpleoOut.model_validate(job).model_dump(),

@@ -1,5 +1,7 @@
 # Avance de sprints · BranchIT
 
+**Actualización del 16 de noviembre de 2026:** frontend y API ya se publicaron en las direcciones principales de Vercel, y Neon principal quedó en `0013_pagos_webpay`. El [registro de publicación](../docs/DESPLIEGUE_2026-11-16.md) sustituye las menciones históricas de código aún sin desplegar que siguen más abajo. Webpay fue probado en integración de QA; el checkout principal permanece deshabilitado y la incidencia de carga continúa abierta.
+
 Estado revisado el 9 de noviembre de 2026. Los README antiguos conservan evidencias históricas; sus conteos no representan el resultado actual.
 
 | Sprint | Funciones implementadas | Verificación |
