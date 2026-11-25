@@ -1,0 +1,170 @@
+Browser tab: 3, Title: "Buscar empleo | BranchIT", URL: "https://branchit-blue.vercel.app/#ofertas".
+0 AXWebArea Buscar empleo | BranchIT, URL: branchit-blue.vercel.app/#ofertas
+	1 container root
+		2 container
+			3 link Description: Saltar al contenido, Value: branchit-blue.vercel.app/#contenido
+			4 container Navegación principal
+				5 link Description: Branch IT, Value: branchit-blue.vercel.app/
+				6 container navigation-links
+					7 link Description: Buscar empleo, Value: branchit-blue.vercel.app/
+					8 link Description: Para empresas, Value: branchit-blue.vercel.app/registro/empresa
+					9 link Description: Iniciar sesión, Value: branchit-blue.vercel.app/iniciar-sesion
+					10 link Description: Crear cuenta, Value: branchit-blue.vercel.app/registro
+		11 container contenido
+			12 container
+				13 heading Empleo para recién egresados, Value: 1
+					14 text Empleo para recién egresados
+				15 link Description: Crea tu perfil gratis, Value: branchit-blue.vercel.app/registro
+				16 link Description: Explorar ofertas ↓, Value: branchit-blue.vercel.app/#ofertas
+			17 container ofertas
+				18 heading Ofertas de empleo, Value: 2
+					19 text Ofertas de empleo
+				20 text 10 ofertas
+				21 container
+					22 image
+					23 text Cargo o empresa
+					24 text field (settable) Cargo o empresa
+					25 image
+					26 text Ciudad o región
+					27 text field (settable) Ciudad o región, Value: Santiago
+					28 text Modalidad
+					29 pop up button (collapsed, settable) Modalidad, Value: Todas las modalidades, Secondary Actions: Expand
+						30 menu
+							31 (selected) Todas las modalidades
+							32 Presencial
+							33 Remoto
+							34 Híbrido
+					35 button Buscar
+						36 text Buscar
+						37 image
+				50 container
+					51 text Cargando archivo… Remoto KFC'nt
+					52 heading Desarrollador frontend junior, Value: 3
+						53 text Desarrollador frontend junior
+					54 image
+					55 text Santiago Oferta demo: no es una vacante real. Cargo de desarrollador frontend junior en Semilla Digital, para una primera experiencia profesional supervisada.
+					56 button (collapsed) Description: Ver oportunidad: Desarrollador frontend junior, Secondary Actions: Expand
+						57 text Ver oportunidad
+						58 image
+					59 button Compartir oferta: Desarrollador frontend junior
+				60 container
+					61 container DEMO · Cuidado Integral
+						62 text CU
+					63 text Presencial DEMO · Cuidado Integral
+					64 heading Enfermero de atención primaria, Value: 3
+						65 text Enfermero de atención primaria
+					66 image
+					67 text Santiago Oferta demo: no es una vacante real. Cargo de enfermero de atención primaria en Cuidado Integral, para una primera experiencia profesional supervisada.
+					68 button (collapsed) Description: Ver oportunidad: Enfermero de atención primaria, Secondary Actions: Expand
+						69 text Ver oportunidad
+						70 image
+					71 button Compartir oferta: Enfermero de atención primaria
+				72 container
+					73 container DEMO · Estudio Brote
+						74 text ES
+					75 text Remoto DEMO · Estudio Brote
+					76 heading Diseñador gráfico junior, Value: 3
+						77 text Diseñador gráfico junior
+					78 image
+					79 text Santiago Oferta demo: no es una vacante real. Cargo de diseñador gráfico junior en Estudio Brote, para una primera experiencia profesional supervisada.
+					80 button (collapsed) Description: Ver oportunidad: Diseñador gráfico junior, Secondary Actions: Expand
+						81 text Ver oportunidad
+						82 image
+					83 button Compartir oferta: Diseñador gráfico junior
+				84 container
+					85 container DEMO · Balance Sur
+						86 text BA
+					87 text Remoto DEMO · Balance Sur
+					88 heading Asistente contable, Value: 3
+						89 text Asistente contable
+					90 image
+					91 text Santiago Oferta demo: no es una vacante real. Cargo de asistente contable en Balance Sur, para una primera experiencia profesional supervisada.
+					92 button (collapsed) Description: Ver oportunidad: Asistente contable, Secondary Actions: Expand
+						93 text Ver oportunidad
+						94 image
+					95 button Compartir oferta: Asistente contable
+				96 container
+					97 container DEMO · Aula Abierta
+						98 text AU
+					99 text Presencial DEMO · Aula Abierta
+					100 heading Educador de párvulos, Value: 3
+						101 text Educador de párvulos
+					102 image
+					103 text Santiago Oferta demo: no es una vacante real. Cargo de educador de párvulos en Aula Abierta, para una primera experiencia profesional supervisada.
+					104 button (collapsed) Description: Ver oportunidad: Educador de párvulos, Secondary Actions: Expand
+						105 text Ver oportunidad
+						106 image
+					107 button Compartir oferta: Educador de párvulos
+				108 container
+					109 container DEMO · Raíz Ingeniería
+						110 text RA
+					111 text Presencial DEMO · Raíz Ingeniería
+					112 heading Asistente de oficina técnica, Value: 3
+						113 text Asistente de oficina técnica
+					114 image
+					115 text Santiago Oferta demo: no es una vacante real. Cargo de asistente de oficina técnica en Raíz Ingeniería, para una primera experiencia profesional supervisada.
+					116 button (collapsed) Description: Ver oportunidad: Asistente de oficina técnica, Secondary Actions: Expand
+						117 text Ver oportunidad
+						118 image
+					119 button Compartir oferta: Asistente de oficina técnica
+				120 container
+					121 container DEMO · Ruta Circular
+						122 text RU
+					123 text Presencial DEMO · Ruta Circular
+					124 heading Analista logístico junior, Value: 3
+						125 text Analista logístico junior
+					126 image
+					127 text Santiago Oferta demo: no es una vacante real. Cargo de analista logístico junior en Ruta Circular, para una primera experiencia profesional supervisada.
+					128 button (collapsed) Description: Ver oportunidad: Analista logístico junior, Secondary Actions: Expand
+						129 text Ver oportunidad
+						130 image
+					131 button Compartir oferta: Analista logístico junior
+				132 container
+					133 container DEMO · Destino Nativo
+						134 text DE
+					135 text Presencial DEMO · Destino Nativo
+					136 heading Recepcionista de hotel, Value: 3
+						137 text Recepcionista de hotel
+					138 image
+					139 text Santiago Oferta demo: no es una vacante real. Cargo de recepcionista de hotel en Destino Nativo, para una primera experiencia profesional supervisada.
+					140 button (collapsed) Description: Ver oportunidad: Recepcionista de hotel, Secondary Actions: Expand
+						141 text Ver oportunidad
+						142 image
+					143 button Compartir oferta: Recepcionista de hotel
+				144 container
+					145 container DEMO · Comunidad Viva
+						146 text CO
+					147 text Presencial DEMO · Comunidad Viva
+					148 heading Psicólogo organizacional junior, Value: 3
+						149 text Psicólogo organizacional junior
+					150 image
+					151 text Santiago Oferta demo: no es una vacante real. Cargo de psicólogo organizacional junior en Comunidad Viva, para una primera experiencia profesional supervisada.
+					152 button (collapsed) Description: Ver oportunidad: Psicólogo organizacional junior, Secondary Actions: Expand
+						153 text Ver oportunidad
+						154 image
+					155 button Compartir oferta: Psicólogo organizacional junior
+				156 container
+					157 container DEMO · Territorio Verde
+						158 text TE
+					159 text Presencial DEMO · Territorio Verde
+					160 heading Ingeniero ambiental junior, Value: 3
+						161 text Ingeniero ambiental junior
+					162 image
+					163 text Santiago Oferta demo: no es una vacante real. Cargo de ingeniero ambiental junior en Territorio Verde, para una primera experiencia profesional supervisada.
+					164 button (collapsed) Description: Ver oportunidad: Ingeniero ambiental junior, Secondary Actions: Expand
+						165 text Ver oportunidad
+						166 image
+					167 button Compartir oferta: Ingeniero ambiental junior
+			39 container
+				40 heading Publica ofertas de empleo, Value: 2
+					41 text Publica ofertas de empleo
+				42 link Description: Registra tu empresa, Value: branchit-blue.vercel.app/registro/empresa
+		43 container
+			44 link Description: Branch IT, Value: branchit-blue.vercel.app/
+			45 container Enlaces del pie de página
+				46 link Description: Buscar empleo, Value: branchit-blue.vercel.app/
+				47 link Description: Soy empresa, Value: branchit-blue.vercel.app/registro/empresa
+				48 link Description: Crear cuenta, Value: branchit-blue.vercel.app/registro
+			49 text ©  2026  BranchIT
+
+The focused UI element is 35 button Buscar

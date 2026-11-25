@@ -1,0 +1,121 @@
+{
+  "fecha_chile": "martes, 24 de noviembre de 2026, 9:20:21 p. m. CLST",
+  "entorno": "Versión pública de BranchIT en Vercel, navegador integrado de ChatGPT",
+  "base_url": "https://branchit-blue.vercel.app",
+  "metodo": "Interacción directa con controles visibles de la aplicación y capturas de pantalla del navegador. Sin scripts de API, base simulada, proveedor simulado ni capturas de documentos.",
+  "alcance": "Diez pruebas de los flujos públicos. No se ejecutaron operaciones dentro de cuentas autenticadas ni creación efectiva de cuentas, postulaciones, contratación, notificaciones o entrevistas de IA.",
+  "casos": [
+    {
+      "id": "WEB-01",
+      "titulo": "Carga pública de ofertas",
+      "pasos": "Abrir la página principal y esperar la carga de las convocatorias.",
+      "esperado": "Mostrar el listado y el número de ofertas sin error de conexión.",
+      "observado": "La página muestra 100 ofertas y tarjetas con cargo, empresa, ciudad y modalidad.",
+      "estado": "APROBADO",
+      "url": "https://branchit-blue.vercel.app/",
+      "captura": "WEB-01.png",
+      "fecha": "2026-11-25T00:20:21.862Z"
+    },
+    {
+      "id": "WEB-02",
+      "titulo": "Búsqueda por cargo",
+      "pasos": "Escribir backend en Cargo o empresa y pulsar Buscar.",
+      "esperado": "Mostrar solo cargos o empresas que coincidan con backend.",
+      "observado": "El contador cambia de 100 ofertas a 1 oferta y se muestra Desarrollador backend junior en Valparaíso.",
+      "estado": "APROBADO",
+      "url": "https://branchit-blue.vercel.app/",
+      "captura": "WEB-02.png",
+      "fecha": "2026-11-25T00:16:29.096Z"
+    },
+    {
+      "id": "WEB-03",
+      "titulo": "Filtro por ciudad",
+      "pasos": "Vaciar el cargo, escribir Santiago en Ciudad o región y pulsar Buscar.",
+      "esperado": "Mostrar únicamente ofertas de Santiago.",
+      "observado": "Se muestran 10 ofertas y todas las ciudades del listado observado corresponden a Santiago.",
+      "estado": "APROBADO",
+      "url": "https://branchit-blue.vercel.app/#ofertas",
+      "captura": "WEB-03.png",
+      "fecha": "2026-11-25T00:17:06.798Z"
+    },
+    {
+      "id": "WEB-04",
+      "titulo": "Filtro de modalidad remota",
+      "pasos": "Dejar vacíos cargo y ciudad, seleccionar Remoto y pulsar Buscar.",
+      "esperado": "Mostrar solo convocatorias remotas.",
+      "observado": "El selector queda en Remoto y el listado muestra 12 ofertas, todas con modalidad remoto.",
+      "estado": "APROBADO",
+      "url": "https://branchit-blue.vercel.app/#ofertas",
+      "captura": "WEB-04.png",
+      "fecha": "2026-11-25T00:17:28.597Z"
+    },
+    {
+      "id": "WEB-05",
+      "titulo": "Búsqueda sin resultados",
+      "pasos": "Buscar zzzzbranchitsinresultados20261124 con modalidad Remoto.",
+      "esperado": "Mostrar cero ofertas y una explicación que permita continuar buscando.",
+      "observado": "Se muestran 0 ofertas, No encontramos coincidencias y la sugerencia Prueba con otro cargo, ciudad o modalidad.",
+      "estado": "APROBADO",
+      "url": "https://branchit-blue.vercel.app/#ofertas",
+      "captura": "WEB-05.png",
+      "fecha": "2026-11-25T00:17:41.585Z"
+    },
+    {
+      "id": "WEB-06",
+      "titulo": "Consulta del detalle de una convocatoria",
+      "pasos": "Buscar backend y abrir Ver oportunidad de Desarrollador backend junior.",
+      "esperado": "Mostrar sueldo, funciones, perfiles, condiciones, adaptaciones y requisitos.",
+      "observado": "Se expande el detalle con sueldo mensual bruto de $800.000 CLP, funciones, Ingeniería Civil en Informática, condiciones laborales, adaptaciones Sí y requisitos.",
+      "estado": "APROBADO",
+      "url": "https://branchit-blue.vercel.app/#ofertas",
+      "captura": "WEB-06.png",
+      "fecha": "2026-11-25T00:18:01.197Z"
+    },
+    {
+      "id": "WEB-07",
+      "titulo": "Acceso requerido para postular",
+      "pasos": "Sin iniciar sesión, abrir el detalle de una oferta y pulsar Inicia sesión para postular.",
+      "esperado": "Dirigir al formulario de acceso sin enviar una postulación.",
+      "observado": "Se navega a /iniciar-sesion y se muestran los campos de correo y contraseña. No aparece confirmación de postulación.",
+      "estado": "APROBADO",
+      "url": "https://branchit-blue.vercel.app/iniciar-sesion",
+      "captura": "WEB-07.png",
+      "fecha": "2026-11-25T00:18:14.392Z"
+    },
+    {
+      "id": "WEB-08",
+      "titulo": "Rechazo de credenciales incorrectas",
+      "pasos": "Ingresar un correo ficticio reservado para pruebas y una contraseña inválida; pulsar Iniciar sesión.",
+      "esperado": "Rechazar el acceso con un mensaje genérico y mantener la pantalla de inicio de sesión.",
+      "observado": "Aparece la alerta Correo o contraseña incorrectos. No se ingresa a un panel de usuario.",
+      "estado": "APROBADO",
+      "url": "https://branchit-blue.vercel.app/iniciar-sesion",
+      "captura": "WEB-08.png",
+      "fecha": "2026-11-25T00:18:29.887Z"
+    },
+    {
+      "id": "WEB-09",
+      "titulo": "Registro de egresado con campos obligatorios vacíos",
+      "pasos": "Abrir Crear cuenta en modo Soy egresado/a y pulsar Crear mi cuenta sin completar datos.",
+      "esperado": "Impedir el registro e indicar los campos obligatorios.",
+      "observado": "El formulario permanece abierto, muestra Los campos obligatorios se indican con * y enfoca Nombre. No se crea una cuenta ni aparece confirmación.",
+      "estado": "APROBADO",
+      "url": "https://branchit-blue.vercel.app/registro",
+      "captura": "WEB-09.png",
+      "fecha": "2026-11-25T00:18:52.257Z"
+    },
+    {
+      "id": "WEB-10",
+      "titulo": "Registro de empresa con formato y búsqueda de giro",
+      "pasos": "Elegir Soy empresa; escribir 123456785 en RUT y 12345678 en teléfono; buscar cons en Giro comercial y confirmar Construcción de edificios con Enter.",
+      "esperado": "Formatear el RUT y teléfono, y ofrecer giros coincidentes sin crear una cuenta.",
+      "observado": "El RUT se muestra como 12.345.678-5; el teléfono como 1234 5678 con bandera y +569. La búsqueda muestra Construcción de edificios, Consultoría de negocios, Ingeniería y consultoría técnica y Otros; Enter confirma Construcción de edificios.",
+      "estado": "APROBADO",
+      "url": "https://branchit-blue.vercel.app/registro",
+      "captura": "WEB-10.png",
+      "captura_adicional": "WEB-10-formato.png",
+      "fecha": "2026-11-25T00:20:07.027Z",
+      "nota": "Se verificó la selección con teclado. Un intento de clic del controlador agotó su tiempo; no se interpreta como fallo de la aplicación."
+    }
+  ]
+}

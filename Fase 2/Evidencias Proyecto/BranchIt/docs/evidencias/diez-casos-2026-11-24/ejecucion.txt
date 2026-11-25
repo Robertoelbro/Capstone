@@ -1,0 +1,60 @@
+test_registration_login_profile_and_delete (test_flows.AccountFlows.test_registration_login_profile_and_delete) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.716s
+
+OK
+test_duplicate_and_invalid_credentials (test_flows.AccountFlows.test_duplicate_and_invalid_credentials) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 1.303s
+
+OK
+test_jobs_and_authorization (test_flows.AccountFlows.test_jobs_and_authorization) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 2.117s
+
+OK
+test_publication_and_contact_are_opt_in (test_portfolio.PortfolioFlows.test_publication_and_contact_are_opt_in) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.731s
+
+OK
+test_selected_candidate_is_hired_other_candidates_remain_private (test_hiring_release.HiringReleaseTests.test_selected_candidate_is_hired_other_candidates_remain_private) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 2.079s
+
+OK
+test_events_private_inbox_and_read_state (test_notifications.NotificationTests.test_events_private_inbox_and_read_state) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 2.054s
+
+OK
+test_required_details_salary_validation_and_legacy_read (test_offer_forms.OfferForms.test_required_details_salary_validation_and_legacy_read) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 1.494s
+
+OK
+test_multiple_choice_and_character_limits_are_validated_and_preserved (test_offer_forms.OfferForms.test_multiple_choice_and_character_limits_are_validated_and_preserved) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 1.415s
+
+OK
+test_file_limits_and_nested_links (test_portfolio.PortfolioFlows.test_file_limits_and_nested_links) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.582s
+
+OK
+test_one_daily_interview_resume_limits_and_next_day (test_ai_daily.DailyAssistantTests.test_one_daily_interview_resume_limits_and_next_day) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 1.771s
+
+OK

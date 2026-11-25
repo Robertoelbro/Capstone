@@ -1,0 +1,81 @@
+- banner:
+  - link "Saltar al contenido":
+    - /url: "#contenido"
+  - navigation "Navegación principal":
+    - link "Branch IT":
+      - /url: /
+      - text: Branch
+      - generic: IT
+    - link "Buscar empleo":
+      - /url: /
+    - link "Para empresas":
+      - /url: /registro/empresa
+    - link "Iniciar sesión":
+      - /url: /iniciar-sesion
+    - link "Crear cuenta":
+      - /url: /registro
+      - text: Crear cuenta
+- main:
+  - heading "Empleo para recién egresados" [level=1]
+  - link "Crea tu perfil gratis":
+    - /url: /registro
+    - text: Crea tu perfil gratis
+  - link "Explorar ofertas ↓":
+    - /url: "#ofertas"
+  - heading "Ofertas de empleo" [level=2]
+  - status: 1 oferta
+  - generic: Cargo o empresa
+  - textbox "Cargo o empresa": backend
+  - generic: Ciudad o región
+  - textbox "Ciudad o región"
+  - generic: Modalidad
+  - combobox "Modalidad":
+    - option "Todas las modalidades" [selected]
+    - option "Presencial"
+    - option "Remoto"
+    - option "Híbrido"
+  - button "Buscar":
+    - text: Buscar
+  - article:
+    - img "Foto de KFC'nt"
+    - generic: Híbrido
+    - paragraph: KFC'nt
+    - heading "Desarrollador backend junior" [level=3]
+    - paragraph:
+      - text: Valparaíso
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de desarrollador backend junior en Semilla Digital, para una primera experiencia profesional supervisada."
+    - 'button "Cerrar detalle: Desarrollador backend junior" [expanded] [active]':
+      - text: Cerrar detalle
+    - 'button "Compartir oferta: Desarrollador backend junior"': Compartir oferta
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de desarrollador backend junior en Semilla Digital, para una primera experiencia profesional supervisada."
+    - term: Sueldo mensual bruto
+    - definition: $800.000 CLP
+    - term: Funciones
+    - definition: Desempeñar las tareas de desarrollador backend junior. Implementar mejoras, revisar código y documentar pruebas con el equipo técnico.
+    - term: Perfiles deseados
+    - definition: Ingeniería Civil en Informática
+    - term: Condiciones laborales
+    - definition: Sueldo fijo mensual bruto en CLP. Jornada de 40 horas semanales. Contrato inicial de tres meses con evaluación de continuidad. Inducción y acompañamiento profesional. Dos días en oficina y tres a distancia por semana. Se contemplan entrevista accesible y ajustes de herramientas o del puesto, a coordinar según necesidades.
+    - term: Adaptaciones para personas con discapacidad
+    - definition: Sí
+    - strong: Requisitos
+    - paragraph: Informática o carrera afín. Fundamentos de programación, bases de datos y trabajo con Git. Se aceptan proyectos académicos y prácticas; no se exige experiencia laboral previa.
+    - link "Inicia sesión para postular":
+      - /url: /iniciar-sesion
+  - heading "Publica ofertas de empleo" [level=2]
+  - link "Registra tu empresa":
+    - /url: /registro/empresa
+    - text: Registra tu empresa
+- contentinfo:
+  - link "Branch IT":
+    - /url: /
+    - text: Branch
+    - generic: IT
+  - navigation "Enlaces del pie de página":
+    - link "Buscar empleo":
+      - /url: /
+    - link "Soy empresa":
+      - /url: /registro/empresa
+    - link "Crear cuenta":
+      - /url: /registro
+  - generic: © 2026 BranchIT

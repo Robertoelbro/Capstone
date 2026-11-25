@@ -1,0 +1,1147 @@
+- banner:
+  - link "Saltar al contenido":
+    - /url: "#contenido"
+  - navigation "Navegación principal":
+    - link "Branch IT":
+      - /url: /
+      - text: Branch
+      - generic: IT
+    - button "Abrir menú":
+- main:
+  - heading "Empleo para recién egresados" [level=1]
+  - link "Crea tu perfil gratis":
+    - /url: /registro
+    - text: Crea tu perfil gratis
+  - link "Explorar ofertas ↓":
+    - /url: "#ofertas"
+  - heading "Ofertas de empleo" [level=2]
+  - status: 100 ofertas
+  - generic: Cargo o empresa
+  - textbox "Cargo o empresa"
+  - generic: Ciudad o región
+  - textbox "Ciudad o región"
+  - generic: Modalidad
+  - combobox "Modalidad":
+    - option "Todas las modalidades" [selected]
+    - option "Presencial"
+    - option "Remoto"
+    - option "Híbrido"
+  - button "Buscar":
+    - text: Buscar
+  - article:
+    - img "Foto de KFC'nt"
+    - generic: remoto
+    - paragraph: KFC'nt
+    - heading "Desarrollador frontend junior" [level=3]
+    - paragraph:
+      - text: Santiago
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de desarrollador frontend junior en Semilla Digital, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Desarrollador frontend junior"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Desarrollador frontend junior"': Compartir oferta
+  - article:
+    - img "Foto de KFC'nt"
+    - generic: Híbrido
+    - paragraph: KFC'nt
+    - heading "Desarrollador backend junior" [level=3]
+    - paragraph:
+      - text: Valparaíso
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de desarrollador backend junior en Semilla Digital, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Desarrollador backend junior"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Desarrollador backend junior"': Compartir oferta
+  - article:
+    - img "Foto de KFC'nt"
+    - generic: presencial
+    - paragraph: KFC'nt
+    - heading "Analista de datos junior" [level=3]
+    - paragraph:
+      - text: Concepción
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de analista de datos junior en Semilla Digital, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Analista de datos junior"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Analista de datos junior"': Compartir oferta
+  - article:
+    - img "Foto de KFC'nt"
+    - generic: remoto
+    - paragraph: KFC'nt
+    - heading "QA tester junior" [level=3]
+    - paragraph:
+      - text: Temuco
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de qa tester junior en Semilla Digital, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: QA tester junior"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: QA tester junior"': Compartir oferta
+  - article:
+    - img "Foto de KFC'nt"
+    - generic: Híbrido
+    - paragraph: KFC'nt
+    - heading "Soporte TI nivel 1" [level=3]
+    - paragraph:
+      - text: La Serena
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de soporte ti nivel 1 en Semilla Digital, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Soporte TI nivel 1"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Soporte TI nivel 1"': Compartir oferta
+  - article:
+    - img "Foto de KFC'nt"
+    - generic: presencial
+    - paragraph: KFC'nt
+    - heading "Practicante de ciberseguridad" [level=3]
+    - paragraph:
+      - text: Puerto Montt
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de practicante de ciberseguridad en Semilla Digital, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Practicante de ciberseguridad"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Practicante de ciberseguridad"': Compartir oferta
+  - article:
+    - img "Foto de KFC'nt"
+    - generic: remoto
+    - paragraph: KFC'nt
+    - heading "Desarrollador móvil junior" [level=3]
+    - paragraph:
+      - text: Rancagua
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de desarrollador móvil junior en Semilla Digital, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Desarrollador móvil junior"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Desarrollador móvil junior"': Compartir oferta
+  - article:
+    - img "Foto de KFC'nt"
+    - generic: Híbrido
+    - paragraph: KFC'nt
+    - heading "Analista de sistemas junior" [level=3]
+    - paragraph:
+      - text: Antofagasta
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de analista de sistemas junior en Semilla Digital, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Analista de sistemas junior"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Analista de sistemas junior"': Compartir oferta
+  - article:
+    - img "Foto de KFC'nt"
+    - generic: presencial
+    - paragraph: KFC'nt
+    - heading "Asistente DevOps" [level=3]
+    - paragraph:
+      - text: Talca
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de asistente devops en Semilla Digital, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Asistente DevOps"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Asistente DevOps"': Compartir oferta
+  - article:
+    - img "Foto de KFC'nt"
+    - generic: remoto
+    - paragraph: KFC'nt
+    - heading "Desarrollador full stack junior" [level=3]
+    - paragraph:
+      - text: Valdivia
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de desarrollador full stack junior en Semilla Digital, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Desarrollador full stack junior"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Desarrollador full stack junior"': Compartir oferta
+  - article:
+    - generic "DEMO · Cuidado Integral": CU
+    - generic: presencial
+    - paragraph: DEMO · Cuidado Integral
+    - heading "Enfermero de atención primaria" [level=3]
+    - paragraph:
+      - text: Santiago
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de enfermero de atención primaria en Cuidado Integral, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Enfermero de atención primaria"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Enfermero de atención primaria"': Compartir oferta
+  - article:
+    - generic "DEMO · Cuidado Integral": CU
+    - generic: presencial
+    - paragraph: DEMO · Cuidado Integral
+    - heading "Kinesiólogo de rehabilitación" [level=3]
+    - paragraph:
+      - text: Valparaíso
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de kinesiólogo de rehabilitación en Cuidado Integral, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Kinesiólogo de rehabilitación"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Kinesiólogo de rehabilitación"': Compartir oferta
+  - article:
+    - generic "DEMO · Estudio Brote": ES
+    - generic: remoto
+    - paragraph: DEMO · Estudio Brote
+    - heading "Diseñador gráfico junior" [level=3]
+    - paragraph:
+      - text: Santiago
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de diseñador gráfico junior en Estudio Brote, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Diseñador gráfico junior"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Diseñador gráfico junior"': Compartir oferta
+  - article:
+    - generic "DEMO · Cuidado Integral": CU
+    - generic: presencial
+    - paragraph: DEMO · Cuidado Integral
+    - heading "Nutricionista comunitario" [level=3]
+    - paragraph:
+      - text: Concepción
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de nutricionista comunitario en Cuidado Integral, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Nutricionista comunitario"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Nutricionista comunitario"': Compartir oferta
+  - article:
+    - generic "DEMO · Cuidado Integral": CU
+    - generic: presencial
+    - paragraph: DEMO · Cuidado Integral
+    - heading "Técnico en enfermería" [level=3]
+    - paragraph:
+      - text: Temuco
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de técnico en enfermería en Cuidado Integral, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Técnico en enfermería"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Técnico en enfermería"': Compartir oferta
+  - article:
+    - generic "DEMO · Cuidado Integral": CU
+    - generic: presencial
+    - paragraph: DEMO · Cuidado Integral
+    - heading "Terapeuta ocupacional" [level=3]
+    - paragraph:
+      - text: La Serena
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de terapeuta ocupacional en Cuidado Integral, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Terapeuta ocupacional"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Terapeuta ocupacional"': Compartir oferta
+  - article:
+    - generic "DEMO · Cuidado Integral": CU
+    - generic: presencial
+    - paragraph: DEMO · Cuidado Integral
+    - heading "Asistente de laboratorio clínico" [level=3]
+    - paragraph:
+      - text: Puerto Montt
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de asistente de laboratorio clínico en Cuidado Integral, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Asistente de laboratorio clínico"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Asistente de laboratorio clínico"': Compartir oferta
+  - article:
+    - generic "DEMO · Cuidado Integral": CU
+    - generic: presencial
+    - paragraph: DEMO · Cuidado Integral
+    - heading "Fonoaudiólogo inicial" [level=3]
+    - paragraph:
+      - text: Rancagua
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de fonoaudiólogo inicial en Cuidado Integral, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Fonoaudiólogo inicial"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Fonoaudiólogo inicial"': Compartir oferta
+  - article:
+    - generic "DEMO · Cuidado Integral": CU
+    - generic: presencial
+    - paragraph: DEMO · Cuidado Integral
+    - heading "Asistente de salud dental" [level=3]
+    - paragraph:
+      - text: Antofagasta
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de asistente de salud dental en Cuidado Integral, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Asistente de salud dental"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Asistente de salud dental"': Compartir oferta
+  - article:
+    - generic "DEMO · Cuidado Integral": CU
+    - generic: presencial
+    - paragraph: DEMO · Cuidado Integral
+    - heading "Tecnólogo médico inicial" [level=3]
+    - paragraph:
+      - text: Talca
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de tecnólogo médico inicial en Cuidado Integral, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Tecnólogo médico inicial"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Tecnólogo médico inicial"': Compartir oferta
+  - article:
+    - generic "DEMO · Cuidado Integral": CU
+    - generic: presencial
+    - paragraph: DEMO · Cuidado Integral
+    - heading "Coordinador de promoción de salud" [level=3]
+    - paragraph:
+      - text: Valdivia
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de coordinador de promoción de salud en Cuidado Integral, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Coordinador de promoción de salud"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Coordinador de promoción de salud"': Compartir oferta
+  - article:
+    - generic "DEMO · Balance Sur": BA
+    - generic: remoto
+    - paragraph: DEMO · Balance Sur
+    - heading "Asistente contable" [level=3]
+    - paragraph:
+      - text: Santiago
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de asistente contable en Balance Sur, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Asistente contable"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Asistente contable"': Compartir oferta
+  - article:
+    - generic "DEMO · Balance Sur": BA
+    - generic: Híbrido
+    - paragraph: DEMO · Balance Sur
+    - heading "Analista financiero junior" [level=3]
+    - paragraph:
+      - text: Valparaíso
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de analista financiero junior en Balance Sur, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Analista financiero junior"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Analista financiero junior"': Compartir oferta
+  - article:
+    - generic "DEMO · Balance Sur": BA
+    - generic: presencial
+    - paragraph: DEMO · Balance Sur
+    - heading "Asistente administrativo" [level=3]
+    - paragraph:
+      - text: Concepción
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de asistente administrativo en Balance Sur, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Asistente administrativo"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Asistente administrativo"': Compartir oferta
+  - article:
+    - generic "DEMO · Balance Sur": BA
+    - generic: remoto
+    - paragraph: DEMO · Balance Sur
+    - heading "Analista de remuneraciones junior" [level=3]
+    - paragraph:
+      - text: Temuco
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de analista de remuneraciones junior en Balance Sur, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Analista de remuneraciones junior"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Analista de remuneraciones junior"': Compartir oferta
+  - article:
+    - generic "DEMO · Balance Sur": BA
+    - generic: Híbrido
+    - paragraph: DEMO · Balance Sur
+    - heading "Ejecutivo de atención comercial" [level=3]
+    - paragraph:
+      - text: La Serena
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de ejecutivo de atención comercial en Balance Sur, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Ejecutivo de atención comercial"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Ejecutivo de atención comercial"': Compartir oferta
+  - article:
+    - generic "DEMO · Balance Sur": BA
+    - generic: presencial
+    - paragraph: DEMO · Balance Sur
+    - heading "Asistente de auditoría" [level=3]
+    - paragraph:
+      - text: Puerto Montt
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de asistente de auditoría en Balance Sur, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Asistente de auditoría"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Asistente de auditoría"': Compartir oferta
+  - article:
+    - generic "DEMO · Balance Sur": BA
+    - generic: remoto
+    - paragraph: DEMO · Balance Sur
+    - heading "Analista de tesorería junior" [level=3]
+    - paragraph:
+      - text: Rancagua
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de analista de tesorería junior en Balance Sur, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Analista de tesorería junior"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Analista de tesorería junior"': Compartir oferta
+  - article:
+    - generic "DEMO · Balance Sur": BA
+    - generic: Híbrido
+    - paragraph: DEMO · Balance Sur
+    - heading "Asistente de recursos humanos" [level=3]
+    - paragraph:
+      - text: Antofagasta
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de asistente de recursos humanos en Balance Sur, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Asistente de recursos humanos"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Asistente de recursos humanos"': Compartir oferta
+  - article:
+    - generic "DEMO · Balance Sur": BA
+    - generic: presencial
+    - paragraph: DEMO · Balance Sur
+    - heading "Analista de control de gestión junior" [level=3]
+    - paragraph:
+      - text: Talca
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de analista de control de gestión junior en Balance Sur, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Analista de control de gestión junior"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Analista de control de gestión junior"': Compartir oferta
+  - article:
+    - generic "DEMO · Balance Sur": BA
+    - generic: remoto
+    - paragraph: DEMO · Balance Sur
+    - heading "Asistente de compras" [level=3]
+    - paragraph:
+      - text: Valdivia
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de asistente de compras en Balance Sur, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Asistente de compras"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Asistente de compras"': Compartir oferta
+  - article:
+    - generic "DEMO · Estudio Brote": ES
+    - generic: Híbrido
+    - paragraph: DEMO · Estudio Brote
+    - heading "Diseñador UX/UI junior" [level=3]
+    - paragraph:
+      - text: Valparaíso
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de diseñador ux/ui junior en Estudio Brote, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Diseñador UX/UI junior"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Diseñador UX/UI junior"': Compartir oferta
+  - article:
+    - generic "DEMO · Estudio Brote": ES
+    - generic: presencial
+    - paragraph: DEMO · Estudio Brote
+    - heading "Community manager junior" [level=3]
+    - paragraph:
+      - text: Concepción
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de community manager junior en Estudio Brote, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Community manager junior"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Community manager junior"': Compartir oferta
+  - article:
+    - generic "DEMO · Estudio Brote": ES
+    - generic: remoto
+    - paragraph: DEMO · Estudio Brote
+    - heading "Redactor de contenidos" [level=3]
+    - paragraph:
+      - text: Temuco
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de redactor de contenidos en Estudio Brote, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Redactor de contenidos"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Redactor de contenidos"': Compartir oferta
+  - article:
+    - generic "DEMO · Estudio Brote": ES
+    - generic: Híbrido
+    - paragraph: DEMO · Estudio Brote
+    - heading "Asistente de producción audiovisual" [level=3]
+    - paragraph:
+      - text: La Serena
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de asistente de producción audiovisual en Estudio Brote, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Asistente de producción audiovisual"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Asistente de producción audiovisual"': Compartir oferta
+  - article:
+    - generic "DEMO · Estudio Brote": ES
+    - generic: presencial
+    - paragraph: DEMO · Estudio Brote
+    - heading "Editor de video junior" [level=3]
+    - paragraph:
+      - text: Puerto Montt
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de editor de video junior en Estudio Brote, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Editor de video junior"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Editor de video junior"': Compartir oferta
+  - article:
+    - generic "DEMO · Estudio Brote": ES
+    - generic: remoto
+    - paragraph: DEMO · Estudio Brote
+    - heading "Diseñador de marca junior" [level=3]
+    - paragraph:
+      - text: Rancagua
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de diseñador de marca junior en Estudio Brote, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Diseñador de marca junior"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Diseñador de marca junior"': Compartir oferta
+  - article:
+    - generic "DEMO · Estudio Brote": ES
+    - generic: Híbrido
+    - paragraph: DEMO · Estudio Brote
+    - heading "Periodista digital inicial" [level=3]
+    - paragraph:
+      - text: Antofagasta
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de periodista digital inicial en Estudio Brote, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Periodista digital inicial"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Periodista digital inicial"': Compartir oferta
+  - article:
+    - generic "DEMO · Estudio Brote": ES
+    - generic: presencial
+    - paragraph: DEMO · Estudio Brote
+    - heading "Ilustrador junior" [level=3]
+    - paragraph:
+      - text: Talca
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de ilustrador junior en Estudio Brote, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Ilustrador junior"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Ilustrador junior"': Compartir oferta
+  - article:
+    - generic "DEMO · Estudio Brote": ES
+    - generic: remoto
+    - paragraph: DEMO · Estudio Brote
+    - heading "Asistente de marketing digital" [level=3]
+    - paragraph:
+      - text: Valdivia
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de asistente de marketing digital en Estudio Brote, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Asistente de marketing digital"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Asistente de marketing digital"': Compartir oferta
+  - article:
+    - generic "DEMO · Aula Abierta": AU
+    - generic: presencial
+    - paragraph: DEMO · Aula Abierta
+    - heading "Educador de párvulos" [level=3]
+    - paragraph:
+      - text: Santiago
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de educador de párvulos en Aula Abierta, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Educador de párvulos"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Educador de párvulos"': Compartir oferta
+  - article:
+    - generic "DEMO · Aula Abierta": AU
+    - generic: presencial
+    - paragraph: DEMO · Aula Abierta
+    - heading "Profesor de matemática inicial" [level=3]
+    - paragraph:
+      - text: Valparaíso
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de profesor de matemática inicial en Aula Abierta, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Profesor de matemática inicial"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Profesor de matemática inicial"': Compartir oferta
+  - article:
+    - generic "DEMO · Aula Abierta": AU
+    - generic: presencial
+    - paragraph: DEMO · Aula Abierta
+    - heading "Profesor de lenguaje inicial" [level=3]
+    - paragraph:
+      - text: Concepción
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de profesor de lenguaje inicial en Aula Abierta, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Profesor de lenguaje inicial"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Profesor de lenguaje inicial"': Compartir oferta
+  - article:
+    - generic "DEMO · Aula Abierta": AU
+    - generic: presencial
+    - paragraph: DEMO · Aula Abierta
+    - heading "Asistente de educación diferencial" [level=3]
+    - paragraph:
+      - text: Temuco
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de asistente de educación diferencial en Aula Abierta, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Asistente de educación diferencial"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Asistente de educación diferencial"': Compartir oferta
+  - article:
+    - generic "DEMO · Aula Abierta": AU
+    - generic: presencial
+    - paragraph: DEMO · Aula Abierta
+    - heading "Profesor de inglés inicial" [level=3]
+    - paragraph:
+      - text: La Serena
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de profesor de inglés inicial en Aula Abierta, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Profesor de inglés inicial"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Profesor de inglés inicial"': Compartir oferta
+  - article:
+    - generic "DEMO · Aula Abierta": AU
+    - generic: presencial
+    - paragraph: DEMO · Aula Abierta
+    - heading "Tutor de aprendizaje digital" [level=3]
+    - paragraph:
+      - text: Puerto Montt
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de tutor de aprendizaje digital en Aula Abierta, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Tutor de aprendizaje digital"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Tutor de aprendizaje digital"': Compartir oferta
+  - article:
+    - generic "DEMO · Aula Abierta": AU
+    - generic: presencial
+    - paragraph: DEMO · Aula Abierta
+    - heading "Profesor de ciencias inicial" [level=3]
+    - paragraph:
+      - text: Rancagua
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de profesor de ciencias inicial en Aula Abierta, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Profesor de ciencias inicial"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Profesor de ciencias inicial"': Compartir oferta
+  - article:
+    - generic "DEMO · Aula Abierta": AU
+    - generic: presencial
+    - paragraph: DEMO · Aula Abierta
+    - heading "Asistente de biblioteca escolar" [level=3]
+    - paragraph:
+      - text: Antofagasta
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de asistente de biblioteca escolar en Aula Abierta, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Asistente de biblioteca escolar"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Asistente de biblioteca escolar"': Compartir oferta
+  - article:
+    - generic "DEMO · Aula Abierta": AU
+    - generic: presencial
+    - paragraph: DEMO · Aula Abierta
+    - heading "Coordinador de talleres educativos" [level=3]
+    - paragraph:
+      - text: Talca
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de coordinador de talleres educativos en Aula Abierta, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Coordinador de talleres educativos"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Coordinador de talleres educativos"': Compartir oferta
+  - article:
+    - generic "DEMO · Aula Abierta": AU
+    - generic: presencial
+    - paragraph: DEMO · Aula Abierta
+    - heading "Diseñador de material didáctico" [level=3]
+    - paragraph:
+      - text: Valdivia
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de diseñador de material didáctico en Aula Abierta, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Diseñador de material didáctico"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Diseñador de material didáctico"': Compartir oferta
+  - article:
+    - generic "DEMO · Raíz Ingeniería": RA
+    - generic: presencial
+    - paragraph: DEMO · Raíz Ingeniería
+    - heading "Asistente de oficina técnica" [level=3]
+    - paragraph:
+      - text: Santiago
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de asistente de oficina técnica en Raíz Ingeniería, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Asistente de oficina técnica"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Asistente de oficina técnica"': Compartir oferta
+  - article:
+    - generic "DEMO · Raíz Ingeniería": RA
+    - generic: presencial
+    - paragraph: DEMO · Raíz Ingeniería
+    - heading "Ingeniero civil junior" [level=3]
+    - paragraph:
+      - text: Valparaíso
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de ingeniero civil junior en Raíz Ingeniería, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Ingeniero civil junior"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Ingeniero civil junior"': Compartir oferta
+  - article:
+    - generic "DEMO · Raíz Ingeniería": RA
+    - generic: presencial
+    - paragraph: DEMO · Raíz Ingeniería
+    - heading "Dibujante técnico junior" [level=3]
+    - paragraph:
+      - text: Concepción
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de dibujante técnico junior en Raíz Ingeniería, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Dibujante técnico junior"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Dibujante técnico junior"': Compartir oferta
+  - article:
+    - generic "DEMO · Raíz Ingeniería": RA
+    - generic: presencial
+    - paragraph: DEMO · Raíz Ingeniería
+    - heading "Asistente de arquitectura" [level=3]
+    - paragraph:
+      - text: Temuco
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de asistente de arquitectura en Raíz Ingeniería, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Asistente de arquitectura"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Asistente de arquitectura"': Compartir oferta
+  - article:
+    - generic "DEMO · Raíz Ingeniería": RA
+    - generic: presencial
+    - paragraph: DEMO · Raíz Ingeniería
+    - heading "Supervisor de obra trainee" [level=3]
+    - paragraph:
+      - text: La Serena
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de supervisor de obra trainee en Raíz Ingeniería, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Supervisor de obra trainee"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Supervisor de obra trainee"': Compartir oferta
+  - article:
+    - generic "DEMO · Raíz Ingeniería": RA
+    - generic: presencial
+    - paragraph: DEMO · Raíz Ingeniería
+    - heading "Ingeniero eléctrico junior" [level=3]
+    - paragraph:
+      - text: Puerto Montt
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de ingeniero eléctrico junior en Raíz Ingeniería, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Ingeniero eléctrico junior"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Ingeniero eléctrico junior"': Compartir oferta
+  - article:
+    - generic "DEMO · Ruta Circular": RU
+    - generic: presencial
+    - paragraph: DEMO · Ruta Circular
+    - heading "Coordinador de despacho junior" [level=3]
+    - paragraph:
+      - text: Concepción
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de coordinador de despacho junior en Ruta Circular, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Coordinador de despacho junior"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Coordinador de despacho junior"': Compartir oferta
+  - article:
+    - generic "DEMO · Raíz Ingeniería": RA
+    - generic: presencial
+    - paragraph: DEMO · Raíz Ingeniería
+    - heading "Ingeniero mecánico junior" [level=3]
+    - paragraph:
+      - text: Rancagua
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de ingeniero mecánico junior en Raíz Ingeniería, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Ingeniero mecánico junior"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Ingeniero mecánico junior"': Compartir oferta
+  - article:
+    - generic "DEMO · Raíz Ingeniería": RA
+    - generic: presencial
+    - paragraph: DEMO · Raíz Ingeniería
+    - heading "Asistente de presupuestos de obra" [level=3]
+    - paragraph:
+      - text: Antofagasta
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de asistente de presupuestos de obra en Raíz Ingeniería, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Asistente de presupuestos de obra"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Asistente de presupuestos de obra"': Compartir oferta
+  - article:
+    - generic "DEMO · Raíz Ingeniería": RA
+    - generic: presencial
+    - paragraph: DEMO · Raíz Ingeniería
+    - heading "Modelador BIM junior" [level=3]
+    - paragraph:
+      - text: Talca
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de modelador bim junior en Raíz Ingeniería, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Modelador BIM junior"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Modelador BIM junior"': Compartir oferta
+  - article:
+    - generic "DEMO · Raíz Ingeniería": RA
+    - generic: presencial
+    - paragraph: DEMO · Raíz Ingeniería
+    - heading "Inspector de calidad en construcción" [level=3]
+    - paragraph:
+      - text: Valdivia
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de inspector de calidad en construcción en Raíz Ingeniería, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Inspector de calidad en construcción"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Inspector de calidad en construcción"': Compartir oferta
+  - article:
+    - generic "DEMO · Ruta Circular": RU
+    - generic: presencial
+    - paragraph: DEMO · Ruta Circular
+    - heading "Analista logístico junior" [level=3]
+    - paragraph:
+      - text: Santiago
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de analista logístico junior en Ruta Circular, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Analista logístico junior"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Analista logístico junior"': Compartir oferta
+  - article:
+    - generic "DEMO · Ruta Circular": RU
+    - generic: presencial
+    - paragraph: DEMO · Ruta Circular
+    - heading "Asistente de comercio exterior" [level=3]
+    - paragraph:
+      - text: Valparaíso
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de asistente de comercio exterior en Ruta Circular, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Asistente de comercio exterior"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Asistente de comercio exterior"': Compartir oferta
+  - article:
+    - generic "DEMO · Ruta Circular": RU
+    - generic: presencial
+    - paragraph: DEMO · Ruta Circular
+    - heading "Analista de inventario junior" [level=3]
+    - paragraph:
+      - text: Temuco
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de analista de inventario junior en Ruta Circular, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Analista de inventario junior"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Analista de inventario junior"': Compartir oferta
+  - article:
+    - generic "DEMO · Ruta Circular": RU
+    - generic: presencial
+    - paragraph: DEMO · Ruta Circular
+    - heading "Planificador de transporte trainee" [level=3]
+    - paragraph:
+      - text: La Serena
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de planificador de transporte trainee en Ruta Circular, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Planificador de transporte trainee"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Planificador de transporte trainee"': Compartir oferta
+  - article:
+    - generic "DEMO · Ruta Circular": RU
+    - generic: presencial
+    - paragraph: DEMO · Ruta Circular
+    - heading "Asistente de abastecimiento" [level=3]
+    - paragraph:
+      - text: Puerto Montt
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de asistente de abastecimiento en Ruta Circular, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Asistente de abastecimiento"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Asistente de abastecimiento"': Compartir oferta
+  - article:
+    - generic "DEMO · Ruta Circular": RU
+    - generic: presencial
+    - paragraph: DEMO · Ruta Circular
+    - heading "Analista de operaciones junior" [level=3]
+    - paragraph:
+      - text: Rancagua
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de analista de operaciones junior en Ruta Circular, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Analista de operaciones junior"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Analista de operaciones junior"': Compartir oferta
+  - article:
+    - generic "DEMO · Ruta Circular": RU
+    - generic: presencial
+    - paragraph: DEMO · Ruta Circular
+    - heading "Supervisor de bodega trainee" [level=3]
+    - paragraph:
+      - text: Antofagasta
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de supervisor de bodega trainee en Ruta Circular, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Supervisor de bodega trainee"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Supervisor de bodega trainee"': Compartir oferta
+  - article:
+    - generic "DEMO · Ruta Circular": RU
+    - generic: presencial
+    - paragraph: DEMO · Ruta Circular
+    - heading "Asistente de importaciones" [level=3]
+    - paragraph:
+      - text: Talca
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de asistente de importaciones en Ruta Circular, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Asistente de importaciones"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Asistente de importaciones"': Compartir oferta
+  - article:
+    - generic "DEMO · Destino Nativo": DE
+    - generic: presencial
+    - paragraph: DEMO · Destino Nativo
+    - heading "Ejecutivo de reservas" [level=3]
+    - paragraph:
+      - text: Puerto Montt
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de ejecutivo de reservas en Destino Nativo, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Ejecutivo de reservas"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Ejecutivo de reservas"': Compartir oferta
+  - article:
+    - generic "DEMO · Ruta Circular": RU
+    - generic: presencial
+    - paragraph: DEMO · Ruta Circular
+    - heading "Analista de mejora continua junior" [level=3]
+    - paragraph:
+      - text: Valdivia
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de analista de mejora continua junior en Ruta Circular, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Analista de mejora continua junior"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Analista de mejora continua junior"': Compartir oferta
+  - article:
+    - generic "DEMO · Destino Nativo": DE
+    - generic: presencial
+    - paragraph: DEMO · Destino Nativo
+    - heading "Recepcionista de hotel" [level=3]
+    - paragraph:
+      - text: Santiago
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de recepcionista de hotel en Destino Nativo, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Recepcionista de hotel"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Recepcionista de hotel"': Compartir oferta
+  - article:
+    - generic "DEMO · Destino Nativo": DE
+    - generic: presencial
+    - paragraph: DEMO · Destino Nativo
+    - heading "Guía de turismo inicial" [level=3]
+    - paragraph:
+      - text: Valparaíso
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de guía de turismo inicial en Destino Nativo, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Guía de turismo inicial"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Guía de turismo inicial"': Compartir oferta
+  - article:
+    - generic "DEMO · Destino Nativo": DE
+    - generic: presencial
+    - paragraph: DEMO · Destino Nativo
+    - heading "Asistente de cocina profesional" [level=3]
+    - paragraph:
+      - text: Concepción
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de asistente de cocina profesional en Destino Nativo, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Asistente de cocina profesional"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Asistente de cocina profesional"': Compartir oferta
+  - article:
+    - generic "DEMO · Destino Nativo": DE
+    - generic: presencial
+    - paragraph: DEMO · Destino Nativo
+    - heading "Asistente de pastelería" [level=3]
+    - paragraph:
+      - text: Temuco
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de asistente de pastelería en Destino Nativo, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Asistente de pastelería"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Asistente de pastelería"': Compartir oferta
+  - article:
+    - generic "DEMO · Destino Nativo": DE
+    - generic: presencial
+    - paragraph: DEMO · Destino Nativo
+    - heading "Coordinador de eventos junior" [level=3]
+    - paragraph:
+      - text: La Serena
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de coordinador de eventos junior en Destino Nativo, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Coordinador de eventos junior"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Coordinador de eventos junior"': Compartir oferta
+  - article:
+    - generic "DEMO · Destino Nativo": DE
+    - generic: presencial
+    - paragraph: DEMO · Destino Nativo
+    - heading "Asistente de gestión hotelera" [level=3]
+    - paragraph:
+      - text: Rancagua
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de asistente de gestión hotelera en Destino Nativo, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Asistente de gestión hotelera"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Asistente de gestión hotelera"': Compartir oferta
+  - article:
+    - generic "DEMO · Destino Nativo": DE
+    - generic: presencial
+    - paragraph: DEMO · Destino Nativo
+    - heading "Asistente de turismo sustentable" [level=3]
+    - paragraph:
+      - text: Antofagasta
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de asistente de turismo sustentable en Destino Nativo, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Asistente de turismo sustentable"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Asistente de turismo sustentable"': Compartir oferta
+  - article:
+    - generic "DEMO · Destino Nativo": DE
+    - generic: presencial
+    - paragraph: DEMO · Destino Nativo
+    - heading "Encargado de experiencia de visitantes" [level=3]
+    - paragraph:
+      - text: Talca
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de encargado de experiencia de visitantes en Destino Nativo, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Encargado de experiencia de visitantes"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Encargado de experiencia de visitantes"': Compartir oferta
+  - article:
+    - generic "DEMO · Destino Nativo": DE
+    - generic: presencial
+    - paragraph: DEMO · Destino Nativo
+    - heading "Asistente de operaciones gastronómicas" [level=3]
+    - paragraph:
+      - text: Valdivia
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de asistente de operaciones gastronómicas en Destino Nativo, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Asistente de operaciones gastronómicas"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Asistente de operaciones gastronómicas"': Compartir oferta
+  - article:
+    - generic "DEMO · Comunidad Viva": CO
+    - generic: presencial
+    - paragraph: DEMO · Comunidad Viva
+    - heading "Psicólogo organizacional junior" [level=3]
+    - paragraph:
+      - text: Santiago
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de psicólogo organizacional junior en Comunidad Viva, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Psicólogo organizacional junior"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Psicólogo organizacional junior"': Compartir oferta
+  - article:
+    - generic "DEMO · Comunidad Viva": CO
+    - generic: presencial
+    - paragraph: DEMO · Comunidad Viva
+    - heading "Trabajador social inicial" [level=3]
+    - paragraph:
+      - text: Valparaíso
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de trabajador social inicial en Comunidad Viva, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Trabajador social inicial"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Trabajador social inicial"': Compartir oferta
+  - article:
+    - generic "DEMO · Comunidad Viva": CO
+    - generic: presencial
+    - paragraph: DEMO · Comunidad Viva
+    - heading "Asistente de investigación social" [level=3]
+    - paragraph:
+      - text: Concepción
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de asistente de investigación social en Comunidad Viva, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Asistente de investigación social"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Asistente de investigación social"': Compartir oferta
+  - article:
+    - generic "DEMO · Comunidad Viva": CO
+    - generic: presencial
+    - paragraph: DEMO · Comunidad Viva
+    - heading "Asistente jurídico" [level=3]
+    - paragraph:
+      - text: Temuco
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de asistente jurídico en Comunidad Viva, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Asistente jurídico"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Asistente jurídico"': Compartir oferta
+  - article:
+    - generic "DEMO · Comunidad Viva": CO
+    - generic: presencial
+    - paragraph: DEMO · Comunidad Viva
+    - heading "Analista de selección junior" [level=3]
+    - paragraph:
+      - text: La Serena
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de analista de selección junior en Comunidad Viva, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Analista de selección junior"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Analista de selección junior"': Compartir oferta
+  - article:
+    - generic "DEMO · Comunidad Viva": CO
+    - generic: presencial
+    - paragraph: DEMO · Comunidad Viva
+    - heading "Gestor comunitario junior" [level=3]
+    - paragraph:
+      - text: Puerto Montt
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de gestor comunitario junior en Comunidad Viva, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Gestor comunitario junior"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Gestor comunitario junior"': Compartir oferta
+  - article:
+    - generic "DEMO · Comunidad Viva": CO
+    - generic: presencial
+    - paragraph: DEMO · Comunidad Viva
+    - heading "Asistente de proyectos sociales" [level=3]
+    - paragraph:
+      - text: Rancagua
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de asistente de proyectos sociales en Comunidad Viva, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Asistente de proyectos sociales"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Asistente de proyectos sociales"': Compartir oferta
+  - article:
+    - generic "DEMO · Comunidad Viva": CO
+    - generic: presencial
+    - paragraph: DEMO · Comunidad Viva
+    - heading "Mediador comunitario inicial" [level=3]
+    - paragraph:
+      - text: Antofagasta
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de mediador comunitario inicial en Comunidad Viva, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Mediador comunitario inicial"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Mediador comunitario inicial"': Compartir oferta
+  - article:
+    - generic "DEMO · Comunidad Viva": CO
+    - generic: presencial
+    - paragraph: DEMO · Comunidad Viva
+    - heading "Asistente de estudios cualitativos" [level=3]
+    - paragraph:
+      - text: Talca
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de asistente de estudios cualitativos en Comunidad Viva, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Asistente de estudios cualitativos"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Asistente de estudios cualitativos"': Compartir oferta
+  - article:
+    - generic "DEMO · Comunidad Viva": CO
+    - generic: presencial
+    - paragraph: DEMO · Comunidad Viva
+    - heading "Coordinador de voluntariado junior" [level=3]
+    - paragraph:
+      - text: Valdivia
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de coordinador de voluntariado junior en Comunidad Viva, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Coordinador de voluntariado junior"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Coordinador de voluntariado junior"': Compartir oferta
+  - article:
+    - generic "DEMO · Territorio Verde": TE
+    - generic: presencial
+    - paragraph: DEMO · Territorio Verde
+    - heading "Ingeniero ambiental junior" [level=3]
+    - paragraph:
+      - text: Santiago
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de ingeniero ambiental junior en Territorio Verde, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Ingeniero ambiental junior"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Ingeniero ambiental junior"': Compartir oferta
+  - article:
+    - generic "DEMO · Territorio Verde": TE
+    - generic: presencial
+    - paragraph: DEMO · Territorio Verde
+    - heading "Asistente de agronomía" [level=3]
+    - paragraph:
+      - text: Valparaíso
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de asistente de agronomía en Territorio Verde, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Asistente de agronomía"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Asistente de agronomía"': Compartir oferta
+  - article:
+    - generic "DEMO · Territorio Verde": TE
+    - generic: presencial
+    - paragraph: DEMO · Territorio Verde
+    - heading "Analista de sustentabilidad junior" [level=3]
+    - paragraph:
+      - text: Concepción
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de analista de sustentabilidad junior en Territorio Verde, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Analista de sustentabilidad junior"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Analista de sustentabilidad junior"': Compartir oferta
+  - article:
+    - generic "DEMO · Territorio Verde": TE
+    - generic: presencial
+    - paragraph: DEMO · Territorio Verde
+    - heading "Técnico forestal inicial" [level=3]
+    - paragraph:
+      - text: Temuco
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de técnico forestal inicial en Territorio Verde, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Técnico forestal inicial"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Técnico forestal inicial"': Compartir oferta
+  - article:
+    - generic "DEMO · Territorio Verde": TE
+    - generic: presencial
+    - paragraph: DEMO · Territorio Verde
+    - heading "Asistente veterinario profesional" [level=3]
+    - paragraph:
+      - text: La Serena
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de asistente veterinario profesional en Territorio Verde, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Asistente veterinario profesional"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Asistente veterinario profesional"': Compartir oferta
+  - article:
+    - generic "DEMO · Territorio Verde": TE
+    - generic: presencial
+    - paragraph: DEMO · Territorio Verde
+    - heading "Monitor de educación ambiental" [level=3]
+    - paragraph:
+      - text: Puerto Montt
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de monitor de educación ambiental en Territorio Verde, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Monitor de educación ambiental"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Monitor de educación ambiental"': Compartir oferta
+  - article:
+    - generic "DEMO · Territorio Verde": TE
+    - generic: presencial
+    - paragraph: DEMO · Territorio Verde
+    - heading "Asistente de laboratorio biológico" [level=3]
+    - paragraph:
+      - text: Rancagua
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de asistente de laboratorio biológico en Territorio Verde, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Asistente de laboratorio biológico"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Asistente de laboratorio biológico"': Compartir oferta
+  - article:
+    - generic "DEMO · Territorio Verde": TE
+    - generic: presencial
+    - paragraph: DEMO · Territorio Verde
+    - heading "Analista de gestión de residuos junior" [level=3]
+    - paragraph:
+      - text: Antofagasta
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de analista de gestión de residuos junior en Territorio Verde, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Analista de gestión de residuos junior"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Analista de gestión de residuos junior"': Compartir oferta
+  - article:
+    - generic "DEMO · Territorio Verde": TE
+    - generic: presencial
+    - paragraph: DEMO · Territorio Verde
+    - heading "Asistente de producción agrícola" [level=3]
+    - paragraph:
+      - text: Talca
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de asistente de producción agrícola en Territorio Verde, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Asistente de producción agrícola"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Asistente de producción agrícola"': Compartir oferta
+  - article:
+    - generic "DEMO · Territorio Verde": TE
+    - generic: presencial
+    - paragraph: DEMO · Territorio Verde
+    - heading "Inspector ambiental trainee" [level=3]
+    - paragraph:
+      - text: Valdivia
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de inspector ambiental trainee en Territorio Verde, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Inspector ambiental trainee"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Inspector ambiental trainee"': Compartir oferta
+  - heading "Publica ofertas de empleo" [level=2]
+  - link "Registra tu empresa":
+    - /url: /registro/empresa
+    - text: Registra tu empresa
+- contentinfo:
+  - link "Branch IT":
+    - /url: /
+    - text: Branch
+    - generic: IT
+  - navigation "Enlaces del pie de página":
+    - link "Buscar empleo":
+      - /url: /
+    - link "Soy empresa":
+      - /url: /registro/empresa
+    - link "Crear cuenta":
+      - /url: /registro
+  - generic: © 2026 BranchIT

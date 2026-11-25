@@ -1,0 +1,187 @@
+- banner:
+  - link "Saltar al contenido":
+    - /url: "#contenido"
+  - navigation "Navegación principal":
+    - link "Branch IT":
+      - /url: /
+      - text: Branch
+      - generic: IT
+    - link "Buscar empleo":
+      - /url: /
+    - link "Para empresas":
+      - /url: /registro/empresa
+    - link "Iniciar sesión":
+      - /url: /iniciar-sesion
+    - link "Crear cuenta":
+      - /url: /registro
+      - text: Crear cuenta
+- main:
+  - heading "Empleo para recién egresados" [level=1]
+  - link "Crea tu perfil gratis":
+    - /url: /registro
+    - text: Crea tu perfil gratis
+  - link "Explorar ofertas ↓":
+    - /url: "#ofertas"
+  - heading "Ofertas de empleo" [level=2]
+  - status: 12 ofertas
+  - generic: Cargo o empresa
+  - textbox "Cargo o empresa"
+  - generic: Ciudad o región
+  - textbox "Ciudad o región"
+  - generic: Modalidad
+  - combobox "Modalidad":
+    - option "Todas las modalidades"
+    - option "Presencial"
+    - option "Remoto" [selected]
+    - option "Híbrido"
+  - button "Buscar" [active]:
+    - text: Buscar
+  - article:
+    - img "Foto de KFC'nt"
+    - generic: remoto
+    - paragraph: KFC'nt
+    - heading "Desarrollador frontend junior" [level=3]
+    - paragraph:
+      - text: Santiago
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de desarrollador frontend junior en Semilla Digital, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Desarrollador frontend junior"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Desarrollador frontend junior"': Compartir oferta
+  - article:
+    - img "Foto de KFC'nt"
+    - generic: remoto
+    - paragraph: KFC'nt
+    - heading "QA tester junior" [level=3]
+    - paragraph:
+      - text: Temuco
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de qa tester junior en Semilla Digital, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: QA tester junior"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: QA tester junior"': Compartir oferta
+  - article:
+    - img "Foto de KFC'nt"
+    - generic: remoto
+    - paragraph: KFC'nt
+    - heading "Desarrollador móvil junior" [level=3]
+    - paragraph:
+      - text: Rancagua
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de desarrollador móvil junior en Semilla Digital, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Desarrollador móvil junior"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Desarrollador móvil junior"': Compartir oferta
+  - article:
+    - img "Foto de KFC'nt"
+    - generic: remoto
+    - paragraph: KFC'nt
+    - heading "Desarrollador full stack junior" [level=3]
+    - paragraph:
+      - text: Valdivia
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de desarrollador full stack junior en Semilla Digital, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Desarrollador full stack junior"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Desarrollador full stack junior"': Compartir oferta
+  - article:
+    - generic "DEMO · Estudio Brote": ES
+    - generic: remoto
+    - paragraph: DEMO · Estudio Brote
+    - heading "Diseñador gráfico junior" [level=3]
+    - paragraph:
+      - text: Santiago
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de diseñador gráfico junior en Estudio Brote, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Diseñador gráfico junior"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Diseñador gráfico junior"': Compartir oferta
+  - article:
+    - generic "DEMO · Balance Sur": BA
+    - generic: remoto
+    - paragraph: DEMO · Balance Sur
+    - heading "Asistente contable" [level=3]
+    - paragraph:
+      - text: Santiago
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de asistente contable en Balance Sur, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Asistente contable"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Asistente contable"': Compartir oferta
+  - article:
+    - generic "DEMO · Balance Sur": BA
+    - generic: remoto
+    - paragraph: DEMO · Balance Sur
+    - heading "Analista de remuneraciones junior" [level=3]
+    - paragraph:
+      - text: Temuco
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de analista de remuneraciones junior en Balance Sur, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Analista de remuneraciones junior"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Analista de remuneraciones junior"': Compartir oferta
+  - article:
+    - generic "DEMO · Balance Sur": BA
+    - generic: remoto
+    - paragraph: DEMO · Balance Sur
+    - heading "Analista de tesorería junior" [level=3]
+    - paragraph:
+      - text: Rancagua
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de analista de tesorería junior en Balance Sur, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Analista de tesorería junior"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Analista de tesorería junior"': Compartir oferta
+  - article:
+    - generic "DEMO · Balance Sur": BA
+    - generic: remoto
+    - paragraph: DEMO · Balance Sur
+    - heading "Asistente de compras" [level=3]
+    - paragraph:
+      - text: Valdivia
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de asistente de compras en Balance Sur, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Asistente de compras"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Asistente de compras"': Compartir oferta
+  - article:
+    - generic "DEMO · Estudio Brote": ES
+    - generic: remoto
+    - paragraph: DEMO · Estudio Brote
+    - heading "Redactor de contenidos" [level=3]
+    - paragraph:
+      - text: Temuco
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de redactor de contenidos en Estudio Brote, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Redactor de contenidos"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Redactor de contenidos"': Compartir oferta
+  - article:
+    - generic "DEMO · Estudio Brote": ES
+    - generic: remoto
+    - paragraph: DEMO · Estudio Brote
+    - heading "Diseñador de marca junior" [level=3]
+    - paragraph:
+      - text: Rancagua
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de diseñador de marca junior en Estudio Brote, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Diseñador de marca junior"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Diseñador de marca junior"': Compartir oferta
+  - article:
+    - generic "DEMO · Estudio Brote": ES
+    - generic: remoto
+    - paragraph: DEMO · Estudio Brote
+    - heading "Asistente de marketing digital" [level=3]
+    - paragraph:
+      - text: Valdivia
+    - paragraph: "Oferta demo: no es una vacante real. Cargo de asistente de marketing digital en Estudio Brote, para una primera experiencia profesional supervisada."
+    - 'button "Ver oportunidad: Asistente de marketing digital"':
+      - text: Ver oportunidad
+    - 'button "Compartir oferta: Asistente de marketing digital"': Compartir oferta
+  - heading "Publica ofertas de empleo" [level=2]
+  - link "Registra tu empresa":
+    - /url: /registro/empresa
+    - text: Registra tu empresa
+- contentinfo:
+  - link "Branch IT":
+    - /url: /
+    - text: Branch
+    - generic: IT
+  - navigation "Enlaces del pie de página":
+    - link "Buscar empleo":
+      - /url: /
+    - link "Soy empresa":
+      - /url: /registro/empresa
+    - link "Crear cuenta":
+      - /url: /registro
+  - generic: © 2026 BranchIT

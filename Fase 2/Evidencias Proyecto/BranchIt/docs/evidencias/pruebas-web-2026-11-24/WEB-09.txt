@@ -1,0 +1,77 @@
+- banner:
+  - link "Saltar al contenido":
+    - /url: "#contenido"
+  - navigation "Navegación principal":
+    - link "Branch IT":
+      - /url: /
+      - text: Branch
+      - generic: IT
+    - link "Buscar empleo":
+      - /url: /
+    - link "Para empresas":
+      - /url: /registro/empresa
+    - link "Iniciar sesión":
+      - /url: /iniciar-sesion
+    - link "Crear cuenta":
+      - /url: /registro
+      - text: Crear cuenta
+- main:
+  - heading "Crear cuenta" [level=1]
+  - generic "Tipo de cuenta":
+    - button "Soy egresado/a" [pressed]
+    - button "Soy empresa"
+  - status: Los campos obligatorios se indican con *.
+  - paragraph: "* Obligatorio. Contraseña: al menos 8 caracteres."
+  - text: Nombre *
+  - textbox "Nombre" [active]:
+    - /placeholder: Tu nombre
+  - text: Apellido *
+  - textbox "Apellido":
+    - /placeholder: Tu apellido
+  - generic: Carrera de egreso *
+  - combobox "Carrera de egreso"
+  - text: Año de egreso (opcional)
+  - textbox "Año de egreso (opcional)":
+    - /placeholder: "2026"
+  - text: RUT personal *
+  - textbox "RUT personal":
+    - /placeholder: 12.345.678-5
+  - generic: Teléfono *
+  - 'button "País y prefijo telefónico: Chile móvil +569"':
+    - generic: "+569"
+    - generic: ⌄
+  - textbox "Teléfono":
+    - /placeholder: 1234 5678
+  - text: Fecha de nacimiento *
+  - textbox "Fecha de nacimiento"
+  - text: Correo electrónico *
+  - textbox "Correo electrónico":
+    - /placeholder: nombre@correo.cl
+  - text: Contraseña *
+  - textbox "Contraseña Mostrar contraseña":
+    - /placeholder: Al menos 8 caracteres
+  - button "Mostrar contraseña":
+  - text: Confirma tu contraseña *
+  - textbox "Confirma tu contraseña":
+    - /placeholder: Repite tu contraseña
+  - button "Crear mi cuenta":
+    - text: Crear mi cuenta
+  - paragraph:
+    - text: ¿Ya tienes una cuenta?
+    - link "Inicia sesión":
+      - /url: /iniciar-sesion
+  - link "← Volver a las ofertas":
+    - /url: /
+- contentinfo:
+  - link "Branch IT":
+    - /url: /
+    - text: Branch
+    - generic: IT
+  - navigation "Enlaces del pie de página":
+    - link "Buscar empleo":
+      - /url: /
+    - link "Soy empresa":
+      - /url: /registro/empresa
+    - link "Crear cuenta":
+      - /url: /registro
+  - generic: © 2026 BranchIT

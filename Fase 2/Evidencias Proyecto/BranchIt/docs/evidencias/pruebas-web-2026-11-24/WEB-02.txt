@@ -1,0 +1,63 @@
+Browser tab: 3, Title: "Buscar empleo | BranchIT", URL: "https://branchit-blue.vercel.app/".
+0 AXWebArea Buscar empleo | BranchIT, URL: branchit-blue.vercel.app/
+	1 container root
+		2 container
+			3 link Description: Saltar al contenido, Value: branchit-blue.vercel.app/#contenido
+			4 container Navegación principal
+				5 link Description: Branch IT, Value: branchit-blue.vercel.app/
+				6 container navigation-links
+					7 link Description: Buscar empleo, Value: branchit-blue.vercel.app/
+					8 link Description: Para empresas, Value: branchit-blue.vercel.app/registro/empresa
+					9 link Description: Iniciar sesión, Value: branchit-blue.vercel.app/iniciar-sesion
+					10 link Description: Crear cuenta, Value: branchit-blue.vercel.app/registro
+		11 container contenido
+			12 container
+				13 heading Empleo para recién egresados, Value: 1
+					14 text Empleo para recién egresados
+				15 link Description: Crea tu perfil gratis, Value: branchit-blue.vercel.app/registro
+				16 link Description: Explorar ofertas ↓, Value: branchit-blue.vercel.app/#ofertas
+			17 container ofertas
+				18 heading Ofertas de empleo, Value: 2
+					19 text Ofertas de empleo
+				20 text 1 oferta
+				21 container
+					22 image
+					23 text Cargo o empresa
+					24 text field (settable) Cargo o empresa, Value: backend
+					25 image
+					26 text Ciudad o región
+					27 text field (settable) Ciudad o región
+					28 text Modalidad
+					29 pop up button (collapsed, settable) Modalidad, Value: Todas las modalidades, Secondary Actions: Expand
+						30 menu
+							31 (selected) Todas las modalidades
+							32 Presencial
+							33 Remoto
+							34 Híbrido
+					35 button Buscar
+						36 text Buscar
+						37 image
+				61 container
+					62 image Foto de KFC'nt
+					63 text Híbrido KFC'nt
+					64 heading Desarrollador backend junior, Value: 3
+						65 text Desarrollador backend junior
+					66 image
+					67 text Valparaíso Oferta demo: no es una vacante real. Cargo de desarrollador backend junior en Semilla Digital, para una primera experiencia profesional supervisada.
+					68 button (collapsed) Description: Ver oportunidad: Desarrollador backend junior, Secondary Actions: Expand
+						69 text Ver oportunidad
+						70 image
+					71 button Compartir oferta: Desarrollador backend junior
+			39 container
+				40 heading Publica ofertas de empleo, Value: 2
+					41 text Publica ofertas de empleo
+				42 link Description: Registra tu empresa, Value: branchit-blue.vercel.app/registro/empresa
+		43 container
+			44 link Description: Branch IT, Value: branchit-blue.vercel.app/
+			45 container Enlaces del pie de página
+				46 link Description: Buscar empleo, Value: branchit-blue.vercel.app/
+				47 link Description: Soy empresa, Value: branchit-blue.vercel.app/registro/empresa
+				48 link Description: Crear cuenta, Value: branchit-blue.vercel.app/registro
+			49 text ©  2026  BranchIT
+
+The focused UI element is 35 button Buscar

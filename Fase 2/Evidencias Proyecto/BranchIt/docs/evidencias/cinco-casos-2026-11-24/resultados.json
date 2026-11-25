@@ -1,0 +1,468 @@
+{
+  "fecha": "2026-11-24T20:40:16.254368-03:00",
+  "entorno": "API FastAPI local / SQLite en memoria / TestClient",
+  "alcance": "Pruebas automatizadas de integración de API con datos ficticios. No valida interfaz visual, Neon, Vercel ni proveedores externos. El PDF se representa mediante un registro ficticio verificado; no se sube un archivo real.",
+  "python": "3.14.5 (tags/v3.14.5:5607950, May 10 2026, 10:43:50) [MSC v.1944 64 bit (AMD64)]",
+  "aprobados": 5,
+  "total": 5,
+  "casos": [
+    {
+      "id": "CP-01",
+      "caso": "Registro e inicio de sesión del egresado",
+      "prueba": "AccountFlows.test_registration_login_profile_and_delete",
+      "pasos": "Registrar e iniciar sesión; consultar y editar perfil; eliminar cuenta.",
+      "esperado": "Registro 201, login 200, contraseña distinta del texto original, edición 200, eliminación 204 y sesión posterior 401.",
+      "resultado": "APROBADO",
+      "segundos": 1.005,
+      "solicitudes": [
+        {
+          "metodo": "POST",
+          "ruta": "/auth/registro/egresado",
+          "http": 201,
+          "ms": 507.68
+        },
+        {
+          "metodo": "POST",
+          "ruta": "/auth/login",
+          "http": 200,
+          "ms": 361.18
+        },
+        {
+          "metodo": "GET",
+          "ruta": "/auth/me",
+          "http": 200,
+          "ms": 10.49
+        },
+        {
+          "metodo": "PUT",
+          "ruta": "/egresados/1",
+          "http": 200,
+          "ms": 54.21
+        },
+        {
+          "metodo": "DELETE",
+          "ruta": "/egresados/1",
+          "http": 204,
+          "ms": 35.4
+        },
+        {
+          "metodo": "GET",
+          "ruta": "/auth/me",
+          "http": 401,
+          "ms": 8.36
+        }
+      ],
+      "errores": []
+    },
+    {
+      "id": "CP-02",
+      "caso": "Correo duplicado y credenciales incorrectas",
+      "prueba": "AccountFlows.test_duplicate_and_invalid_credentials",
+      "pasos": "Repetir un correo con mayúsculas; intentar ingresar con contraseña incorrecta y con usuario inexistente.",
+      "esperado": "Correo duplicado 409; ambos intentos inválidos 401 con el mismo mensaje genérico.",
+      "resultado": "APROBADO",
+      "segundos": 1.315,
+      "solicitudes": [
+        {
+          "metodo": "POST",
+          "ruta": "/auth/registro/egresado",
+          "http": 201,
+          "ms": 295.2
+        },
+        {
+          "metodo": "POST",
+          "ruta": "/auth/login",
+          "http": 200,
+          "ms": 328.62
+        },
+        {
+          "metodo": "POST",
+          "ruta": "/auth/registro/egresado",
+          "http": 409,
+          "ms": 10.34
+        },
+        {
+          "metodo": "POST",
+          "ruta": "/auth/login",
+          "http": 401,
+          "ms": 307.54
+        },
+        {
+          "metodo": "POST",
+          "ruta": "/auth/login",
+          "http": 401,
+          "ms": 356.5
+        }
+      ],
+      "errores": []
+    },
+    {
+      "id": "CP-03",
+      "caso": "Ofertas y permisos por rol y propietario",
+      "prueba": "AccountFlows.test_jobs_and_authorization",
+      "pasos": "Crear una oferta como empresa; intentar acceso sin sesión, como egresado y como otra empresa; cerrar y eliminar oferta.",
+      "esperado": "Sin sesión 401, rol incorrecto 403, creación 201; acceso ajeno rechazado; cierre retira la oferta del listado público y eliminación 204.",
+      "resultado": "APROBADO",
+      "segundos": 2.162,
+      "solicitudes": [
+        {
+          "metodo": "POST",
+          "ruta": "/auth/registro/empresa",
+          "http": 201,
+          "ms": 342.7
+        },
+        {
+          "metodo": "POST",
+          "ruta": "/auth/login",
+          "http": 200,
+          "ms": 349.67
+        },
+        {
+          "metodo": "POST",
+          "ruta": "/auth/registro/empresa",
+          "http": 201,
+          "ms": 305.24
+        },
+        {
+          "metodo": "POST",
+          "ruta": "/auth/login",
+          "http": 200,
+          "ms": 286.7
+        },
+        {
+          "metodo": "POST",
+          "ruta": "/auth/registro/egresado",
+          "http": 201,
+          "ms": 339.31
+        },
+        {
+          "metodo": "POST",
+          "ruta": "/auth/login",
+          "http": 200,
+          "ms": 336.88
+        },
+        {
+          "metodo": "POST",
+          "ruta": "/empresas/1/ofertas",
+          "http": 401,
+          "ms": 42.83
+        },
+        {
+          "metodo": "POST",
+          "ruta": "/empresas/1/ofertas",
+          "http": 403,
+          "ms": 10.06
+        },
+        {
+          "metodo": "POST",
+          "ruta": "/empresas/3/ofertas",
+          "http": 403,
+          "ms": 7.51
+        },
+        {
+          "metodo": "POST",
+          "ruta": "/empresas/1/ofertas",
+          "http": 201,
+          "ms": 21.43
+        },
+        {
+          "metodo": "GET",
+          "ruta": "/empresas/1/ofertas",
+          "http": 403,
+          "ms": 9.15
+        },
+        {
+          "metodo": "PUT",
+          "ruta": "/empresas/2/ofertas/1",
+          "http": 404,
+          "ms": 14.07
+        },
+        {
+          "metodo": "GET",
+          "ruta": "/egresados/3",
+          "http": 403,
+          "ms": 6.1
+        },
+        {
+          "metodo": "GET",
+          "ruta": "/api/employment/jobs",
+          "http": 200,
+          "ms": 30.29
+        },
+        {
+          "metodo": "GET",
+          "ruta": "/egresados/3/ofertas",
+          "http": 200,
+          "ms": 15.07
+        },
+        {
+          "metodo": "PUT",
+          "ruta": "/empresas/1/ofertas/1",
+          "http": 200,
+          "ms": 14.23
+        },
+        {
+          "metodo": "GET",
+          "ruta": "/api/employment/jobs",
+          "http": 200,
+          "ms": 5.65
+        },
+        {
+          "metodo": "DELETE",
+          "ruta": "/empresas/1/ofertas/1",
+          "http": 204,
+          "ms": 12.79
+        }
+      ],
+      "errores": []
+    },
+    {
+      "id": "CP-04",
+      "caso": "Publicación voluntaria y privacidad del portafolio",
+      "prueba": "PortfolioFlows.test_publication_and_contact_are_opt_in",
+      "pasos": "Consultar perfil privado; publicar; revisar contacto oculto; habilitar correo; despublicar.",
+      "esperado": "Perfil privado 404; publicación 200 sin correo/teléfono; correo visible solo al autorizarlo; despublicación vuelve a 404.",
+      "resultado": "APROBADO",
+      "segundos": 0.745,
+      "solicitudes": [
+        {
+          "metodo": "POST",
+          "ruta": "/auth/registro/egresado",
+          "http": 201,
+          "ms": 325.56
+        },
+        {
+          "metodo": "POST",
+          "ruta": "/auth/login",
+          "http": 200,
+          "ms": 282.92
+        },
+        {
+          "metodo": "GET",
+          "ruta": "/portfolio/1",
+          "http": 404,
+          "ms": 55.75
+        },
+        {
+          "metodo": "PUT",
+          "ruta": "/egresados/1",
+          "http": 200,
+          "ms": 24.62
+        },
+        {
+          "metodo": "GET",
+          "ruta": "/portfolio/1",
+          "http": 200,
+          "ms": 9.17
+        },
+        {
+          "metodo": "PUT",
+          "ruta": "/portfolio/me",
+          "http": 200,
+          "ms": 12.86
+        },
+        {
+          "metodo": "GET",
+          "ruta": "/portfolio/1",
+          "http": 200,
+          "ms": 6.38
+        },
+        {
+          "metodo": "PUT",
+          "ruta": "/portfolio/me",
+          "http": 200,
+          "ms": 10.8
+        },
+        {
+          "metodo": "GET",
+          "ruta": "/portfolio/1",
+          "http": 404,
+          "ms": 7.86
+        }
+      ],
+      "errores": []
+    },
+    {
+      "id": "CP-05",
+      "caso": "Contratación, bloqueo y reserva del finalista",
+      "prueba": "HiringReleaseTests.test_selected_candidate_is_hired_other_candidates_remain_private",
+      "pasos": "Crear oferta y dos postulaciones; seleccionar finalista; intentar nueva postulación; revisar datos visibles del otro candidato y liberar con PDF ficticio.",
+      "esperado": "Cierre 200; contratado bloqueado con 409; otro candidato habilitado sin conocer selección ni fecha; fecha original conservada; liberación antes de un año habilita búsqueda.",
+      "resultado": "APROBADO",
+      "segundos": 2.202,
+      "solicitudes": [
+        {
+          "metodo": "POST",
+          "ruta": "/auth/registro/empresa",
+          "http": 201,
+          "ms": 289.09
+        },
+        {
+          "metodo": "POST",
+          "ruta": "/auth/login",
+          "http": 200,
+          "ms": 300.68
+        },
+        {
+          "metodo": "POST",
+          "ruta": "/auth/registro/egresado",
+          "http": 201,
+          "ms": 344.01
+        },
+        {
+          "metodo": "POST",
+          "ruta": "/auth/login",
+          "http": 200,
+          "ms": 310.22
+        },
+        {
+          "metodo": "POST",
+          "ruta": "/auth/registro/egresado",
+          "http": 201,
+          "ms": 308.77
+        },
+        {
+          "metodo": "POST",
+          "ruta": "/auth/login",
+          "http": 200,
+          "ms": 316.02
+        },
+        {
+          "metodo": "POST",
+          "ruta": "/empresas/1/ofertas",
+          "http": 201,
+          "ms": 16.48
+        },
+        {
+          "metodo": "POST",
+          "ruta": "/empresas/1/ofertas",
+          "http": 201,
+          "ms": 12.14
+        },
+        {
+          "metodo": "POST",
+          "ruta": "/api/employment/applications",
+          "http": 201,
+          "ms": 40.56
+        },
+        {
+          "metodo": "POST",
+          "ruta": "/api/employment/applications",
+          "http": 201,
+          "ms": 14.49
+        },
+        {
+          "metodo": "PUT",
+          "ruta": "/api/employment/jobs/1/closure",
+          "http": 200,
+          "ms": 31.68
+        },
+        {
+          "metodo": "GET",
+          "ruta": "/employment/me",
+          "http": 200,
+          "ms": 37.34
+        },
+        {
+          "metodo": "GET",
+          "ruta": "/employment/me",
+          "http": 200,
+          "ms": 13.19
+        },
+        {
+          "metodo": "POST",
+          "ruta": "/api/employment/applications",
+          "http": 409,
+          "ms": 12.78
+        },
+        {
+          "metodo": "PUT",
+          "ruta": "/employment/me",
+          "http": 409,
+          "ms": 12.79
+        },
+        {
+          "metodo": "GET",
+          "ruta": "/api/employment/applications/me",
+          "http": 200,
+          "ms": 16.88
+        },
+        {
+          "metodo": "GET",
+          "ruta": "/api/employment/jobs/1/applications",
+          "http": 200,
+          "ms": 21.94
+        },
+        {
+          "metodo": "PUT",
+          "ruta": "/empresas/1/ofertas/1",
+          "http": 200,
+          "ms": 26.36
+        },
+        {
+          "metodo": "PUT",
+          "ruta": "/api/employment/jobs/1/closure",
+          "http": 200,
+          "ms": 19.67
+        },
+        {
+          "metodo": "GET",
+          "ruta": "/employment/me",
+          "http": 200,
+          "ms": 8.47
+        },
+        {
+          "metodo": "POST",
+          "ruta": "/employment/release",
+          "http": 200,
+          "ms": 13.06
+        },
+        {
+          "metodo": "PUT",
+          "ruta": "/api/employment/jobs/1/closure",
+          "http": 200,
+          "ms": 15.8
+        },
+        {
+          "metodo": "GET",
+          "ruta": "/employment/me",
+          "http": 200,
+          "ms": 9.02
+        }
+      ],
+      "errores": []
+    }
+  ],
+  "sha256_fuentes": {
+    "app\\__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "app\\applicant_matching.py": "ab1dc4398661279d45eb560632e06b2b20f4f4ba3ab0024aed3b3110158b8976",
+    "app\\careers.py": "93f8af8be9886d5c9eebf0669cca6d9bf49dafc5302d4f4fb1b8ecb02bb14844",
+    "app\\certifications.py": "1f123a26441bc03e1710bb9dfd871a5fa071cef2aa56ddfa8b39cdf847533087",
+    "app\\config.py": "1914be7aa80c1fb1d69a42f902f5182e84588147d7f7627b740a2fc3545c4464",
+    "app\\database.py": "945e1aa4572c4a4c7eb2014bc61e571f57e9dd56bf6f0bc6a171d1c80a342a99",
+    "app\\encryption.py": "ca90806be8adde9a64efd881ee1fa8335a4debf308631a187834a774e9471bc2",
+    "app\\main.py": "cd250923f780e6522085b9409b8a84bd1772f48f169f8a6e503b19c707f88309",
+    "app\\models.py": "5f3d589854dfd1d682bcd20e7de519a730f12d4e2e3b146cdb0a17a4ab6eabb6",
+    "app\\portfolio_schemas.py": "40021ca82f813e9eee16e9bd28de7cb30f64e822447cad2a0e2fdee1f5b8663a",
+    "app\\rate_limit.py": "591187ed3637aceafd19aca35c85787629b4490a711e9804c4c7ca46354107a8",
+    "app\\request_guard.py": "cdfba6d642d21ef9c03018e363e0d8432492297eb159efedf8b0e5330e0ce268",
+    "app\\routers\\__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "app\\routers\\applications.py": "e6296dfe7f470bb444a46608bf501405223823eda6be2091d52ec7991367b551",
+    "app\\routers\\assistant.py": "a9c32795c258db55b7a5c095640dd12e8b299f2dc0483cc0339d916f62a837e0",
+    "app\\routers\\auth.py": "464729d4c367a449ca6d519f539687d35beab92f88a90b347cab65fe7d10c7ac",
+    "app\\routers\\billing.py": "9c8d13c7e2bc66cb129382ce43662492a1bc49648f55d4dabaad01f615962822",
+    "app\\routers\\career.py": "d1a928524d3da566c3ce1e5ba18be9d5decbbd63d6e5f23130b8b3fb276c9f90",
+    "app\\routers\\egresados.py": "ceedc7b8572d299db55db6ccef3b7a6d68af5071e8e0a5f34cd04edd6d8e318e",
+    "app\\routers\\empresas.py": "0ae4d82990ca2da206e58dd488e38280eebb28f2db7d4558c5382cebcb511193",
+    "app\\routers\\jobs.py": "b2cfb6c633d38a00dce00e94dc490f4b350aa1bfd4b854d6b6131dbd5063c92c",
+    "app\\routers\\notifications.py": "ca25e9e5b7da93fbc95ef5966e4b9344ddad622c40a6b0a05340fc6bdd35f1ee",
+    "app\\routers\\portfolio.py": "0a561883343e5d38d0109ea8a49c7d0d4b5cdf5af5b7507d443f0b45f68d3850",
+    "app\\schemas.py": "1f2a83317937fadb2bb8ccbbc9b156040b678b4882ed03eece00cc99d3876734",
+    "app\\security.py": "7a7cc05171948daac626980e546b590dbc98a255b2839424085b082798d30da3",
+    "app\\subscription_models.py": "b47787b813cfbbb3f348113ef3d8349ccf88bd98ba78e9d15beebd1cb716ba3b",
+    "app\\webpay.py": "3f9e25cc4f9dd8e5105419107b3bc1a3ae71b275694ce52e6e446ea0afa227ed",
+    "tests\\test_flows.py": "4bb5c0f3d1deb034fa14ff2853a54f4ed398dcf7ba53cf5414da13e6f3b94625",
+    "tests\\test_portfolio.py": "6a907d6ac6a3b70826f7010107ed9536977f5658a6df7d37caa4044b66adad43",
+    "tests\\test_hiring_release.py": "f720431979cc6f13596f2557303932501bd72b4c7fce28fbb470765974d527d6"
+  }
+}

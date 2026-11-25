@@ -1,0 +1,30 @@
+test_registration_login_profile_and_delete (test_flows.AccountFlows.test_registration_login_profile_and_delete) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 1.004s
+
+OK
+test_duplicate_and_invalid_credentials (test_flows.AccountFlows.test_duplicate_and_invalid_credentials) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 1.315s
+
+OK
+test_jobs_and_authorization (test_flows.AccountFlows.test_jobs_and_authorization) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 2.162s
+
+OK
+test_publication_and_contact_are_opt_in (test_portfolio.PortfolioFlows.test_publication_and_contact_are_opt_in) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.745s
+
+OK
+test_selected_candidate_is_hired_other_candidates_remain_private (test_hiring_release.HiringReleaseTests.test_selected_candidate_is_hired_other_candidates_remain_private) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 2.202s
+
+OK

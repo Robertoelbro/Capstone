@@ -1,0 +1,57 @@
+{
+  "WEB-01.png": {
+    "sha256": "57f3afccf73a0e9865d16a32f270bcfe51a2c05ff753688e3a0895a6a8d37504",
+    "ancho": 602,
+    "alto": 614
+  },
+  "WEB-02.png": {
+    "sha256": "3759a2c248056ecef784dfffa5f641160da24ef10c5821200fce377a267a2ab9",
+    "ancho": 724,
+    "alto": 672
+  },
+  "WEB-03.png": {
+    "sha256": "cd84515d03ab64619ecbaf5d6f2bf4081a70f01e24f9b3fbd3e4b6b52ef3f7a6",
+    "ancho": 724,
+    "alto": 672
+  },
+  "WEB-04.png": {
+    "sha256": "76c459f334bde443aa917e50880a36ba74500bc71a3b2987b5c3547432f4c6fa",
+    "ancho": 724,
+    "alto": 672
+  },
+  "WEB-05.png": {
+    "sha256": "1cc25911abe0056ca09d8b908188eb21859bdbd63c46e0b10945d5b9dee08d82",
+    "ancho": 724,
+    "alto": 672
+  },
+  "WEB-06.png": {
+    "sha256": "328e95f4279fd7078badf8adbedb5fa763e5c7dd930712436824f11bc7e0cd30",
+    "ancho": 724,
+    "alto": 672
+  },
+  "WEB-07.png": {
+    "sha256": "846b6f491453e1eee4c6c27eb646befdeaa767e509372d142628bcf76584ca16",
+    "ancho": 724,
+    "alto": 672
+  },
+  "WEB-08.png": {
+    "sha256": "a3f9ec14103eca27fba3aaf6c5cf52498cd5f27098b0e78ac3b87b1a1cce1acb",
+    "ancho": 724,
+    "alto": 672
+  },
+  "WEB-09.png": {
+    "sha256": "53e8b62cf6ee43f2ee7f9470eb3feefbae82c935518fe3374dc6f3f804265657",
+    "ancho": 724,
+    "alto": 672
+  },
+  "WEB-10.png": {
+    "sha256": "768a405976dbf7a25fa9d71a5e881e8569d516b9a5c5830e7f5a82df12846a1f",
+    "ancho": 724,
+    "alto": 672
+  },
+  "WEB-10-formato.png": {
+    "sha256": "f05593517394bd8a936c9d2d66e72b5a12ce0e84622c38273246d5d3af4c714d",
+    "ancho": 602,
+    "alto": 614
+  }
+}

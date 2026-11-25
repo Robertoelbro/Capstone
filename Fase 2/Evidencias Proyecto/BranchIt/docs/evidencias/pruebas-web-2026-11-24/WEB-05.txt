@@ -1,0 +1,60 @@
+- banner:
+  - link "Saltar al contenido":
+    - /url: "#contenido"
+  - navigation "Navegación principal":
+    - link "Branch IT":
+      - /url: /
+      - text: Branch
+      - generic: IT
+    - link "Buscar empleo":
+      - /url: /
+    - link "Para empresas":
+      - /url: /registro/empresa
+    - link "Iniciar sesión":
+      - /url: /iniciar-sesion
+    - link "Crear cuenta":
+      - /url: /registro
+      - text: Crear cuenta
+- main:
+  - heading "Empleo para recién egresados" [level=1]
+  - link "Crea tu perfil gratis":
+    - /url: /registro
+    - text: Crea tu perfil gratis
+  - link "Explorar ofertas ↓":
+    - /url: "#ofertas"
+  - heading "Ofertas de empleo" [level=2]
+  - status: 0 ofertas
+  - generic: Cargo o empresa
+  - textbox "Cargo o empresa": zzzzbranchitsinresultados20261124
+  - generic: Ciudad o región
+  - textbox "Ciudad o región"
+  - generic: Modalidad
+  - combobox "Modalidad":
+    - option "Todas las modalidades"
+    - option "Presencial"
+    - option "Remoto" [selected]
+    - option "Híbrido"
+  - button "Buscar" [active]:
+    - text: Buscar
+  - heading "No encontramos coincidencias" [level=3]
+  - paragraph: Prueba con otro cargo, ciudad o modalidad.
+  - link "Crear una cuenta":
+    - /url: /registro
+    - text: Crear una cuenta
+  - heading "Publica ofertas de empleo" [level=2]
+  - link "Registra tu empresa":
+    - /url: /registro/empresa
+    - text: Registra tu empresa
+- contentinfo:
+  - link "Branch IT":
+    - /url: /
+    - text: Branch
+    - generic: IT
+  - navigation "Enlaces del pie de página":
+    - link "Buscar empleo":
+      - /url: /
+    - link "Soy empresa":
+      - /url: /registro/empresa
+    - link "Crear cuenta":
+      - /url: /registro
+  - generic: © 2026 BranchIT
